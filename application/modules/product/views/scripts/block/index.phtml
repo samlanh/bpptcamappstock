@@ -1,0 +1,95 @@
+<?php 
+	$url_new = $this->url(array('module'=>'product','controller'=>'block','action'=>'add',));
+	$url_edit = $this->url(array('module'=>'product','controller'=>'block','action'=>'edit',),null,true);
+	$url_delete = $this->url(array('module'=>'product','controller'=>'block','action'=>'delete',));
+	$url_status = $this->url(array('module'=>'product','controller'=>'block','action'=>'upadatestatus',));
+	$tr = Application_Form_FrmLanguages::getCurrentlanguage();
+	$formFilter = $this->formFilter;
+	$rs = $this->resulr;
+?>
+<style>
+ .tr_hover tr:hover{
+	 background:rgba(53, 174, 239, 0.36);
+ }
+ .tr_hover tr td{
+	 color:#000;
+	 font-size:12px;
+	 text-align:center;
+ }
+</style>
+<title><?php echo $tr->translate("LOCATION_LIST");?></title>
+
+	<div class="portlet box blue">
+		<div class="portlet-title">
+			<div class="caption">
+					<i class="fa fa-globe"></i><?php echo $tr->translate("LOCATION_LIST");?>
+			</div>
+			<div class="caption" style="float:right">
+					<?php $formList = new Application_Form_Frmlist(); echo $formList->showAddBuntton($url_new);?>
+			</div>
+		</div>
+		<div class="portlet-body form">
+			<form class="form-horizontal" method="post" action="" >
+				<div class="form-body">
+							<div class="form-group">
+								<label class="col-md-2 control-label"><?php echo $tr->translate("LOCATION_NAME");?></label>
+								<div class="col-md-4">
+									<?php echo $formFilter->getElement('branch_name');?>
+								</div>
+								<div class="col-md-4">
+									<?php echo $formFilter->getElement('status');?></button>
+								</div>				
+								<div class="col-md-2">
+									<button type="submit" class="btn green"><?php echo $tr->translate("SEARCH");?></button>
+								</div>
+							</div>
+				</div>
+			</form>
+			
+		</div>
+		
+		<!-- Result List -->
+					<!-- BEGIN EXAMPLE TABLE PORTLET-->
+						
+						<div class="portlet-body">
+							<table class="collape tablesorter ">
+							<thead>
+								<tr>
+									<th class="tdheader"><?php echo $tr->translate("NO");?></th>
+									<th class="tdheader"><?php echo $tr->translate("BLOCK_NAME");?></th>
+									<th class="tdheader"><?php echo $tr->translate("CONTACT_NAME");?></th>
+									<th class="tdheader"><?php echo $tr->translate("PHONE");?></th>
+									<th class="tdheader"><?php echo $tr->translate("OFFICE_PHONE");?></th>
+									<th class="tdheader"><?php echo $tr->translate("BRANCH");?></th>
+									<th class="tdheader"><?php echo $tr->translate("REMARK");?></th>
+									<th class="tdheader"><?php echo $tr->translate("STATUS");?></th>
+									<th class="tdheader"><?php echo $tr->translate("ACTION");?></th>
+								</tr>
+							</thead>
+							<tbody style="font-size: 12px;"class="tr_hover" >
+								<?php if(!empty($rs)){ foreach ($rs as $key => $row){?>
+								<tr class="odd gradeX">
+									<td><?php echo $key+1;?></td>
+									<td><?php echo $row["code"]?></td>
+									<td><?php echo $row["block_name"]?></td>
+									<td><?php echo $row["contact_name"]?></td>
+									<td><?php echo $row["phone"]?></td>
+									<td align="left"><?php echo $row["name"]?></td>
+									<td><?php echo $row["remark"]?></td>
+									<?php if($row["status"] == 1){?>
+										<td style="background:#d9edf7;text-align:center;"><a href="<?php echo $url_status .'?id='.$row['id']."&status=".$row['status'];?>"><p style="text-align:center;margin-top:5px;"><?php echo $tr->translate("ACTIVE");?> </p></a></td>
+									<?php }else{?>
+										<td style="background:#f2dede;text-align:center;"><a href="<?php echo $url_status .'?id='.$row['id']."&status=".$row['status'];?>"><p style="text-align:center;margin-top:5px;" ><?php echo $tr->translate("DEACTIVE");?> </p></a></td>
+										<?php }?>
+									</td>
+									<td>
+										<a href="<?php echo $url_edit;?>/id/<?php echo $row["id"]?>"><?php echo $tr->translate("EDIT");?></a> 
+									</td>
+								</tr>
+								<?php }}?>
+							</tbody>
+							</table>
+						</div>
+					<!-- END EXAMPLE TABLE PORTLET-->
+			<!-- End Result list -->
+	</div>

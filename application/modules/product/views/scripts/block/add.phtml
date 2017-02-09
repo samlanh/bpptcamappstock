@@ -1,0 +1,154 @@
+<?php 
+	$url_new = $this->url(array('module'=>'product','controller'=>'block','action'=>'add',));
+	$url_cancel = $this->url(array('module'=>'product','controller'=>'block','action'=>'index',));
+	$url_delete = $this->url(array('module'=>'product','controller'=>'block','action'=>'delete',));
+	$tr = Application_Form_FrmLanguages::getCurrentlanguage();
+	$formFilter = $this->frmAdd;
+?>
+<title><?php echo $tr->translate("ADD_NEW_LOCATION");?></title>
+<div class="col-md-12">
+	<div class="portlet box blue">
+		<div class="portlet-title">
+			<div class="caption col-md-10">
+					<i class="fa fa-globe"></i><?php echo $tr->translate("ADD_NEW_BLOCK");?>
+			</div>
+			<div class="col-md-2" style="text-align:right; margin-top: 4px;">
+				<a href="<?php echo $url_cancel;?>"><button type="button" name="calcel" class="btn red"><?php echo $tr->translate("GO_BACK");?></button></a>
+			</div>
+		</div>
+		<div class="portlet-body form">
+			<form class="form-horizontal" method="post" action="<?php echo $url_new;?>" enctype="multipart/form-data"  >
+				<div class="form-body">
+							<div class="form-group">
+								<label class="col-md-2 control-label"><?php echo $tr->translate("code");?></label>
+								<div class="col-md-4">
+									<?php echo $formFilter->getElement('code');?>
+								</div>
+												
+								<label class="col-md-2 control-label"><?php echo $tr->translate("branch_name");?></label>
+								<div class="col-md-4">
+									<?php echo $formFilter->getElement('branch_name');?>
+								</div>
+							</div>
+											
+							<div class="form-group">
+								<label class="col-md-2 control-label"><?php echo $tr->translate("block_name");?></label>
+								<div class="col-md-4">
+									<?php echo $formFilter->getElement('block_name');?>
+								</div>
+								<label class="col-md-2 control-label"><?php echo $tr->translate("contact_name");?></label>
+								<div class="col-md-4">
+									<?php echo $formFilter->getElement('contact_name');?>
+								</div>
+								
+							</div>
+							<div class="form-group">	
+								
+								<label class="col-md-2 control-label"><?php echo $tr->translate("ph_number");?></label>
+								<div class="col-md-4">
+									<?php echo $formFilter->getElement('ph_number');?>
+								</div>
+								<label class="col-md-2 control-label"><?php echo $tr->translate("STATUS");?></label>
+								<div class="col-md-4">
+									<?php echo $formFilter->getElement('status');?>
+								</div>
+							</div>
+							<div class="form-group">	
+								<label class="col-md-2 control-label"><?php echo $tr->translate("Remark");?></label>
+								<div class="col-md-10">
+									<?php echo $formFilter->getElement('rmark');?>
+								</div>
+							</div>
+							<div class="form-group">	
+								<div  class="col-md-12" style="text-align: right;">
+								<label >
+									<a  href="#"><button onclick="add()" type="button" class="btn red"><i class="glyphicon glyphicon-plus"></i> <?php echo $tr->translate("ADD")?></button></a>
+								</label>
+								</div>
+							</div>
+							<div class="form-group">	
+								<div class="col-md-12">
+									<table id="table_list" class="collape tablesorter ">
+										<tr class="info">
+											 <th class="tdheader"><?php echo $tr->translate("NO");?></th>
+										    <th class="tdheader"><?php echo $tr->translate("code");?></th>
+											<th class="tdheader"><?php echo $tr->translate("Block");?></th>
+											<th class="tdheader"><?php echo $tr->translate("contact_name");?></th>
+											<th class="tdheader"><?php echo $tr->translate("ph_number");?></th>
+											<th class="tdheader"><?php echo $tr->translate("branch_name");?></th>
+											<th class="tdheader"><?php echo $tr->translate("Remark");?></th>
+											<th class="tdheader"><?php echo $tr->translate("STATUS");?></th>
+											<th class="tdheader"> Action</th>
+										</tr>
+										<input type="hidden" id="identity" name="identity" value="" />
+									</table>	
+								</div>
+							</div>
+							<div class="form-group">
+								<div  class="col-md-12 col-md-offset-4 col-md-8">
+									<a style="width:120px;" href="<?php echo $this->baseUrl();?>/branch/index"><button type="button" class="btn red"><i class="fa fa-times"></i> <?php echo $tr->translate("GO_BACK")?></button></a>
+									<button type="submit" name="save_close" value="saveclose" class="btn btn-primary" ><i class="glyphicon glyphicon-log-in"></i> <?php echo $tr->translate("SAVE_CLOSE")?></button>
+									<button type="submit" name="save_new" class="btn btn-primary"><i class="fa fa-save"></i> <?php echo $tr->translate("SAVE_NEW")?> </button>
+								</div>
+						</div>
+					</div>
+					</form>
+				</div>
+		</div>
+	</div>
+</div>
+<script>
+ var index=0;
+var template='';
+function add(){
+	var block_name = $('#block_name').val();
+	var rmark = $('#rmark').val();
+	var ph_number = $('#ph_number').val();
+	var contact_name = $('#contact_name').val();
+	var code = $('#code').val();
+	var status = $("#status option:selected" ).text();
+	var status_id = $("#status" ).val();
+	var branch_name = $("#branch_name option:selected" ).text();
+	var branch_id = $("#branch_name" ).val();
+	index++;
+	template='<tr align="center" id="row_product_'+index+'" >';
+	template+='<td cellspacing="0" >'+index+'</td>';
+	template+='<td cellspacing="0" ><input type="hidden" name="code_'+index+'" value="'+code+'"/> '+code+'</td>';
+	template+='<td cellspacing="0" ><input type="hidden" name="block_name_'+index+'" value="'+block_name+'"/> '+block_name+'</td>';
+	template+='<td cellspacing="0" ><input type="hidden" name="contact_name_'+index+'" value="'+contact_name+'"/> '+contact_name+'</td>';
+	template+='<td cellspacing="0" ><input type="hidden" name="ph_number_'+index+'" value="'+ph_number+'"/> '+ph_number+'</td>';
+	template+='<td cellspacing="0" ><input type="hidden" name="branch_name_'+index+'" value="'+branch_id+'"/> '+branch_name+'</td>';
+	template+='<td cellspacing="0" ><input type="hidden" name="rmark_'+index+'" value="'+rmark+'"/> '+rmark +'</td>';
+	template+='<td cellspacing="0" ><input type="hidden" name="status_'+index+'" value="'+status_id+'"/> '+status+'</td>';
+	template+='<td width="6%" cellspacing="0" ><p style=" border: 1px solid #f9f9f9;text-align: center;border-radius: 20px !important;margin: 5 auto;font-size: 13px;padding: 2px;background: #428bca;color: #fff; cursor:pointer" onClick="deleteRecord('+index+')"> Remove</p></td>';
+	template+="</tr>";
+    title=1;
+    $('#table_list').append(template);
+	if($('#identity').val()!="") {
+	var identity = $('#identity').val();
+	$('#identity').val(identity+','+index);
+	} else {$('#identity').val(index);}
+	clear();
+}
+function clear(){
+	var block_name = $('#block_name').val("");
+	var rmark = $('#rmark').val("");
+	var ph_number = $('#ph_number').val("");
+	var contact_name = $('#contact_name').val("");
+	var code = $('#code').val("");
+	var code = $('#code').focus();
+	var status = $("#status").val("");
+	var branch_name = $("#branch_name" ).val("");
+}
+function deleteRecord(index) {
+ var identity = $('#identity').val();
+ var arrays = identity.split(',');
+ for(var i=0;i<arrays.length;i++) {
+  if(arrays[i] == index) arrays.splice(i,1);
+ }
+ var strings = arrays.join(',');
+ $('#identity').val(strings);
+ $("#row_product_"+index).remove();
+ netTotal();
+}
+</script>
