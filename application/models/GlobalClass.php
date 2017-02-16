@@ -317,14 +317,14 @@ class Application_Model_GlobalClass  extends Zend_Db_Table_Abstract
 				$sql = "SELECT id,item_name,
 				(SELECT tb_brand.name FROM `tb_brand` WHERE tb_brand.id=brand_id limit 1) As brand_name,
 				item_code FROM tb_product WHERE cate_id = ".$cate['id']." 
-						AND item_name!='' AND status=1 ORDER BY item_name ASC";
+						AND item_name!='' AND status=1 AND product_type=1 ORDER BY item_name ASC";
 			}else{
 				$sql = " SELECT p.id,p.item_name,p.item_code,
 				(SELECT tb_brand.name FROM `tb_brand` WHERE tb_brand.id=p.brand_id limit 1) As brand_name
 				 FROM tb_product AS p
 				INNER JOIN tb_prolocation As pl ON p.id = pl.pro_id
 				WHERE p.cate_id = ".$cate['id']."
-				AND p.item_name!='' AND p.status=1 AND pl.location_id =".$result['branch_id']." ORDER BY p.item_name ASC ";
+				AND p.item_name!='' AND p.status=1 AND product_type=1 AND pl.location_id =".$result['branch_id']." ORDER BY p.item_name ASC ";
 			}
 				$rows = $db->fetchAll($sql);
 				if($rows){
@@ -339,6 +339,50 @@ class Application_Model_GlobalClass  extends Zend_Db_Table_Abstract
 		
 		return $option;
 	}
+	
+	///leave product in stock 
+	public function getLeaveProductOption(){
+		$db = $this->getAdapter();
+		$user_info = new Application_Model_DbTable_DbGetUserInfo();
+		$result = $user_info->getUserInfo();
+		$sql_cate = 'SELECT `id`,name FROM tb_category WHERE status = 1 AND name!="" ORDER BY name ';
+	
+		$row_cate = $db->fetchAll($sql_cate);
+		$user_info = new Application_Model_DbTable_DbGetUserInfo();
+		$result = $user_info->getUserInfo();
+		$option="";
+		if($result["level"]==1 OR $result["level"]==2){
+			$option .= '<option value="-1">Please Select Product</option>';
+		}
+		foreach($row_cate as $cate){
+			$option .= '<optgroup  label="'.htmlspecialchars($cate['name'], ENT_QUOTES).'">';
+			if($result["level"]==1 OR $result["level"]==2){
+				$sql = "SELECT id,item_name,
+				(SELECT tb_brand.name FROM `tb_brand` WHERE tb_brand.id=brand_id limit 1) As brand_name,
+				item_code FROM tb_product WHERE cate_id = ".$cate['id']."
+				AND item_name!='' AND status=1 AND product_type=2 ORDER BY item_name ASC";
+			}else{
+				$sql = " SELECT p.id,p.item_name,p.item_code,
+				(SELECT tb_brand.name FROM `tb_brand` WHERE tb_brand.id=p.brand_id limit 1) As brand_name
+				FROM tb_product AS p
+				INNER JOIN tb_prolocation As pl ON p.id = pl.pro_id
+				WHERE p.cate_id = ".$cate['id']."
+				AND p.item_name!='' AND p.status=1 AND product_type=2  AND pl.location_id =".$result['branch_id']." ORDER BY p.item_name ASC ";
+			}
+			$rows = $db->fetchAll($sql);
+			if($rows){
+				foreach($rows as $value){
+					$option .= '<option value="'.$value['id'].'" label="'.htmlspecialchars($value['item_name']." ".$value['brand_name'], ENT_QUOTES).'">'.
+							htmlspecialchars($value['item_name']." ".$value['brand_name'], ENT_QUOTES)." ".htmlspecialchars($value['item_code'], ENT_QUOTES)
+							.'</option>';
+				}
+			}
+			$option.="</optgroup>";
+		}
+	
+		return $option;
+	}
+	
 	public function selectProductOption(){//not add item to this select box
 		$db = $this->getAdapter();
 		$user_info = new Application_Model_DbTable_DbGetUserInfo();
@@ -393,6 +437,24 @@ class Application_Model_GlobalClass  extends Zend_Db_Table_Abstract
 				
 			$option .= '<option value="'.$r[$value].'" label="'.htmlspecialchars($r[$display], ENT_QUOTES).'">'.htmlspecialchars($r[$display], ENT_QUOTES).'</option>';
 		}
+		return $option;
+	}
+	
+	//select job type 
+	public function getJobTypeOption(){
+		$db = $this->getAdapter();
+		$sql = " SELECT id, title FROM tb_jobtype WHERE `status`= 1 AND title!=''  ";
+		$rows = $db->fetchAll($sql);
+		$user_info = new Application_Model_DbTable_DbGetUserInfo();
+		$result = $user_info->getUserInfo();
+		$option="";
+		if($result["level"]==1 OR $result["level"]==2){
+			$option .= '<option value="-1" label="Add Job Type">Add Job Type</option>';
+		}
+		if(!empty($rows))foreach($rows as $title){
+			$option .= '<option value="'.$title['id'].'" label="'.htmlspecialchars($title['title'], ENT_QUOTES).'">'.htmlspecialchars($title['title'], ENT_QUOTES).'</option>';
+		}
+		
 		return $option;
 	}
 	

@@ -275,5 +275,55 @@ public function init()
     	Application_Model_Decorator::removeAllDecorator($formFilter);
 	}
 	
+	public function testAction()
+	{
+		$db = new Product_Model_DbTable_DbProduct();
+		if($this->getRequest()->isPost()){
+			try{
+				$post = $this->getRequest()->getPost();
+				$db->add($post);
+				if(isset($post["btnsavenew"]))
+				{
+					Application_Form_FrmMessage::Sucessfull("INSERT_SUCCESS", '/product/index/add');
+				}else{
+					Application_Form_FrmMessage::Sucessfull("INSERT_SUCCESS", '/product/index');
+	
+				}
+			}catch (Exception $e){
+				Application_Form_FrmMessage::messageError("INSERT_ERROR",$err = $e->getMessage());
+			}
+		}
+		$rs_branch = $db->getBranch();
+		$this->view->branch = $rs_branch;
+			
+		$this->view->price_type = $db->getPriceType();
+			
+		$formProduct = new Product_Form_FrmProduct();
+		$formStockAdd = $formProduct->add(null);
+		Application_Model_Decorator::removeAllDecorator($formStockAdd);
+		$this->view->form = $formStockAdd;
+			
+		$formBrand = new Product_Form_FrmBrand();
+		$frmBrand = $formBrand->Brand();
+		$this->view->frmBrand = $frmBrand;
+		Application_Model_Decorator::removeAllDecorator($frmBrand);
+			
+		$formCat = new Product_Form_FrmCategory();
+		$frmCat = $formCat->cat();
+		$this->view->frmCat = $frmCat;
+		Application_Model_Decorator::removeAllDecorator($frmCat);
+			
+		$formMeasure = new Product_Form_FrmMeasure();
+		$frmMesure = $formMeasure->measure();
+		$this->view->frmMesure = $frmMesure;
+		Application_Model_Decorator::removeAllDecorator($frmMesure);
+			
+		$fmOther = new Product_Form_FrmOther();
+		$frmOther = $fmOther->add();
+		Application_Model_Decorator::removeAllDecorator($frmOther);
+		$this->view->frmOther = $frmOther;
+			
+	}
+	
 }
 

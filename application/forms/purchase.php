@@ -169,6 +169,35 @@ class Application_Form_purchase extends Zend_Form
     	$paidElement->setAttribs(array('class'=>'custom[number] form-control','onkeyup'=>'doRemain();','style'=>'text-align:left'));
     	$this->addElement($paidElement);
     	
+   ///conter leave controll 
+    	$paidlElement = new Zend_Form_Element_Text('paid_l');
+    	$paidlElement->setAttribs(array('class'=>'custom[number] form-control','onkeyup'=>'doRemains();','style'=>'text-align:left'));
+    	$this->addElement($paidlElement);
+    	
+    	$total_l_AmountElement = new Zend_Form_Element_Text('totalAmoun_l');
+    	$total_l_AmountElement->setAttribs(array('readonly'=>'readonly','style'=>'text-align:left',"class"=>"form-control"
+    	));
+    	$this->addElement($total_l_AmountElement);
+    	
+    	$dis_value_l = new Zend_Form_Element_Text('dis_value_l');
+    	$dis_value_l->setAttribs(array("required"=>1,'placeholder' => 'Discount Value','style'=>'text-align:left'));
+    	$dis_value_l->setValue(0);
+    	$dis_value_l->setAttribs(array("onkeyup"=>"calculateDiscounts();","class"=>"form-control"));
+    	$this->addElement($dis_value_l);
+    	
+    	$all_total_l = new Zend_Form_Element_Text('all_total_l');
+    	$all_total_l->setAttribs(array("class"=>"form-control",'readonly'=>'readonly','style'=>'text-align:left'));
+    	$this->addElement($all_total_l);
+    	
+    	$remain_l = new Zend_Form_Element_Text('remain_l');
+    	$remain_l->setAttribs(array('readonly'=>'readonly','style'=>'text-align:left',"class"=>"red form-control"));
+    	$this->addElement($remain_l);
+    	
+    	$price_product = new Zend_Form_Element_Hidden('price_product');
+    	$this->addElement($price_product);
+    	$price_jobtype = new Zend_Form_Element_Hidden('price_jobtype');
+    	$this->addElement($price_jobtype);
+    	
     	$old_status = new Zend_Form_Element_Hidden('old_status');
     	$this->addElement($old_status);
     	
@@ -736,6 +765,8 @@ class Application_Form_purchase extends Zend_Form
     	$paidElement = new Zend_Form_Element_Text('paid');
     	$paidElement -> setAttribs(array('onChange'=>'doRemain()'));
     	$this->addElement($paidElement);
+    	
+    	
     	
     	$historyElement = new Zend_Form_Element_Text('history_id');
     	$this->addElement($historyElement);

@@ -1,5 +1,5 @@
 <?php
-class Purchase_indexController extends Zend_Controller_Action
+class Purchase_RequestproductController extends Zend_Controller_Action
 {	
     public function init()
     {
@@ -43,17 +43,13 @@ class Purchase_indexController extends Zend_Controller_Action
 			$data = $this->getRequest()->getPost();
 			try {
 			$db = new Purchase_Model_DbTable_DbPurchaseOrder();
-			
-			    if(isset($data['btnsave_close'])){
-			    	$db->addPurchaseOrder($data);
-			    	Application_Form_FrmMessage::message("Purchase has been Saved!");
+			 if(!empty($data['identity'])){
+				$db->addPurchaseOrder($data);
+			 }
+			Application_Form_FrmMessage::message("Purchase has been Saved!");
+				if(!empty($data['btnsavenew'])){
 					Application_Form_FrmMessage::redirectUrl("/purchase/index");
 				}
-				if(isset($data['btnsavenew'])){
-					$db->addPurchaseOrder($data);
-					Application_Form_FrmMessage::message("Purchase has been Saved!");
-					Application_Form_FrmMessage::redirectUrl("/purchase/index/add");
-				} 
 			}catch (Exception $e){
 				Application_Form_FrmMessage::message('INSERT_FAIL');
 				$err =$e->getMessage();
@@ -61,7 +57,7 @@ class Purchase_indexController extends Zend_Controller_Action
 			}
 		}
 		///link left not yet get from DbpurchaseOrder 	
-		$frm_purchase = new Application_Form_purchase(null);
+		$frm_purchase = new Purchase_Form_FrmRequest(null);
 		$form_add_purchase = $frm_purchase->productOrder();
 		Application_Model_Decorator::removeAllDecorator($form_add_purchase);
 		$this->view->form_purchase = $form_add_purchase;
@@ -70,7 +66,6 @@ class Purchase_indexController extends Zend_Controller_Action
 		$items = new Application_Model_GlobalClass();
 		$this->view->items = $items->getProductOption();
 		$this->view->items_leave = $items->getLeaveProductOption();
-		$this->view->jobtype=$items->getJobTypeOption();
 		
 		$formProduct = new Product_Form_FrmProduct();
 		$formStockAdd = $formProduct->add(null);
