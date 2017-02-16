@@ -19,6 +19,9 @@
 	//$url_alert = array($this->url(array('module'=>'product','controller'=>'index','action'=>'itemalert')), "MENU_PRODUCT_INDEX_ITEMALERT");
 	//module purchase
 	$url_purchase =  array($this->url(array('module'=>'purchase','controller'=>'index','action'=>'index'),null, true), "MENU_PURCHASE_INDEX_INDEX");
+	
+	$url_requestproduct =  array($this->url(array('module'=>'purchase','controller'=>'requestproduct','action'=>'index'),null, true), "REQUEST_PRODUCT");
+	
 	$url_add_purchase = array($this->url(array('module'=>'purchase','controller'=>'index','action'=>'add'),null, true), "MENU_PURCHASE_INDEX_ADD_PURCHASE");
 	$url_vendor = array($this->url(array('module'=>'purchase','controller'=>'vendor','action'=>'index'),null, true), "MENU_PURCHASE_VENDOR_INDEX");
 	$url_vendor_add = array($this->url(array('module'=>'purchase','controller'=>'vendor','action'=>'add'),null, true), "MENU_PURCHASE_VENDOR_ADD");
@@ -176,11 +179,19 @@
 					<span class="arrow "></span>
 					</a>
 					<ul class="sub-menu">
+					    
+					    <li>
+            				<a href="<?php echo $url_requestproduct[0]; ?>">
+						        <i class="icon-arrow-right"></i><?php echo $tr->translate($url_requestproduct[1]);?>
+	            			</a>
+	            		</li> 
+					    
 						<li>
             				<a href="<?php echo $url_purchase[0]; ?>">
 						        <i class="icon-arrow-right"></i><?php echo $tr->translate($url_purchase[1]);?>
 	            			</a>
-	            		</li> 
+	            		</li>
+	            		 
 	            		<li>
 	            			<a href="<?php echo $url_add_purchase[0]; ?>">
 							         <i class="icon-arrow-right"></i><?php echo $tr->translate($url_add_purchase[1]);?>
@@ -340,8 +351,14 @@
 				<?php }?> 
 				
 				<?php 
+ 
+				if($level==1 OR $level==2 OR $level==5 OR $level==6){?>
+				<!-- 
+				<li>
+ 
 				//if($level==1 OR $level==2 OR $level==5 OR $level==6){?>
 				<!--<li>
+ 
 					<a href="javascript:;">
 					<i class="icon-screen-desktop"></i>
 					<span class="title"><?php //echo $tr->translate("DAILY_ACTIVITIES");?></span>
@@ -370,7 +387,11 @@
 							    <i class="icon-arrow-right"></i><?php //echo $tr->translate("WORK_COMPLETED");?>
 		            		</a>
             			</li>	
+ 
+            			 <li>
+ 
             			<li>
+ 
 	            			<a href="<?php //echo $this->url(array('module'=>'dailywork','controller'=>'category','action'=>'index'),null, true); ?>">
 							    <i class="icon-arrow-right"></i>Category
 		            		</a>
@@ -379,7 +400,11 @@
 	            			<a href="<?php //echo $this->url(array('module'=>'dailywork','controller'=>'address','action'=>'index'),null, true); ?>">
 							    <i class="icon-arrow-right"></i>Address
 		            		</a>
+ 
+            			</li> 
+ 
             			</li>
+ 
             			<li>
 	            			<a href="<?php //echo $this->url(array('module'=>'dailywork','controller'=>'contact','action'=>'index'),null, true); ?>">
 							    <i class="icon-arrow-right"></i><?php //echo $tr->translate("CONTACT_PERSON");?>
@@ -391,8 +416,15 @@
 		            		</a>
             			</li> 
             		 </ul>
+ 
+            	</li>
+            	  
+				<?php }?>
+ 
             	</li>-->
 				<?php //}?>
+ 
+				
 				<li>
 					<a href="javascript:;">
 					<i class="icon-screen-desktop"></i>
