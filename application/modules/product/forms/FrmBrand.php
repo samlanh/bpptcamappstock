@@ -20,7 +20,7 @@ class Product_Form_FrmBrand extends Zend_Form
 		$parent->setAttribs(array(
 				'class'=>'form-control',
 		));
-		$opt = array(''=>$tr->translate("SEELECT_Brand"));
+		$opt = array(''=>$tr->translate("SEELECT_BRAND"));
 		$row_brand = $db->getAllBrand();
 		if(!empty($row_brand)){
 			foreach ($row_brand as $rs){
@@ -57,11 +57,24 @@ class Product_Form_FrmBrand extends Zend_Form
 		$tr = Application_Form_FrmLanguages::getCurrentlanguage();
 		$request=Zend_Controller_Front::getInstance()->getRequest();
 		$db = new Brand_Model_DbTable_DbBrand();
-		$name = new Zend_Form_Element_Text('name');
-		$name->setAttribs(array(
+		$name = new Zend_Form_Element_Select('name');
+		/*$name->setAttribs(array(
 				'class'=>'form-control',
+		));*/
+		$name->setAttribs(array(
+		    'class'=>'form-control select2me',
 		));
+		$opt = array(''=>$tr->translate("SELECT_BRAND"));
+		$row_brand = $db->getAllBrand();
+		if(!empty($row_brand)){
+		    foreach ($row_brand as $rs){
+		        $opt[$rs["id"]] = $rs["name"];
+		    }
+		}
+		$name->setMultiOptions($opt);
 		$name->setValue($request->getParam("name"));
+		
+		//$name->setValue($request->getParam("name"));
 		
 // 		$parent = new Zend_Form_Element_Select("parent");
 // 		$parent->setAttribs(array(

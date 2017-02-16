@@ -6,6 +6,7 @@ class Sales_Form_FrmCustomer extends Zend_Form
 	}
 	/////////////	Form vendor		/////////////////
 public function Formcustomer($data=null) {
+        $tr = Application_Form_FrmLanguages::getCurrentlanguage();
 		$db=new Application_Model_DbTable_DbGlobal();
 		$db_cu= new Sales_Model_DbTable_DbCustomer();
 		
@@ -82,7 +83,7 @@ public function Formcustomer($data=null) {
     	$balancelement->setAttribs(array('readonly'=>'readonly',"class"=>"form-control"));
     	$this->addElement($balancelement); 
 
-    	$credit_limit = new Zend_Form_Element_Text("credit_limit");
+    	/*$credit_limit = new Zend_Form_Element_Text("credit_limit");
     	$credit_limit->setValue("0.00");
     	$credit_limit->setAttribs(array("class"=>"form-control"));
     	$this->addElement($credit_limit);
@@ -90,10 +91,10 @@ public function Formcustomer($data=null) {
     	$credit_tearm = new Zend_Form_Element_Text("credit_tearm");
     	$credit_tearm->setValue("0");
     	$credit_tearm->setAttribs(array("class"=>"form-control"));
-    	$this->addElement($credit_tearm);
+    	$this->addElement($credit_tearm);*/
     	
     	$rows= $db->getGlobalDb('SELECT v.key_code,v.`name_en`,v.`name_kh` FROM `tb_view` AS v WHERE v.`status`=1 AND v.`name_en`!="" AND v.`type`=6');
-    	$opt= array('-1'=>'Add New Customer Type');
+    	$opt= array('-1'=>$tr->translate('ADD_NEW_CUSTOMER_TYPE'));
     	if(count($rows) > 0) {
     		foreach($rows as $readStock) $opt[$readStock['key_code']]=$readStock['name_en'];
     	}
@@ -127,8 +128,8 @@ public function Formcustomer($data=null) {
     		$cus_code->setValue($data["cu_code"]);
     		$customer_type->setValue($data["cu_type"]);
     		$customerlevel->setValue($data["customer_level"]);
-    		$credit_limit->setValue($data["credit_limit"]);
-    		$credit_tearm->setValue($data["credit_team"]);
+    		//$credit_limit->setValue($data["credit_limit"]);
+    		//$credit_tearm->setValue($data["credit_team"]);
     		$phoneElement->setValue($data["phone"]);
     		$mainStockElement->setValue($data["branch_id"]);
 			$province->setValue($data["province_id"]);

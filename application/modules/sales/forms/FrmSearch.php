@@ -16,7 +16,7 @@ public function init()
 		$this->addElement($nameElement);
 		
 		$rs=$db->getGlobalDb('SELECT id,cust_name FROM tb_customer WHERE cust_name!="" AND status=1 ');
-		$options=array($tr->translate('Choose Customer'));
+		$options=array($tr->translate('CHOOSE_CUSTOMER'));
 		$vendorValue = $request->getParam('customer_id');
 		if(!empty($rs)) foreach($rs as $read) $options[$read['id']]=$read['cust_name'];
 		$vendor_element=new Zend_Form_Element_Select('customer_id');
@@ -50,7 +50,7 @@ public function init()
 		$sql = "SELECT id, name FROM tb_sublocation WHERE name!='' ";
 		$sql.=" ORDER BY id DESC ";
 		$rs=$db->getGlobalDb($sql);
-		$options=array(0=>"Choose Branch");
+		$options=array(0=>$tr->translate("CHOOSE_BRANCH"));
 		if(!empty($rs)) foreach($rs as $read) $options[$read['id']]=$read['name'];
 		$locationID = new Zend_Form_Element_Select('branch_id');
 		$locationID ->setAttribs(array('class'=>'validate[required] form-control select2me'));
@@ -70,7 +70,7 @@ public function init()
 		$sql = "SELECT id,name FROM `tb_price_type` WHERE name!='' ";
 		$sql.=" ORDER BY id DESC ";
 		$rs=$db->getGlobalDb($sql);
-		$options=array(0=>"Choose Level");
+		$options=array(0=>$tr->translate("CHOOSE_LEVEL"));
 		if(!empty($rs)) foreach($rs as $read) $options[$read['id']]=$read['name'];
 		$locationID = new Zend_Form_Element_Select('level');
 		$locationID ->setAttribs(array('class'=>'validate[required] form-control select2me'));

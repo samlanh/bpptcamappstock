@@ -42,14 +42,14 @@ class Product_Form_FrmOther extends Zend_Form
 				'class'=>'form-control',
 				'required'=>'required'
 				));
-		$_arr = array(1=>$tr->translate("ACTIVE"),0=>$tr->translate("DACTIVE"));
+		$_arr = array(1=>$tr->translate("ACTIVE"),0=>$tr->translate("DEACTIVE"));
 		$_status = new Zend_Form_Element_Select("status");
 		$_status->setMultiOptions($_arr);
 		$_status->setAttribs(array(
 				'class'=>'form-control',
 				'required'=>'required'));
 		
-		$opt = array(''=>$tr->translate("SELECT_TYPE"),2=>$tr->translate("MODEL"),3=>$tr->translate("SIZE"),4=>$tr->translate("COLOR"),6=>$tr->translate("Customer Type"));
+		$opt = array(''=>$tr->translate("SELECT_TYPE"),2=>$tr->translate("MODEL"),3=>$tr->translate("SIZE"),4=>$tr->translate("COLOR"),6=>$tr->translate("CUSTOMER_TYPE"));
 		$type = new Zend_Form_Element_Select("type");
 		$type->setAttribs(array(
 				'class'=>'form-control',

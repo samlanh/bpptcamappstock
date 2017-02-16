@@ -10,6 +10,7 @@ class Dailywork_Form_FrmDailywork extends Zend_Form
 	}
 	/////////////	Form Product		/////////////////
 	public function add($data=null){
+	    $tr = Application_Form_FrmLanguages::getCurrentlanguage();
 		$db=new Application_Model_DbTable_DbGlobal();
 		
 		$customerid=new Zend_Form_Element_Select('customer_id');
@@ -35,7 +36,7 @@ class Dailywork_Form_FrmDailywork extends Zend_Form
 		         "style"=>'height:170px;'
 		));
 		
-		$opt_u = array(''=>"select user");
+		$opt_u = array(''=>$tr->translate("SELECT_USER"));
 		if(!empty($row)){
 			foreach ($row as $rs){
 				$opt_u[$rs["id"]] = $rs["first_name"];
@@ -46,7 +47,7 @@ class Dailywork_Form_FrmDailywork extends Zend_Form
 		$_user->setAttribs(array(
 				'class'=>'form-control select2me'));
 		
-		$opt_u=array(''=>"select Project");
+		$opt_u=array(''=>$tr->translate("SELECT_PROJECT"));
 		if (!empty($row_projct)){
 			foreach ($row_projct as $rs){
 				$opt_u[$rs["id"]]=$rs["projectname"];

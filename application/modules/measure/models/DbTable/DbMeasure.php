@@ -43,5 +43,6 @@ class Measure_Model_DbTable_DbMeasure extends Zend_Db_Table_Abstract
 		$db = $this->getAdapter();
 		$sql = "SELECT m.id,m.`name`,m.`status`,m.`remark` FROM `tb_measure` AS m  WHERE m.`id`= $id";
 		return $db->fetchRow($sql);
+		
 	}
 }

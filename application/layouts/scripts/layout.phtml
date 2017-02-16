@@ -200,6 +200,13 @@ $(document).ready(function() {
     //displayPhoto();
     //FormFileUpload.init();
  }); 
+function isNumberKey(evt){
+	 //alert(1);
+	    var charCode = (evt.which) ? evt.which : event.keyCode
+	    		if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode!=46)
+	    	        return false;
+	    	    return true;
+	    	}
     </script>
 <!-- END PAGE LEVEL SCRIPTS -->
 

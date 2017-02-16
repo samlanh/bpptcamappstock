@@ -16,14 +16,14 @@ class Sales_Form_FrmSale extends Zend_Form
     	$request=Zend_Controller_Front::getInstance()->getRequest();
     	$db=new Application_Model_DbTable_DbGlobal();
 
-    	$customerid=new Zend_Form_Element_Select('customer_id');
+    	/*$customerid=new Zend_Form_Element_Select('customer_id');
     	$customerid ->setAttribs(array(
     			'class' => 'validate[required] form-control select2me',
     			'Onchange'=>'getCustomerInfo()',
     			));
     	$options = $db->getAllCustomer(1);
     	$customerid->setMultiOptions($options);
-    	$this->addElement($customerid);
+    	$this->addElement($customerid);*/
     	
     	$roder_element= new Zend_Form_Element_Text("txt_order");
     	$roder_element->setAttribs(array('placeholder' => 'Optional','class'=>'form-control',"readonly"=>true,
@@ -150,7 +150,7 @@ class Sales_Form_FrmSale extends Zend_Form
     			$this->addElement($idElement);
     			$idElement ->setValue($data["id"]);
     			
-    			$customerid->setValue($data["customer_id"]);
+    			//$customerid->setValue($data["customer_id"]);
     			$locationID->setValue($data['branch_id']);
     			
     			$currencyElement->setValue($data['currency_id']);

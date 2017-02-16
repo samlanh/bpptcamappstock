@@ -9,7 +9,7 @@ $request=Zend_Controller_Front::getInstance()->getRequest();
 		<!-- BEGIN LOGO -->
 		<div class="page-logo">
 			<a href="<?php echo $this->baseUrl(); ?>/default/index/dashboad">
-			<img src="<?php echo $this->baseUrl()?>/images/soralogotop.png" alt="logo" class="logo-default" />
+			<img src="<?php echo $this->baseUrl()?>/images/bppt_logo.png" alt="logo" class="logo-default" />
 			</a>
 			<div class="menu-toggler sidebar-toggler hide">
 				<!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
@@ -25,7 +25,7 @@ $request=Zend_Controller_Front::getInstance()->getRequest();
 			<ul class="nav navbar-nav pull-right">
 				<!-- BEGIN NOTIFICATION DROPDOWN -->
 				<!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-				<li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+				<!--  <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 					<i class="icon-bell"></i>
 					<span class="badge badge-default">
@@ -131,11 +131,11 @@ $request=Zend_Controller_Front::getInstance()->getRequest();
 							</ul>
 						</li>
 					</ul>
-				</li>
+				</li>-->
 				<!-- END NOTIFICATION DROPDOWN -->
 				<!-- BEGIN INBOX DROPDOWN -->
 				<!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
-				<li class="dropdown dropdown-extended dropdown-inbox" id="header_inbox_bar">
+				<!--  <li class="dropdown dropdown-extended dropdown-inbox" id="header_inbox_bar">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 					<i class="icon-envelope-open"></i>
 					<span class="badge badge-default">
@@ -216,39 +216,40 @@ $request=Zend_Controller_Front::getInstance()->getRequest();
 							</ul>
 						</li>
 					</ul>
-				</li>
+				</li>-->
 				<!-- END INBOX DROPDOWN -->
 				<!-- BEGIN TODO DROPDOWN -->
 				<!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
 				<li class="dropdown dropdown-extended dropdown-tasks" id="header_task_bar">
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 					<i class="icon-calendar"></i>
+					<?php 
+									$dbtable = new Product_Model_DbTable_DbGetBranch();
+									$branchs = $dbtable->getBranchbyUser($session_user->user_id);
+									//print_r($branchs);
+						?>
 					<span class="badge badge-default">
-					3 </span>
+					 <?php $i=0;foreach ($branchs as $values){$i++;
+					      count($values['location_id']);}echo $i;?>
+					</span>
 					</a>
 					<ul class="dropdown-menu extended tasks">
 						<li class="external">
-							<h3>You have <span class="bold">12 pending</span> tasks</h3>
-							<a href="#">view all</a>
+							<!--  <h3>You have <span class="bold">12 pending</span></h3>-->
+							<a href="<?php echo $this->url(array('module'=>'product','controller'=>'index','action'=>'index'));?>"><?php echo $tr->translate("VIEW_ALL");?></a>
 						</li>
 						<li>
 							<ul class="dropdown-menu-list scroller" style="height: 275px;" data-handle-color="#637283">
-								
-								<?php 
-									$dbtable = new Product_Model_DbTable_DbGetBranch();
-									$branchs = $dbtable->getBranchbyUser($session_user->user_id);
-						?>
-								
-									<?php if(!empty($branchs)) foreach ($branchs as $key =>$value){?>
+								<?php  $i=0;
+									if(!empty($branchs)) foreach ($branchs as $key =>$value){$i++;?>
 								  <li>
 										<a href="<?php echo $this->url(array('module'=>'product','controller'=>'changeuser','action'=>'index', 'id'=>$value["location_id"]));?>">
 											<span class="task">
-												<span class="desc">Location : <?php echo $value["name"]?></span>
+												<span class="desc"><?php echo $tr->translate("LOCATION");?> : <?php echo $value["name"]?></span>
 											</span>
 										</a>
 									</li>
-										<?php };?>
-								
+										<?php if($i==5){break;}}?>
 								<li>
 									<a onclick="changeLange(1);" href="#">
 									<span class="task">
@@ -279,25 +280,28 @@ $request=Zend_Controller_Front::getInstance()->getRequest();
 					</a>
 					<ul class="dropdown-menu dropdown-menu-default">
 						<li>
-							<a href="#">
-							<i class="icon-user"></i> My Profile </a>
+							<a href="<?php echo $this->url(array("module"=>"user","controller"=>"index","action"=>"myprofile"));?>">
+							<i class="icon-user"></i> <?php echo $tr->translate("MY_PROFILE");?></a>
 						</li>
-						<li>
-							<a href="#">
-							<i class="icon-calendar"></i> My Calendar </a>
+						<!--  <li>
+							<a href="<?php //echo $this->url(array("module"=>"user","controller"=>"index","action"=>"changeuser"));?>">
+							<i class="icon-calendar"></i> Change Username </a>
+						</li>-->
+						<li><?php // $chg_pwd=$this->url(array('module'=>'rsvacl',
+                              //'controller'=>'user',
+                              //'action'=>'changepassword',
+                              //'id'=>$this->user_id,
+						//));
+						 ?>
+							<!--  <a href="<?php //echo $chg_pwd;?>">
+							<i class="icon-envelope-open"></i><?php //echo $tr->translate("CHANGE_PASSWORD");?>
+							</a>-->
 						</li>
-						<li>
+						<!--  <li>
 							<a href="#">
-							<i class="icon-envelope-open"></i> My Inbox <span class="badge badge-danger">
-							3 </span>
+							<i class="icon-rocket"></i> My Tasks 
 							</a>
-						</li>
-						<li>
-							<a href="#">
-							<i class="icon-rocket"></i> My Tasks <span class="badge badge-success">
-							7 </span>
-							</a>
-						</li>
+						</li>-->
 						<li class="divider">
 						</li>
 						<!-- <li>
@@ -306,7 +310,7 @@ $request=Zend_Controller_Front::getInstance()->getRequest();
 						</li> -->
 						<li>
 							<a href="<?php echo $this->baseUrl();//echo $this->url(array("module"=>"default","controller"=>"index"));?>">
-							<i class="icon-key"></i> Log Out </a>
+							<i class="icon-key"></i><?php echo $tr->translate("LOG_OUT");?></a>
 						</li>
 					</ul>
 				</li>

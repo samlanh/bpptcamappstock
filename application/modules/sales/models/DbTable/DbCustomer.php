@@ -91,8 +91,8 @@ class Sales_Model_DbTable_DbCustomer extends Zend_Db_Table_Abstract
 				'branch_id'		=> $post['branch_id'],
 				'customer_level'=> $post['customer_level'],
 				'cu_type'		=>	$post["customer_type"],
-				'credit_limit'	=>	$post["credit_limit"],
-				'credit_team'	=>	$post["credit_tearm"],
+				//'credit_limit'	=>	$post["credit_limit"],
+				//'credit_team'	=>	$post["credit_tearm"],
 		);
 		
 		$this->insert($data);
@@ -119,8 +119,8 @@ class Sales_Model_DbTable_DbCustomer extends Zend_Db_Table_Abstract
 				'branch_id'		=> $post['branch_id'],
 				'customer_level'=> $post['customer_level'],
 				'cu_type'		=>	$post["customer_type"],
-				'credit_limit'	=>	$post["credit_limit"],
-				'credit_team'	=>	$post["credit_tearm"],
+				//'credit_limit'	=>	$post["credit_limit"],
+				//'credit_team'	=>	$post["credit_tearm"],
 		);
 		$where=$this->getAdapter()->quoteInto('id=?',$post["id"]);
 		$this->_name="tb_customer";
@@ -148,8 +148,8 @@ class Sales_Model_DbTable_DbCustomer extends Zend_Db_Table_Abstract
 				'branch_id'		=> $post['branch_id'],
 				'customer_level'=> $post['customer_level'],
 				'cu_type'		=>	$post["customer_type"],
-				'credit_limit'	=>	$post["credit_limit"],
-				'credit_team'	=>	$post["credit_tearm"],
+				//'credit_limit'	=>	$post["credit_limit"],
+				//'credit_team'	=>	$post["credit_tearm"],
 		);
 // 		$result=$db->addRecord($data, "tb_customer");
 

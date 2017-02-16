@@ -15,7 +15,7 @@
 					<i class="fa fa-globe"></i><?php echo $tr->translate("PRODUCT_LIST");?>
 			</div>
 			<div class="caption" style="float:right">
-					<a href="<?php echo $url_new;?>"><button id="sample_editable_1_new" class="btn green">Add New <i class="fa fa-plus"></i></button></a>
+					<a href="<?php echo $url_new;?>"><button id="sample_editable_1_new" class="btn green"><?php echo $tr->translate("ADD_PRODUCT");?><i class="fa fa-plus"></i></button></a>
 			</div>
 			<div class="caption" style="float:right">
 					<?php $formList = new Application_Form_Frmlist(); //echo $formList->showAddBuntton($url_new);?>
@@ -26,6 +26,7 @@
 				<div class="form-body">
 							<div class="form-group">
 								<!--  <label class="col-md-1 control-label"><?php //echo $tr->translate("ADVANCE_SEARCH");?></label>-->
+								
 								<div class="col-md-3">
 									<?php echo $formFilter->getElement('ad_search');?>
 								</div>

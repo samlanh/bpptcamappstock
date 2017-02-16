@@ -69,6 +69,13 @@ class Product_Model_DbTable_DbProduct extends Zend_Db_Table_Abstract
   	$location = $db_globle->getAccessPermission('l.`id`');
   	return $db->fetchAll($sql.$location);
   }
+  function getProductName(){
+      $db = $this->getAdapter();
+      //$db_globle = new Application_Model_DbTable_DbGlobal();
+      $sql = "SELECT pd.id,pd.`item_name` FROM `tb_product` AS pd WHERE pd.`status`=1";
+      //$location = $db_globle->getAccessPermission('p.`pro_id`');
+      return $db->fetchAll($sql);
+  }
   public function getProductCode(){
   	$db =$this->getAdapter();
   	$sql=" SELECT id FROM $this->_name ORDER BY id DESC LIMIT 1 ";
@@ -104,14 +111,16 @@ class Product_Model_DbTable_DbProduct extends Zend_Db_Table_Abstract
 			WHERE p.`id`=pl.`pro_id`";
   	$where = '';
   	if($data["ad_search"]!=""){
-  		$s_where=array();
-  		$s_search = addslashes(trim($data['ad_search']));
-  		$s_where[]= " p.item_name LIKE '%{$s_search}%'";
-  		$s_where[]=" p.barcode LIKE '%{$s_search}%'";
-  		$s_where[]= " p.item_code LIKE '%{$s_search}%'";
-  		$s_where[]= " p.serial_number LIKE '%{$s_search}%'";
+  	    $where.=' AND  p.`id`='.$data["ad_search"];
+  	    //$where.=' AND p.`id`='.$data["p.item_name"];
+  	//$s_where=array();
+  		//$s_search = addslashes(trim($data['ad_search']));
+  		//$s_where[]= " p.item_name LIKE '%{$s_search}%'";
+  		//$s_where[]=" p.barcode LIKE '%{$s_search}%'";
+  		//$s_where[]= " p.item_code LIKE '%{$s_search}%'";
+  		//$s_where[]= " p.serial_number LIKE '%{$s_search}%'";
   		//$s_where[]= " cate LIKE '%{$s_search}%'";
-  		$where.=' AND ('.implode(' OR ', $s_where).')';
+  		//$where.=' AND ('.implode(' OR ', $s_where).')';
   	}
   	if($data["branch"]!=""){
   		$where.=' AND pl.`location_id`='.$data["branch"];

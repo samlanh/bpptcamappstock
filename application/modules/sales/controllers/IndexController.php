@@ -30,8 +30,8 @@ class Sales_IndexController extends Zend_Controller_Action
 		}
 		$db = new Sales_Model_DbTable_DbSaleOrder();
 		$rows = $db->getAllSaleOrder($search);
-		$columns=array("BRANCH_NAME","CUSTOMER_NAME","SALE_AGENT","SALE_NO", "ORDER_DATE",
-				"CURRNECY_TYPE","TOTAL","DISCOUNT","TOTAL_AMOUNT","APPROVED_STATUS","PENDING_STATUS","BY_USER");
+		$columns=array("BRANCH_NAME","SALE_AGENT","SALE_NO", "ORDER_DATE",
+				"CURRNECY_TYPE","TOTAL","DISCOUNT","TOTAL_AMOUNT","PAID","BALANCE","APPROVED_STATUS","PENDING_STATUS","BY_USER");
 		$link=array(
 				'module'=>'sales','controller'=>'index','action'=>'edit',
 		);
@@ -83,6 +83,7 @@ class Sales_IndexController extends Zend_Controller_Action
 		$this->view->form_customer = $formpopup;
 	}
 	function editAction(){
+	    $tr = Application_Form_FrmLanguages::getCurrentlanguage();
 		$id = ($this->getRequest()->getParam('id'))? $this->getRequest()->getParam('id'): '0';
 		$dbq = new Sales_Model_DbTable_DbSaleOrder();
 		$db = new Application_Model_DbTable_DbGlobal();
@@ -92,9 +93,9 @@ class Sales_IndexController extends Zend_Controller_Action
 				if(!empty($data['identity'])){
 					$dbq->updateSaleOrder($data);
 				}
-				Application_Form_FrmMessage::Sucessfull("UPDATE_SUCESS","/sales/index");
+				Application_Form_FrmMessage::Sucessfull($tr->translate("UPDATE_SUCESS"),"/sales/index");
 			}catch (Exception $e){
-				Application_Form_FrmMessage::message('UPDATE_FAIL');
+				Application_Form_FrmMessage::message($tr->translate('UPDATE_FAIL'));
 				$err =$e->getMessage();
 				Application_Model_DbTable_DbUserLog::writeMessageError($err);
 			}

@@ -55,17 +55,17 @@ class Measure_Form_FrmMeasure extends Zend_Form
 	public function MeasureFilter(){
 		$tr = Application_Form_FrmLanguages::getCurrentlanguage();
 		$db = new Measure_Model_DbTable_DbMeasure();
-		$name = new Zend_Form_Element_Text('name');
-		$name->setAttribs(array(
-				'class'=>'form-control',
-				'required'=>'required'
-		));
+		//$name = new Zend_Form_Element_Text('name');
+		//$name->setAttribs(array(
+		//		'class'=>'form-control',
+			//	'required'=>'required'
+		//));
 		
 		$parent = new Zend_Form_Element_Select("parent");
 		$parent->setAttribs(array(
-				'class'=>'form-control',
+				'class'=>'form-control select2me',
 		));
-		$opt = array(''=>$tr->translate("SEELECT_Measure"));
+		$opt = array(''=>$tr->translate("SELECT_MEASURE"));
 		$row = $db->getAllMeasure();
 		if(!empty($row)){
 			foreach ($row as $rs){
@@ -81,7 +81,7 @@ class Measure_Form_FrmMeasure extends Zend_Form
 		$opt = array('1'=>$tr->translate("ACTIVE"),'0'=>$tr->translate("DEACTIVE"));
 		$status->setMultiOptions($opt);
 		
-		$this->addElements(array($parent,$name,$status));
+		$this->addElements(array($parent,$status));
 		return $this;
 	}
 }

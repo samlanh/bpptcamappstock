@@ -5,18 +5,17 @@ class Sales_Model_DbTable_DbSaleOrder extends Zend_Db_Table_Abstract
 	//use for add purchase order 29-13
 	protected $_name="tb_sales_order";
 	function getAllSaleOrder($search){
-			$db= $this->getAdapter();
-			$sql=" SELECT id,
-			(SELECT name FROM `tb_sublocation` WHERE tb_sublocation.id = branch_id AND status=1 AND name!='' LIMIT 1) AS branch_name,
-			(SELECT cust_name FROM `tb_customer` WHERE tb_customer.id=tb_sales_order.customer_id LIMIT 1 ) AS customer_name,
-			(SELECT name FROM `tb_sale_agent` WHERE tb_sale_agent.id =tb_sales_order.saleagent_id  LIMIT 1 ) AS staff_name,
+			$db= $this->getAdapter();/*(SELECT cust_name FROM `tb_customer` WHERE tb_customer.id=tb_sales_order.customer_id LIMIT 1 ) AS customer_name,*/
+			$sql="  SELECT id,
+			(SELECT NAME FROM `tb_sublocation` WHERE tb_sublocation.id = branch_id AND STATUS=1 AND NAME!='' LIMIT 1) AS branch_name,
+			(SELECT NAME FROM `tb_sale_agent` WHERE tb_sale_agent.id =tb_sales_order.saleagent_id  LIMIT 1 ) AS staff_name,
 			sale_no,date_sold,
-			(SELECT symbal FROM `tb_currency` WHERE id= currency_id limit 1) As curr_name,
-			net_total,paid,balance,
-			(SELECT name_en FROM `tb_view` WHERE type=7 AND key_code=is_approved LIMIT 1) AS approval,
-			(SELECT name_en FROM `tb_view` WHERE type=8 AND key_code=pending_status LIMIT 1) AS processing,
+			(SELECT symbal FROM `tb_currency` WHERE id= currency_id LIMIT 1) AS curr_name,
+			all_total,discount_value,net_total,paid,balance,
+			(SELECT name_en FROM `tb_view` WHERE TYPE=7 AND key_code=is_approved LIMIT 1) AS approval,
+			(SELECT name_en FROM `tb_view` WHERE TYPE=8 AND key_code=pending_status LIMIT 1) AS processing,
 			(SELECT u.fullname FROM tb_acl_user AS u WHERE u.user_id = user_mod) AS user_name
-			FROM `tb_sales_order` ";
+			FROM `tb_sales_order`";
 			
 			$from_date =(empty($search['start_date']))? '1': " date_sold >= '".$search['start_date']." 00:00:00'";
 			$to_date = (empty($search['end_date']))? '1': " date_sold <= '".$search['end_date']." 23:59:59'";
@@ -54,7 +53,7 @@ class Sales_Model_DbTable_DbSaleOrder extends Zend_Db_Table_Abstract
 			$so = $dbc->getSalesNumber($data["branch_id"]);
 
 			$info_purchase_order=array(
-					"customer_id"   => 	$data['customer_id'],
+					//"customer_id"   => 	$data['customer_id'],
 					"branch_id"     => 	$data["branch_id"],
 					"sale_no"       => 	$so,//$data['txt_order'],
 					"date_sold"     => 	date("Y-m-d",strtotime($data['order_date'])),
@@ -153,7 +152,7 @@ class Sales_Model_DbTable_DbSaleOrder extends Zend_Db_Table_Abstract
 			$dbc=new Application_Model_DbTable_DbGlobal();
 // 			$so = $dbc->getSalesNumber($data["branch_id"]);
 			$arr=array(
-					"customer_id"   => 	$data['customer_id'],
+					//"customer_id"   => 	$data['customer_id'],
 					"branch_id"     => 	$data["branch_id"],
 // 					"sale_no"       => 	$so,//$data['txt_order'],
 					"date_sold"     => 	date("Y-m-d",strtotime($data['order_date'])),

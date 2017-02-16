@@ -26,7 +26,7 @@ public function init()
     	$rows = $db->getProject($search);
     	$this->view->row_rs = $db->getProject();
     	$list = new Application_Form_Frmlist();
-    	$columns=array("TASKE_CATEGORY_NAME","date","status");
+    	$columns=array("TASKE_CATEGORY_NAME","DATE","STATUS");
     	$link=array(
     			'module'=>'dailywork','controller'=>'project','action'=>'edit',
     	);

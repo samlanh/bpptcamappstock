@@ -1,1 +1,246 @@
-<center><h1>Welcome to Stock Management System</h1></center>
+<?php $tr = Application_Form_FrmLanguages::getCurrentlanguage();
+	defined('BASE_URL')	|| define('BASE_URL', Zend_Controller_Front::getInstance()->getBaseUrl());?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <!-- Bootstrap Styles-->
+    <link href="<?php echo BASE_URL?>/assets/global/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="<?php echo BASE_URL?>/assets/global/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="<?php echo BASE_URL?>/assets/global/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Google Fonts-->
+</head>
+<?php $session_user=new Zend_Session_Namespace('auth');
+  $request=Zend_Controller_Front::getInstance()->getRequest();
+  $url_index_product =  $this->url(array('module'=>'product','controller'=>'index','action'=>'index'));
+  $url_index_sales =  $this->url(array('module'=>'sales','controller'=>'index','action'=>'index'));
+  $url_index_purchase =  $this->url(array('module'=>'purchase','controller'=>'index','action'=>'index'));
+  $url_index_paymet =  $this->url(array('module'=>'sales','controller'=>'payment','action'=>'index'));
+  $url_index_user =  $this->url(array('module'=>'rsvacl','controller'=>'user','action'=>'index'));
+  $url_index_report_product =  $this->url(array('module'=>'report','controller'=>'product','action'=>'index'));
+  $url_index_report_sales =  $this->url(array('module'=>'report','controller'=>'index','action'=>'index'));
+  ?>
+<body>
+    <!--  <div id="wrapper">
+		<div class="container">-->
+           <!-- <div class="row">
+                  <div class="col-lg-12">
+                    <h1 class="page-header" style="text-align:center;">Welcome to Aplus Fresh Shop</h1>
+                </div>
+                 
+            </div>-->
+            <!-- /.row -->
+            
+            <div class="row">
+            <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-red">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-shopping-cart fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge"><?php echo $this->remider_items['remider_items'];?></div>
+                                    <div><?php echo $tr->translate("PRODUCTS");?></div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="<?php echo $url_index_product;?>" target="blank">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Products</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-yellow">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-shopping-cart fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge"></div>
+                                    <div><?php echo $tr->translate("SALES");?></div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="<?php echo $url_index_sales;?>" target="_blank">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Sales</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-red">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-file-o fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge"></div>
+                                    <div>Invoice</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="" target="_blank">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-user fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge"><?php ?></div>
+                                    <div>Customer</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="" target="_blank">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Customer</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-users fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge"></div>
+                                    <div><?php echo $tr->translate("USER");?></div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="<?php echo $url_index_user;?>" target="blank">
+                            <div class="panel-footer">
+                                <span class="pull-left">View User</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-yellow">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-cubes fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge"></div>
+                                    <div>Inventory Report</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="<?php echo $this->baseUrl()?>/report/inventory" target="_blank">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Reports</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-file-text-o fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge"><?php ?></div>
+                                    <div>Report Products</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="<?php echo $url_index_report_product;?>" target="_blank">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Reports</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-yellow">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-file-text-o fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge"><?php ?></div>
+                                    <div>Report Sales</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="<?php echo $url_index_report_sales;?>" target="_blank">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Reports</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+               <!--   <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-yellow">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-truck fa-5x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge">&nbsp;</div>
+                                    <div>Next Days <?php //echo date("d-m-Y");?></div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="<?php //echo $this->baseUrl()?>/report/orderitem" target="blank">
+                            <div class="panel-footer">
+                                <span class="pull-left">View Details</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>-->
+            </div>
+            
+  <!--    </div>
+</div>-->
+
+</body>
+</html>

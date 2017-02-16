@@ -128,7 +128,8 @@ class Product_Form_FrmProduct extends Zend_Form
 		$qty_per_unit->setAttribs(array(
 				'class'=>'form-control',
 				'required'=>'required',
-				'onKeyup'=>'doTotalQty()'
+				'onKeyup'=>'doTotalQty()',
+		        'onkeypress'=>'return isNumberKey(event)'
 		));
 		$qty_per_unit->setValue(1);
 		 
@@ -236,10 +237,24 @@ class Product_Form_FrmProduct extends Zend_Form
 		$tr = Application_Form_FrmLanguages::getCurrentlanguage();
 		$request=Zend_Controller_Front::getInstance()->getRequest();
 		$db = new Product_Model_DbTable_DbProduct();
-		$ad_search = new Zend_Form_Element_Text("ad_search");
+		/*$ad_search = new Zend_Form_Element_Text("ad_search");
 		$ad_search->setAttribs(array(
 				'class'=>'form-control',
+		));*/
+		$ad_search = new Zend_Form_Element_Select("ad_search");
+		$opt_product=array(''=>$tr->translate("SELECT_PRODUCT"));
+		$ad_search->setValue($request->getParam("ad_search"));
+		$row_product=$db->getProductName();
+		//print_r($row_product);
+		if(!empty($row_product)){
+		    foreach ($row_product as $rsp){
+		        $opt_product[$rsp["id"]] = $rsp["item_name"];
+		    }
+		}
+		$ad_search->setAttribs(array(
+		    'class'=>'form-control select2me',
 		));
+		$ad_search->setMultiOptions($opt_product);
 		$ad_search->setValue($request->getParam("ad_search"));
 		
 		$branch = new Zend_Form_Element_Select("branch");

@@ -20,7 +20,7 @@ class Category_Form_FrmCategory extends Zend_Form
 		$parent->setAttribs(array(
 				'class'=>'form-control',
 		));
-		$opt = array(''=>$tr->translate("SEELECT_CATEGORY"));
+		$opt = array(''=>$tr->translate("SELECT_CATEGORY"));
 		if(!empty($db->getAllCategory())){
 			foreach ($db->getAllCategory() as $rs){
 				$opt[$rs["id"]] = $rs["name"];

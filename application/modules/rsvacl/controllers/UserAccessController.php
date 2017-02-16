@@ -37,7 +37,7 @@ class Rsvacl_UserAccessController extends Zend_Controller_Action
         	$links = array('user_type'=>$link);
         	
         	$list=new Application_Form_Frmlist();        	
-        	$columns=array($tr->translate('USER_TYPE_CAP'), strtoupper($tr->translate('STATUS_CAP')));        	
+        	$columns=array($tr->translate('USER_TYPE_CAP'),($tr->translate('STATUS_CAP')));        	
         	$this->view->form=$list->getCheckList('radio', $columns, $rows,$links);
         	
         }else $this->view->form = $tr->translate('NO_RECORD_FOUND');

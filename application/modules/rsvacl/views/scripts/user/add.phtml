@@ -1,4 +1,7 @@
-<title>Add User</title>
+<title>
+<?php 
+    $tr = Application_Form_FrmLanguages::getCurrentlanguage();
+    echo $tr->translate("ADD_USER")?></title>
 <?php $form=$this->form; ?>
       
 <script language="javascript">
@@ -19,7 +22,7 @@
 <script type="text/javascript">
 	$( document ).ready(function() {
 		addRow();
-		jQuery('#frm').validationEngine('attach', {promptPosition : "centerRight"});
+		//jQuery('#frm').validationEngine('attach', {promptPosition : "centerRight"});
 		
 	});
 </script>
@@ -30,7 +33,6 @@
 		'controller'=>'user',
 		'action'=>'index',
 	)); 	
-	$tr = Application_Form_FrmLanguages::getCurrentlanguage();
 	$url_cancel = $this->url(array('module'=>'rsvacl','controller'=>'user','action'=>'index'));
 ?>
 
@@ -135,7 +137,7 @@
 						<label class="control-label col-md-2">
 						<input type="hidden" id="identity" name="identity" />
 									<button class="btn btn-primary" type="button" id="new_item" onclick="addRow(1);" name="new_followup" value="New">
-													&nbsp;<img src="<?php echo $this->baseUrl()?>/images/icon/new-row.png" alt="">Add</button>
+													&nbsp;<img src="<?php echo $this->baseUrl()?>/images/icon/new-row.png" alt=""><?php echo $tr->translate("ADD");?></button>
 						</label>
 							<label class="control-label col-md-4">
 								<table class="collape" id="table_order" style="width: 100%;">

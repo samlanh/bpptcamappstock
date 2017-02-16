@@ -60,13 +60,13 @@ class Product_Model_DbTable_DbCategory extends Zend_Db_Table_Abstract
 					WHERE 
 					     c.`status` =1";
 		$where = '';
-			if($data["name"]!=""){
-				$s_where=array();
-				$s_search = addslashes(trim($data['name']));
-				$s_where[]= " c.`name` LIKE '%{$s_search}%'";
-				$s_where[]=" c.`parent_id` LIKE '%{$s_search}%'";
-				$where.=' AND ('.implode(' OR ', $s_where).')';
-			}
+			//if($data["name"]!=""){
+				//$s_where=array();
+				//$s_search = addslashes(trim($data['name']));
+				//$s_where[]= " c.`name` LIKE '%{$s_search}%'";
+				//$s_where[]=" c.`parent_id` LIKE '%{$s_search}%'";
+			//	$where.=' AND ('.implode(' OR ', $s_where).')';
+			//}
 			if($data["parent"]!=""){
 				$where.=" AND c.`id` ='".$data["parent"]."'";
 			}

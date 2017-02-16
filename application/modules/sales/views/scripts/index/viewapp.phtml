@@ -52,7 +52,7 @@ $tr=Application_Form_FrmLanguages::getCurrentlanguage();
 		                	<td width="20%" valign="top"><img src="<?php echo $this->baseUrl();?>/images/logo.jpg" height="55px"></td>
 		                	<td width="60%" valign="top">
 		                		<ul>
-		                			<li style="text-align:center; font-size:16px; font-family:'Khmer MEF2'">សូរ៉ា ហាងលក់សម្ភារៈអគ្គិសនី</li>
+		                			<li style="text-align:center; font-size:16px; font-family:'Khmer MEF2'"><?php echo $tr->translate("BOREY_PHNOM_PENH_THMEY");?></li>
 		                			<li style="text-align:center; font-size:13px; font-family:'Khmer MEF2'"><?php echo $tr->translate("SALEORDER_APPROVED");?></li>
 		                		</ul>
 		                	</td>
@@ -72,23 +72,23 @@ $tr=Application_Form_FrmLanguages::getCurrentlanguage();
 		                			</tr>
 		                			<tr>
 		                				<td style="font-size: 11px;" valign="top" width="25%;">
-		                				<div style="width:100%; background: #244456;display: block;color:#fff;margin-top: 10px;">&nbsp;&nbsp;Customer Info</div>
+		                				<div style="width:100%; background: #244456;display: block;color:#fff;margin-top: 10px;">&nbsp;&nbsp;<?php echo $tr->translate("CONTACT_INFO");?></div>
 		                				   <ul class='pur_info'>
-			                					<li style="text-align: left;"><strong>Customer Name : </strong><?php echo $this->product[0]['customer_name'];?></li>
-			                					<li style="text-align: left;"><strong>Contact Person : </strong><?php echo $this->product[0]['contact_name'];?></li>
-			                					<li style="text-align: left;"><strong>Contact Number : </strong><?php echo $this->product[0]['phone'];?></li>
-			                					<li style="text-align: left;"><strong>E-mail: </strong><?php echo $this->product[0]['email'];?></li>
-			                					<li style="text-align: left;"><strong>Address : </strong><?php echo $this->product[0]['add_name'];?></li>
+			                					<li style="text-align: left;"><strong><?php echo $tr->translate("CUSTOMER_NAME");?> : </strong><?php echo $this->product[0]['customer_name'];?></li>
+			                					<li style="text-align: left;"><strong><?php echo $tr->translate("CONTACT_PERSON");?> : </strong><?php echo $this->product[0]['contact_name'];?></li>
+			                					<li style="text-align: left;"><strong><?php echo $tr->translate("CONTACT_NUM");?> : </strong><?php echo $this->product[0]['phone'];?></li>
+			                					<li style="text-align: left;"><strong><?php echo $tr->translate("EMAIL");?>: </strong><?php echo $this->product[0]['email'];?></li>
+			                					<li style="text-align: left;"><strong><?php echo $tr->translate("ADDR");?> : </strong><?php echo $this->product[0]['add_name'];?></li>
 		                					</ul>
 		                				</td>
 		                				<td width="50%"></td>
 		                				<td width="25%" style="text-align: left;font-size: 11px;">
-		                					<div style="padding-left: 10px;width:100%; background: #244456;display: block;color:#fff;margin-top: 10px;">&nbsp;&nbsp;Official Invoice</div>
+		                					<div style="padding-left: 10px;width:100%; background: #244456;display: block;color:#fff;margin-top: 10px;">&nbsp;&nbsp;<?php echo $tr->translate("OFFLICIAL_INVOICE");?></div>
 		                					<ul class='pur_info'>
-			                					<li style="text-align: left;"><strong>Branch Name : </strong><?php echo $this->product[0]['branch_name'];?></li>
-			                					<li style="text-align: left;"><strong>No.: </strong><?php echo $this->product[0]['sale_no'];?></li>
-			                					<li style="text-align: left;"><strong>Order Date : </strong><?php echo date("d/m/Y",strtotime($this->product[0]['date_sold']));?></li>
-		                						<li style="text-align: left;"><strong>Sale Person : </strong><?php echo $this->product[0]['staff_name'];?></li>
+			                					<li style="text-align: left;"><strong><?php echo $tr->translate("BRANCH_NAME");?> : </strong><?php echo $this->product[0]['branch_name'];?></li>
+			                					<li style="text-align: left;"><strong><?php echo $tr->translate("NUM");?> : </strong><?php echo $this->product[0]['sale_no'];?></li>
+			                					<li style="text-align: left;"><strong><?php echo $tr->translate("ORDER_DATE");?> : </strong><?php echo date("d/m/Y",strtotime($this->product[0]['date_sold']));?></li>
+		                						<li style="text-align: left;"><strong><?php echo $tr->translate("SALE_PERSON");?> : </strong><?php echo $this->product[0]['staff_name'];?></li>
 		                					</ul>
 		                				</td>
 		                			</tr>

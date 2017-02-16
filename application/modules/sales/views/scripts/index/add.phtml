@@ -19,24 +19,16 @@
 				<form id="orderFrm" action="<?php echo $url_submit; ?>" class="form-horizontal" enctype="multipart/form-data" method="post">
 					<div class="form-body">
 						<div class="form-group">
-							<label class="control-label col-md-2"><?php echo $tr->translate("CUSTOMER_NAME");?> <span class="required">
+							<!--  <label class="control-label col-md-2"><?php //echo $tr->translate("CUSTOMER_NAME");?> <span class="required">
 								</span>
 							</label>
 							<div class="col-md-4">
 								<div class="input-icon right">
-									<?php echo $form->getElement("customer_id");?>
+									<?php //echo $form->getElement("customer_id");?>
 									<a href="#" onclick="viewCustomer();"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>&nbsp;View Customer</a>
 								</div>
-							</div>
-							<label class="control-label col-md-2"><?php echo $tr->translate("BRANCH_NAME");?><span class="required">
-								</span>
-							</label>
-							<div class="col-md-4">
-								<div class="input-icon right">
-									<i class="fa"></i>
-									<?php echo $form->getElement('branch_id');?>
-								</div>
-							</div>
+							</div>-->
+							
 						</div>
 						<div class="form-group">
 							<label class="control-label col-md-2"><?php  echo $tr->translate("SALE_AGENT");?><span class="required">
@@ -74,6 +66,15 @@
 							</div>
 						</div>
 						<div class="form-group">
+						    <label class="control-label col-md-2"><?php echo $tr->translate("BRANCH_NAME");?><span class="required">
+								</span>
+							</label>
+							<div class="col-md-4">
+								<div class="input-icon right">
+									<i class="fa"></i>
+									<?php echo $form->getElement('branch_id');?>
+								</div>
+							</div>
 							<label class="control-label col-md-2"><?php echo $tr->translate("REMARK");?><span class="required">
 								 </span>
 							</label>
@@ -498,8 +499,8 @@ function getQtyById(index){//use
 				});
 			}
 }
-<?php $url_price =  $this->url(array('module'=>'sales','controller'=>'index','action'=>'getproductprice')); ?>
-function getProductPrice(product_id,recordid){
+<?php //$url_price =  $this->url(array('module'=>'sales','controller'=>'index','action'=>'getproductprice')); ?>
+/*function getProductPrice(product_id,recordid){
 	customer_id=$("#customer_id").val();
 	if(customer_id==null || customer_id=="" || customer_id==-1){
 		alert("Please Select Customer First !");
@@ -507,7 +508,7 @@ function getProductPrice(product_id,recordid){
 		$("#customer_id").focus();
 	}else{
 		$.ajax({
-			url:"<?php echo $url_price;?>",
+			url:"<?php //echo $url_price;?>",
 			type:"post",
 			data:{'customer_id':customer_id,'product_id':product_id},
 			success: function(data){
@@ -522,7 +523,7 @@ function getProductPrice(product_id,recordid){
 			}
 	});
   }
-}
+}*/
 $( document ).ready(function() {
 	//alert("ready loaded");
 });
@@ -703,17 +704,17 @@ function getsaleOrderNumber(){
 					});
 				}	
 }
-function getCustomerInfo(){
+/*function getCustomerInfo(){
 	customer_id = $("#customer_id").val();
 	if(customer_id==-1){
 		$('#customerpopup').modal('show');
 	}
-}
-<?php $url_add_customer =  $this->url(array('module'=>'sales','controller'=>'customer','action'=>'add-customer')); ?>
-function addNewCustomer(){
+}*/
+<?php //$url_add_customer =  $this->url(array('module'=>'sales','controller'=>'customer','action'=>'add-customer')); ?>
+/*function addNewCustomer(){
 	var customer_name  = $("#txt_name").val();
 	$.ajax({
-        url: "<?php echo $url_add_customer;?>",
+        url: "<?php //echo $url_add_customer;?>",
         type: "post",
         data: $('#frmcustomer').serialize(),
         success: function(data){
@@ -727,12 +728,12 @@ function addNewCustomer(){
            
         }
     });
-}
-function viewCustomer(){
+}*/
+/*function viewCustomer(){
 	id = $("#customer_id").val();
 	
 	if(id!=-1 && id!='' && id!=0){
-		window.open('<?php echo $this->url(array('module'=>'sales','controller'=>'customer','action'=>'edit')); ?>'+'/id/'+id, '_blank');
+		window.open('<?php //echo $this->url(array('module'=>'sales','controller'=>'customer','action'=>'edit')); ?>'+'/id/'+id, '_blank');
 	}
-}
+}*/
 </script>	

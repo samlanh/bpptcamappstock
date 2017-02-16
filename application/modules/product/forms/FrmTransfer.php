@@ -34,7 +34,7 @@ class Product_Form_FrmTransfer extends Zend_Form
     			'class'=>'form-control select2me',
     	));
     	
-    	$opt = array(''=>$tr->translate("SELECT BRANCH"));
+    	$opt = array(''=>$tr->translate("SELECT_BRANCH"));
     	$to_loc = new Zend_Form_Element_Select("to_loc");
     	$to_loc->setAttribs(array(
     			'class'=>'form-control select2me',
@@ -51,7 +51,7 @@ class Product_Form_FrmTransfer extends Zend_Form
     			'class'=>'form-control select2me',
     			'onChange'=>'addNew();'
     	));
-    	$opt= array(''=>$tr->translate("SELECT PRODUCT"));
+    	$opt= array(''=>$tr->translate("SELECT_PRODUCT"));
 		$row_product = $db_stock->getProductName();
     	if(!empty($row_product)){
     		foreach ($row_product as $rs){

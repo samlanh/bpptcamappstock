@@ -27,7 +27,7 @@ $row_rs = $this->row_rs;
 						<label class="control-label col-md-3"><input class="form-control" id="adv_search" name="adv_search" value="<?php echo $this->row['adv_search']?>" placeholder="<?php echo $this->translate("Search");?>" type="text" ></label>
 						<label class="control-label col-md-3"> 
 							<select name="projectname" id="projectname" class="form-control" >
-					        	<option value="">Please selectcProject</option>
+					        	<option value=""><?php echo $tr->translate("PLEASE_SELECT_PROJECT");?></option>
 			            		<?php foreach ($this->rst As $rst){?>
 			            		<option value="<?php echo $rst['id']?>"<?php if ($rst['id']==$this->row['projectname']) echo 'selected="selected"';?>><?php echo $rst['projectname']?></option>
 			            		<?php }?>

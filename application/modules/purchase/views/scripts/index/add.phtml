@@ -100,7 +100,7 @@
 							<label class="control-label col-md-1 col-lg-1">
 								<button type="button" class="btn red delete col-md-12">
 									<i class="fa fa-barcode"></i>
-									<span>Scan </span>	
+									<span><?php echo $tr->translate("SCAN");?></span>	
 								</button>
 							</label>
 							<label class="control-label col-md-8">
@@ -111,13 +111,13 @@
 							<label class="control-label col-md-2 col-lg-2 col-sm-12">
 								<button type="button" onclick="popupProduct();" class="btn red delete col-md-12">
 									
-									<span>&nbsp;&nbsp;បន្ថែមមុខទំនិញថ្មី</span>
+									<span>&nbsp;&nbsp;<?php echo $tr->translate("ADD_NEW_ITEM");?></span>
 								</button>
 							</label>
 							<label class="control-label col-md-1 col-lg-1 col-sm-12">
 								<button type="button" class="btn red delete col-md-12">
 									<input type="checkbox" Onclick="Confirmmessage()" id="free" name="free" />
-									<span>&nbsp;&nbsp;Free</span>
+									<span>&nbsp;&nbsp;<?php echo $tr->translate("FREE");?></span>
 								</button>
 							</label>
 						</div>

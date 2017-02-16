@@ -50,7 +50,17 @@ class Product_Model_DbTable_DbMeasure extends Zend_Db_Table_Abstract
 		$sql = "SELECT m.id,m.`name`,m.`status`,m.`remark` FROM `tb_measure` AS m ";
 		return $db->fetchAll($sql);
 	}
+	public function getAllMeasures($data){
+	    //print_r($data);exit();
+	    $db = $this->getAdapter();
+	    $sql = "SELECT m.id,m.`name`,m.`status`,m.`remark` FROM `tb_measure` AS m ";
+	    $where='';
+	    if($data["parent"]!=""){
+	        $where.="where m.`id`=".$data['parent'];
+	    }
+	    return $db->fetchAll($sql.$where);
 	
+	}
 	public function getMeasure($id){
 		$db = $this->getAdapter();
 		$sql = "SELECT m.id,m.`name`,m.`status`,m.`remark` FROM `tb_measure` AS m  WHERE m.`id`= $id";

@@ -27,8 +27,8 @@
 	$url_recieved  = array($this->url(array('module'=>'purchase','controller'=>'receive','action'=>'index'),null, true), "Receive Stock");
 	// module sales
 	$url_sales_list = array($this->url(array('module'=>'sales','controller'=>'index','action'=>'index'),null, true), "MENU_SALES_SALES_ORDER_INDEX");
-	$url_sales_approved = array($this->url(array('module'=>'sales','controller'=>'salesapprove','action'=>'index'),null, true), "MENU_APPROVED");
-	$url_invocie_approved = array($this->url(array('module'=>'sales','controller'=>'invoiceapprove','action'=>'index'),null, true), "MENU_APPROVED");
+	$url_sales_approved = array($this->url(array('module'=>'sales','controller'=>'salesapprove','action'=>'index'),null, true), "MENU_SALES_APPROVED");
+	$url_invocie_approved = array($this->url(array('module'=>'sales','controller'=>'invoiceapprove','action'=>'index'),null, true), "MENU_INVOICE_APPROVED");
 	$url_qoute_approved = array($this->url(array('module'=>'sales','controller'=>'quoteapprove','action'=>'index'),null, true), "MENU_QOUTEAPPROVED");
 	
 	$url_sales_add = array($this->url(array('module'=>'sales','controller'=>'index','action'=>'add'),null, true), "MENU_SALES_SALES_ORDER_ADD_CUSTOMER_ORDER");
@@ -217,12 +217,12 @@
 	            		</li> 
 						<li>
 	            			<a href="<?php echo $this->url(array('module'=>'purchase','controller'=>'expense','action'=>'index'),null, true); ?>">
-		            			<i class="icon-arrow-right"></i>Expense List
+		            			<i class="icon-arrow-right"></i><?php echo $tr->translate("EXPENSE_LIST");?>
 		            		</a>
 	            		</li> 
 							<li>
 	            			<a href="<?php echo $this->url(array('module'=>'purchase','controller'=>'expensetitle','action'=>'index'),null, true); ?>">
-		            			<i class="icon-arrow-right"></i>Expense Title
+		            			<i class="icon-arrow-right"></i><?php echo $tr->translate("EXPENSE_TITLE");?>
 		            		</a>
 	            		</li> 
 	            		<?php //}?>
@@ -233,7 +233,7 @@
 				<li>
 					<a href="javascript:;">
 					<i class="icon-screen-desktop"></i>
-					<span class="title"><?php echo strtoupper($tr->translate("SALES")); ?></span>
+					<span class="title"><?php echo ($tr->translate("SALES")); ?></span>
 					<span class="arrow "></span>
 					</a>
 					<ul class="sub-menu">
@@ -242,11 +242,11 @@
 						    <i class="icon-arrow-right"></i><?php echo $tr->translate($url_sales_list[1]);?>
 	            		</a>
             		</li> 
-            		<li>
-            			<a href="<?php echo $url_qoute_approved[0]; ?>">
-	            			<i class="icon-arrow-right"></i><?php echo $tr->translate($url_qoute_approved[1])?>
+            		<!--  <li>
+            			<a href="<?php //echo $url_qoute_approved[0]; ?>">
+	            			<i class="icon-arrow-right"></i><?php //echo $tr->translate($url_qoute_approved[1])?>
 	            	</a>
-	            	</li>
+	            	</li>-->
 					<!--
             		<li>
             			<a href="<?php //echo $url_sales_add[0]; ?>">
@@ -276,27 +276,27 @@
 	            			<i class="icon-arrow-right"></i><?php echo $tr->translate($url_return_out[1]);?>
 	            		</a>
             		</li> -->
-            		<li>
-            			<a href="<?php echo $url_quotelist[0]; ?>">
-	            			<i class="icon-arrow-right"></i><?php echo $tr->translate($url_quotelist[1])?>
+            		<!--  <li>
+            			<a href="<?php //echo $url_quotelist[0]; ?>">
+	            			<i class="icon-arrow-right"></i><?php //echo $tr->translate($url_quotelist[1])?>
 	            	    </a>
-            		</li> 
+            		</li> -->
 					
-            		<li>
-            			<a href="<?php echo $url_sales_quote[0]; ?>">
-	            			<i class="icon-arrow-right"></i><?php echo $tr->translate($url_sales_quote[1])?>
+            		<!--  <li>
+            			<a href="<?php //echo $url_sales_quote[0]; ?>">
+	            			<i class="icon-arrow-right"></i><?php //echo $tr->translate($url_sales_quote[1])?>
 	            		</a>
-            		</li>
-	            	<li>
-            			<a href="<?php echo $url_cust_list[0]; ?>">
-						    <i class="icon-arrow-right"></i><?php echo $tr->translate($url_cust_list[1]);?>
+            		</li>-->
+	            	<!--  <li>
+            			<a href="<?php //echo $url_cust_list[0]; ?>">
+						    <i class="icon-arrow-right"></i><?php //echo $tr->translate($url_cust_list[1]);?>
 	            		</a>
-            		</li> 
-            		<li>
-            			<a href="<?php echo $url_add_cust[0]; ?>">
-	            			<i class="icon-arrow-right"></i><?php echo $tr->translate($url_add_cust[1])?>
+            		</li> -->
+            		<!--  <li>
+            			<a href="<?php //echo $url_add_cust[0]; ?>">
+	            			<i class="icon-arrow-right"></i><?php //echo $tr->translate($url_add_cust[1])?>
 	            		</a>
-            		</li>
+            		</li>-->
 					</ul>
 				</li>
 				<?php }?>
@@ -304,7 +304,7 @@
 				<li>
 					<a href="javascript:;">
 					<i class="icon-screen-desktop"></i>
-					<span class="title"><?php echo strtoupper($tr->translate("Acct Payable&Payment")); ?></span>
+					<span class="title"><?php echo ($tr->translate("Acct_Payable")); ?></span>
 					<span class="arrow "></span>
 					</a>
 					<ul class="sub-menu">
@@ -327,7 +327,7 @@
             		</li> -->
             		<li>
             			<a href="<?php echo $this->url(array('module'=>'sales','controller'=>'payment','action'=>'index'),null, true); ?>">
-	            			<i class="icon-arrow-right"></i>Customer Payment
+	            			<i class="icon-arrow-right"></i><?php echo $tr->translate("CUSTOMER_PAYMENT");?>
 	            		</a>
             		</li>
             		<li>
@@ -340,37 +340,37 @@
 				<?php }?> 
 				
 				<?php 
-				if($level==1 OR $level==2 OR $level==5 OR $level==6){?>
-				<li>
+				//if($level==1 OR $level==2 OR $level==5 OR $level==6){?>
+				<!--<li>
 					<a href="javascript:;">
 					<i class="icon-screen-desktop"></i>
-					<span class="title">DAILY ACTIVITIES</span>
+					<span class="title"><?php //echo $tr->translate("DAILY_ACTIVITIES");?></span>
 					<span class="arrow "></span>
 					</a>
 					<ul class="sub-menu">
 						<li>
-	            			<a href="<?php echo $this->url(array('module'=>'dailywork','controller'=>'index','action'=>'index'),null, true); ?>">
-							    <i class="icon-arrow-right"></i>Daily Planning
+	            			<a href="<?php //echo $this->url(array('module'=>'dailywork','controller'=>'index','action'=>'index'),null, true); ?>">
+							    <i class="icon-arrow-right"></i><?php //echo $tr->translate("DAILY_PLANNING");?>
 		            		</a>
             			</li> 
-						<?php if($level==1){?>
+						<?php //if($level==1){?>
 						<li>
-	            			<a href="<?php echo $this->url(array('module'=>'dailywork','controller'=>'project','action'=>'index'),null, true); ?>">
-							    <i class="icon-arrow-right"></i>Work Category
+	            			<a href="<?php //echo $this->url(array('module'=>'dailywork','controller'=>'project','action'=>'index'),null, true); ?>">
+							    <i class="icon-arrow-right"></i><?php //echo $tr->translate("WORK_CATEGORY");?>
 		            		</a>
             			</li>
-						<?php } ?>
+						<?php //} ?>
 						<li>
-	            			<a href="<?php echo $this->url(array('module'=>'dailywork','controller'=>'workprocess','action'=>'index'),null, true); ?>">
-							    <i class="icon-arrow-right"></i>Daily Aativities
+	            			<a href="<?php //echo $this->url(array('module'=>'dailywork','controller'=>'workprocess','action'=>'index'),null, true); ?>">
+							    <i class="icon-arrow-right"></i><?php //echo $tr->translate("DAILY_ACTIVITY");?>
 		            		</a>
             			</li> 
             			<li>
-	            			<a href="<?php echo $this->url(array('module'=>'dailywork','controller'=>'workcomplete','action'=>'index'),null, true); ?>">
-							    <i class="icon-arrow-right"></i>Work Completed
+	            			<a href="<?php //echo $this->url(array('module'=>'dailywork','controller'=>'workcomplete','action'=>'index'),null, true); ?>">
+							    <i class="icon-arrow-right"></i><?php //echo $tr->translate("WORK_COMPLETED");?>
 		            		</a>
             			</li>	
-            			<!--<li>
+            			<li>
 	            			<a href="<?php //echo $this->url(array('module'=>'dailywork','controller'=>'category','action'=>'index'),null, true); ?>">
 							    <i class="icon-arrow-right"></i>Category
 		            		</a>
@@ -379,24 +379,24 @@
 	            			<a href="<?php //echo $this->url(array('module'=>'dailywork','controller'=>'address','action'=>'index'),null, true); ?>">
 							    <i class="icon-arrow-right"></i>Address
 		            		</a>
-            			</li>-->
+            			</li>
             			<li>
-	            			<a href="<?php echo $this->url(array('module'=>'dailywork','controller'=>'contact','action'=>'index'),null, true); ?>">
-							    <i class="icon-arrow-right"></i>Contact Person
+	            			<a href="<?php //echo $this->url(array('module'=>'dailywork','controller'=>'contact','action'=>'index'),null, true); ?>">
+							    <i class="icon-arrow-right"></i><?php //echo $tr->translate("CONTACT_PERSON");?>
 		            		</a>
             			</li>  
             			<li>
-	            			<a href="<?php echo $this->url(array('module'=>'dailywork','controller'=>'result','action'=>'index'),null, true); ?>">
-							    <i class="icon-arrow-right"></i>Daily Send Email
+	            			<a href="<?php //echo $this->url(array('module'=>'dailywork','controller'=>'result','action'=>'index'),null, true); ?>">
+							    <i class="icon-arrow-right"></i><?php //echo $tr->translate("DAILY_SENT_MAIL");?>
 		            		</a>
             			</li> 
             		 </ul>
-            	</li>
-				<?php }?>
+            	</li>-->
+				<?php //}?>
 				<li>
 					<a href="javascript:;">
 					<i class="icon-screen-desktop"></i>
-					<span class="title"><?php echo strtoupper($tr->translate("REPORT"));?></span>
+					<span class="title"><?php echo ($tr->translate("REPORT"));?></span>
 					<span class="arrow "></span>
 					</a>
 					<ul class="sub-menu">
@@ -420,7 +420,7 @@
 				<li>
 					<a href="javascript:;">
 					<i class="icon-screen-desktop"></i>
-					<span class="title"><?php echo strtoupper($tr->translate("Admin&User Access"));?></span>
+					<span class="title"><?php echo ($tr->translate("ADMIN_USER_ACCESS"));?></span>
 					<span class="arrow "></span>
 					</a>
 					<ul class="sub-menu">

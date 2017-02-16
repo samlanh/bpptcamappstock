@@ -34,13 +34,13 @@ $(window).bind('beforeunload', function(){
         <div class="style-form">
         	<div class="view-table" style="padding:20px;">
 				<div class="head_form">
-					<?php echo $tr->translate("Customer info");?>
+					<?php //echo $tr->translate("Customer info");?>
 				</div>
 			   	<div class="contain_form shadow">
 			   		    <table>
 				                <tr><?php echo $form->getElement("id");?>
-				                	<td><?php echo $tr->translate("CUSTOMER_NAME");?></td>
-				                    <td width="30%"><?php echo $form->getElement("customer_id");?></td>
+				                	<td><?php //echo $tr->translate("CUSTOMER_NAME");?></td>
+				                    <td width="30%"><?php //echo $form->getElement("customer_id");?></td>
 				                    <td><?php echo $tr->translate("LOCATION_NAME");?></td>
 				                    <td width="30%"><?php echo $form->getElement("LocationId");?></td>
 				                </tr>
@@ -142,44 +142,44 @@ $(window).bind('beforeunload', function(){
 </div><!-- end wrapper -->
 <!-- add customer -->
 <div id="overlay-vendor" class="web_dialog_overlay"></div>
-<?php $frm_customer= $this->form_customer;?>
-		<div id="dialog-vendor" class="web_dialog">
+<?php //$frm_customer= $this->form_customer;?>
+		<!--  <div id="dialog-vendor" class="web_dialog">
 		<form id="frmvendor">
-			<div class="web_dialog_title" align="center"><?php echo $tr->translate("ADD_CUSTOMER");?>
+			<div class="web_dialog_title" align="center"><?php //echo $tr->translate("ADD_CUSTOMER");?>
 				<a href="#" id="btnClosevendor" class="cancelDailog"></a>
 			</div>
 			<table style="width: 98%; margin:0 auto;" cellpadding="3" cellspacing="0">
 				
 				<tr>
-					<td width="70px"><?php echo $tr->translate("CUSTOMER_NAME");?></td>
-					<td><?php echo $frm_customer->getElement("txt_name");?></td>
-					<td><?php echo $tr->translate("CON_NAME");?></td>
-					<td><?php echo $frm_customer->getElement("txt_contact_name");?></td>
+					<td width="70px"><?php //echo $tr->translate("CUSTOMER_NAME");?></td>
+					<td><?php //echo $frm_customer->getElement("txt_name");?></td>
+					<td><?php //echo $tr->translate("CON_NAME");?></td>
+					<td><?php //echo $frm_customer->getElement("txt_contact_name");?></td>
 				</tr>
 				<tr>
-					<td><?php echo $tr->translate("CON_NUM");?></td>
-					<td><?php echo $frm_customer->getElement("customer_phone");?></td>
+					<td><?php //echo $tr->translate("CON_NUM");?></td>
+					<td><?php //echo $frm_customer->getElement("customer_phone");?></td>
 					<td><?php //echo $tr->translate("TYPE_PRICE_SM"); ?></td>
 					<td ><?php // $frm_customer->getElement("price_type"); ?></td>
 				</tr>
 				<tr>
-					<td><?php echo $tr->translate("EMAIL");?></td>
-					<td><?php echo $frm_customer->getElement('txt_mail');?></td>
-					<td><?php echo $tr->translate("CUS_ADDRESS");?></td>
-					<td><?php echo $frm_customer->getElement("txt_address");?></td>
+					<td><?php //echo $tr->translate("EMAIL");?></td>
+					<td><?php //echo $frm_customer->getElement('txt_mail');?></td>
+					<td><?php //echo $tr->translate("CUS_ADDRESS");?></td>
+					<td><?php //echo $frm_customer->getElement("txt_address");?></td>
 				</tr>
 				<tr>
 					<td></td>
 					<td></td>
 					<td colspan="2">
-						<input id="btn_add" Onclick="addNewCustomer()" type="button" value="<?php echo $tr->translate("ADD_NEW");?>" />
-						<input id="btnCancelVendor" class="cancelDailog" type="button" value="<?php echo $tr->translate("CANCEL");?>" />
+						<input id="btn_add" Onclick="addNewCustomer()" type="button" value="<?php //echo $tr->translate("ADD_NEW");?>" />
+						<input id="btnCancelVendor" class="cancelDailog" type="button" value="<?php //echo $tr->translate("CANCEL");?>" />
 					</td>
 					
 				</tr>
 	       </table>
 	     </form>
- </div>
+ </div>-->
   <!-- end new product -->
 <div id="overlay" class="web_dialog_overlay"></div>
 <?php $frm_product= $this->form_product;?>

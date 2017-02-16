@@ -10,7 +10,7 @@ class Rsvacl_Form_FrmUser extends Zend_Form
     	//user typefilter
 		$sql = 'SELECT user_type_id,user_type FROM tb_acl_user_type';
 		$rs=$db->getGlobalDb($sql);
-		$options=array('All User Type');
+		$options=array($tr->translate('ALL_USER_TYPE'));
 		$usertype = $request->getParam('user_type_filter');
 		foreach($rs as $read) $options[$read['user_type_id']]=$read['user_type'];
 		$user_type_filter=new Zend_Form_Element_Select('user_type_filter');
@@ -25,7 +25,7 @@ class Rsvacl_Form_FrmUser extends Zend_Form
 		
 		$sql = 'SELECT p.`id`,p.`name` FROM `tb_sublocation` AS p';
 		$rs=$db->getGlobalDb($sql);
-		$options=array('All Location');
+		$options=array($tr->translate('ALL_LOCATION'));
 		$location_r = $request->getParam('location');
 		foreach($rs as $read) $options[$read['id']]=$read['name'];
 		$location=new Zend_Form_Element_Select('location');
@@ -38,7 +38,7 @@ class Rsvacl_Form_FrmUser extends Zend_Form
     	$location->setValue($location_r);
     	$this->addElement($location);
 		
-		$options=array(''=>'All Status',1=>"ACTIVE",'0'=>"DEACTIVE");
+		$options=array(''=>$tr->translate('ALL_STATUS'),1=>$tr->translate("ACTIVE"),'0'=>$tr->translate("DEACTIVE"));
 		$status_r = $request->getParam('status_se');
 		$status_se=new Zend_Form_Element_Select('status_se');
     	$status_se->setMultiOptions($options);
@@ -106,7 +106,7 @@ class Rsvacl_Form_FrmUser extends Zend_Form
     	//user type
 		$sql = 'SELECT user_type_id,user_type FROM tb_acl_user_type';
 		$rs=$db->getGlobalDb($sql);
-		$options=array(''=>$tr->translate('Please_Select'));
+		$options=array(''=>$tr->translate('SELECT_USER'));
 		foreach($rs as $read) $options[$read['user_type_id']]=$read['user_type'];
 		$user_type_id=new Zend_Form_Element_Select('user_type_id');		
     	$user_type_id->setMultiOptions($options);
@@ -118,13 +118,13 @@ class Rsvacl_Form_FrmUser extends Zend_Form
 		
 		$status = new Zend_Form_Element_Select("status");
     	$status->setAttribs(array('class'=>'form-control'));
-    	$status->setMultiOptions(array("1"=>"Active","0"=>"Deactive"));
+    	$status->setMultiOptions(array("1"=>$tr->translate("ACTIVE"),"0"=>$tr->translate("DEACTIVE")));
     	$this->addElement($status);
 
     	
     	//location 
     	$rs=$db->getGlobalDb('SELECT id, name FROM tb_sublocation WHERE name!="" AND status=1 ORDER BY id DESC');
-    	$option =array("1"=>$tr->translate("Please_Select"),"-1"=>$tr->translate("Add_New_Location"));
+    	$option =array("1"=>$tr->translate("Please_Select"),"-1"=>$tr->translate("ADD_NEW_LOCATION"));
     	if(!empty($rs)) foreach($rs as $read) $option[$read['id']]=$read['name'];
     	$locationID= new Zend_Form_Element_Select('LocationId');
     	$locationID->setMultiOptions($option);

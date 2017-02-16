@@ -164,7 +164,9 @@ $form=$this->form;
 											<div class="form-group">
 											            <label class="col-md-2 control-label"></label>
 														<label class="col-md-6 control-label">
+														    <a href="<?php echo $this->baseUrl();?>/product/index/">
 															<button type="button" class="btn red"><i class="fa fa-times"></i> <?php echo $tr->translate("EXIT")?></button>
+															</a>
 															<button type="submit" name="save_close" value="saveclose" class="btn btn-primary" ><i class="glyphicon glyphicon-log-in"></i> <?php echo $tr->translate("SAVE_CLOSE")?></button>
 															<button type="submit" name="btnsavenew" class="btn btn-primary"><i class="fa fa-save"></i> <?php echo $tr->translate("SAVE_NEW")?> </button>
 														</label>

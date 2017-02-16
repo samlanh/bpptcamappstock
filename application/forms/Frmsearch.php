@@ -16,7 +16,7 @@ class Application_Form_Frmsearch extends Zend_Form
 		$this->addElement($nameElement);
 		
 		$rs=$db->getGlobalDb('SELECT vendor_id, v_name FROM tb_vendor WHERE v_name!="" AND status=1 ');
-		$options=array($tr->translate('Choose Suppliyer'));
+		$options=array($tr->translate('CHOOSE_SUPPLIYER'));
 		$vendorValue = $request->getParam('suppliyer_id');
 		if(!empty($rs)) foreach($rs as $read) $options[$read['vendor_id']]=$read['v_name'];
 		$vendor_element=new Zend_Form_Element_Select('suppliyer_id');

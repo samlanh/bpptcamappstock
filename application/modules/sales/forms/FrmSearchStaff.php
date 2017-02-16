@@ -35,7 +35,7 @@ public function init()
 		$sql = "SELECT id, name FROM tb_sublocation WHERE name!='' ";
 		$sql.=" ORDER BY id DESC ";
 		$rs=$db->getGlobalDb($sql);
-		$options=array(0=>"Choose Branch");
+		$options=array(0=>$tr->translate("CHOOSE_BRANCH"));
 		if(!empty($rs)) foreach($rs as $read) $options[$read['id']]=$read['name'];
 		$locationID = new Zend_Form_Element_Select('branch_id');
 		$locationID ->setAttribs(array('class'=>'validate[required] form-control select2me'));
@@ -51,7 +51,7 @@ public function init()
 				'class'=>'form-control form-control-inline date-picker'
 		));
 		
-		$opt_s = array("-1"=>"All",1=>"Active",0=>"Deactive");
+		$opt_s = array("-1"=>$tr->translate("ALL_STATUS"),1=>$tr->translate("ACTIVE"),0=>$tr->translate("DEACTIVE"));
 		$status = new Zend_Form_Element_Select('status');
 		$status->setattribs(array(
 				'class'=>'form-control',));
