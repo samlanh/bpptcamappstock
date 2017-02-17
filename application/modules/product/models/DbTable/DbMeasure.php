@@ -32,6 +32,47 @@ class Product_Model_DbTable_DbMeasure extends Zend_Db_Table_Abstract
 		$where = $db->quoteInto("id=?", $data["id"]);
 		$this->update($arr, $where);
 	}
+	///insert type job =============================================================================
+	public function addJob($data){
+		$db = $this->getAdapter();
+		$arr = array(
+				'title'			=>	$data["measure_name"],
+				// 				'parent_id'		=>	$data["parent"],
+				'date'			=>	new Zend_Date(),
+				'status'		=>	$data["status"],
+				'description'	=>	$data["remark"],
+		);
+		$this->_name = "tb_jobtype";
+		$this->insert($arr);
+	}
+	
+	public function editJob($data){
+		$db = $this->getAdapter();
+		$arr = array(
+				'title'			=>	$data["measure_name"],
+				// 				'parent_id'		=>	$data["parent"],
+				'date'			=>	new Zend_Date(),
+				'status'		=>	$data["status"],
+				'description'	=>	$data["remark"],
+		);
+		$this->_name = "tb_jobtype";
+		$where="id=".$data['id'];
+		$this->update($arr, $where);
+	}
+	
+	function getAllJob(){
+		$db=$this->getAdapter();
+		$sql="SELECT id,title,description,status FROM tb_jobtype 
+      			 WHERE `status`=1
+      			 AND    title !=''  ";
+		return  $db->fetchAll($sql);
+	}
+	public function getJobbyId($id){
+		$db = $this->getAdapter();
+		$sql = "SELECT * FROM `tb_jobtype` AS m  WHERE m.`id`= $id";
+		return $db->fetchRow($sql);
+	}
+	
 	//Insert Popup=============================================================================
 	public function addNew($data){
 		$db = $this->getAdapter();
@@ -66,4 +107,7 @@ class Product_Model_DbTable_DbMeasure extends Zend_Db_Table_Abstract
 		$sql = "SELECT m.id,m.`name`,m.`status`,m.`remark` FROM `tb_measure` AS m  WHERE m.`id`= $id";
 		return $db->fetchRow($sql);
 	}
+	
+	
+	
 }
