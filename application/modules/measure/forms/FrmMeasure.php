@@ -81,7 +81,58 @@ class Measure_Form_FrmMeasure extends Zend_Form
 		$opt = array('1'=>$tr->translate("ACTIVE"),'0'=>$tr->translate("DEACTIVE"));
 		$status->setMultiOptions($opt);
 		
-		$this->addElements(array($parent,$status));
+		$txt_search = new Zend_Form_Element_Text("txt_search");
+		$txt_search->setAttribs(array(
+				'class'=>'form-control ',
+		));
+		
+		$this->addElements(array($txt_search,$parent,$status));
+		return $this;
+	}
+	
+	/////////////	Form JOB		/////////////////
+	public function frmJob($data=null){
+		$db = new Measure_Model_DbTable_DbMeasure();
+		$tr = Application_Form_FrmLanguages::getCurrentlanguage();
+		$name = new Zend_Form_Element_Text('measure_name');
+		$name->setAttribs(array(
+				'class'=>'form-control',
+				'required'=>'required'
+		));
+			
+		// 		$parent = new Zend_Form_Element_Select("parent");
+		// 		$parent->setAttribs(array(
+		// 				'class'=>'form-control',
+		// 		));
+		// 		$opt = array(''=>$tr->translate("SEELECT_Measure"));
+		// 		if(!empty($db->getAllMeasure())){
+		// 			foreach ($db->getAllMeasure() as $rs){
+		// 				$opt[$rs["id"]] = $rs["name"];
+		// 			}
+		// 		}
+		// 		$parent->setMultiOptions($opt);
+	
+		$status = new Zend_Form_Element_Select("status");
+		$status->setAttribs(array(
+				'class'=>'form-control',
+				'required'=>'required'
+		));
+		$opt = array('1'=>$tr->translate("ACTIVE"),'0'=>$tr->translate("DEACTIVE"));
+		$status->setMultiOptions($opt);
+	
+		$remark = new Zend_Form_Element_Text('remark');
+		$remark->setAttribs(array(
+				'class'=>'form-control',
+		));
+	
+		if($data != null){
+			$name->setValue($data["title"]);
+			//$parent->setValue($data["parent_id"]);
+			$remark->setValue($data["description"]);
+			$status->setValue($data["status"]);
+		}
+			
+		$this->addElements(array($name,$status,$remark));
 		return $this;
 	}
 }
