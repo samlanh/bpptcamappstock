@@ -66,6 +66,8 @@
 	$url_measure  = array($this->url(array('module'=>'product','controller'=>'measure','action'=>'index'),null, true), "Measure");
 	$url_other  = array($this->url(array('module'=>'product','controller'=>'other','action'=>'index'),null, true), "Other");
 	$url_pricelevel = array($this->url(array('module'=>'product','controller'=>'pricelevel','action'=>'index'),null, true), "Price Level");
+	
+	$url_job  = array($this->url(array('module'=>'product','controller'=>'jobtype','action'=>'index'),null, true), "Type Job");
 	?>
 <style>
 		
@@ -168,6 +170,10 @@
 	            			<a href="<?php echo $url_measure[0]; ?>">
 							 <i class="icon-bulb"></i><?php echo $tr->translate($url_measure[1])?></a>
 	            		<li>
+	            		<li>
+	            			<a href="<?php echo $url_job[0]; ?>">
+							 <i class="icon-bulb"></i><?php echo $tr->translate($url_job[1])?></a>
+	            		<li>
 					</ul>
 				</li>
 				<?php }?>
@@ -244,7 +250,7 @@
 				<li>
 					<a href="javascript:;">
 					<i class="icon-screen-desktop"></i>
-					<span class="title"><?php echo ($tr->translate("SALES")); ?></span>
+					<span class="title"><?php echo ($tr->translate("SALE")); ?></span>
 					<span class="arrow "></span>
 					</a>
 					<ul class="sub-menu">
@@ -258,12 +264,12 @@
 	            			<i class="icon-arrow-right"></i><?php //echo $tr->translate($url_qoute_approved[1])?>
 	            	</a>
 	            	</li>-->
-					<!--
+				 
             		<li>
-            			<a href="<?php //echo $url_sales_add[0]; ?>">
-	            			<i class="icon-arrow-right"></i><?php //echo $tr->translate($url_sales_add[1])?>
+            			<a href="<?php echo $url_sales_add[0]; ?>">
+	            			<i class="icon-arrow-right"></i><?php echo $tr->translate($url_sales_add[1])?>
 	            		</a>
-            		</li>-->
+            		</li> 
             		<?php //if($result["level"]==3 ){ ?>
             		<!-- <li>
             			<a href="<?php echo  $url_return_in[0]; ?>">
@@ -303,11 +309,11 @@
 						    <i class="icon-arrow-right"></i><?php //echo $tr->translate($url_cust_list[1]);?>
 	            		</a>
             		</li> -->
-            		<!--  <li>
-            			<a href="<?php //echo $url_add_cust[0]; ?>">
-	            			<i class="icon-arrow-right"></i><?php //echo $tr->translate($url_add_cust[1])?>
+            		 <li>
+            			<a href="<?php echo $url_add_cust[0]; ?>">
+	            			<i class="icon-arrow-right"></i><?php echo $tr->translate($url_add_cust[1])?>
 	            		</a>
-            		</li>-->
+            		</li>
 					</ul>
 				</li>
 				<?php }?>
