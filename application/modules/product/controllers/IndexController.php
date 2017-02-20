@@ -22,6 +22,7 @@ public function init()
     		$data = $this->getRequest()->getPost();
     	}else{
     		$data = array(
+    		   // 'txt_search'=>  '',
     			'ad_search'	=>	'',
     			'branch'	=>	'',
     			'brand'		=>	'',
@@ -99,6 +100,13 @@ public function init()
 			$frmOther = $fmOther->add();
 			Application_Model_Decorator::removeAllDecorator($frmOther);
 			$this->view->frmOther = $frmOther;
+			
+			// item option in select
+			$items = new Application_Model_GlobalClass();
+			$this->view->items = $items->getProductOption();
+			$this->view->items_leave = $items->getLeaveProductOption();
+			$this->view->jobtype=$items->getJobTypeOption();
+			
 			
 	}
 	public function editAction()

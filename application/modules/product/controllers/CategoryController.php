@@ -36,14 +36,17 @@ public function init()
 		Application_Model_Decorator::removeAllDecorator($formFilter);
 	}
 	public function addAction()
-	{
+	{$tr = Application_Form_FrmLanguages::getCurrentlanguage();
 		$session_stock = new Zend_Session_Namespace('stock');
 		if($this->getRequest()->isPost()) {
 			$data = $this->getRequest()->getPost();
 			$db = new Product_Model_DbTable_DbCategory();
 			$db->add($data);
-			if($data['saveclose']){
-				Application_Form_FrmMessage::Sucessfull("INSERT_SUCCESS", '/product/category/index');
+			if(isset($data['saveclose'])){
+				Application_Form_FrmMessage::Sucessfull($tr->translate('INSERT_SUCCESS'), '/product/category/index');
+			}
+		if(isset($data['btnsavenew'])){
+				Application_Form_FrmMessage::Sucessfull($tr->translate('INSERT_SUCCESS'), '/product/category/add');
 			}
 		}
 		$formFilter = new Product_Form_FrmCategory();

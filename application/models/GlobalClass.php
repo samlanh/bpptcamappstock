@@ -342,6 +342,7 @@ class Application_Model_GlobalClass  extends Zend_Db_Table_Abstract
 	
 	///leave product in stock 
 	public function getLeaveProductOption(){
+	    $tr = Application_Form_FrmLanguages::getCurrentlanguage();
 		$db = $this->getAdapter();
 		$user_info = new Application_Model_DbTable_DbGetUserInfo();
 		$result = $user_info->getUserInfo();
@@ -352,7 +353,7 @@ class Application_Model_GlobalClass  extends Zend_Db_Table_Abstract
 		$result = $user_info->getUserInfo();
 		$option="";
 		if($result["level"]==1 OR $result["level"]==2){
-			$option .= '<option value="-1">Please Select Product</option>';
+			$option .= '<option value="-1">'.$tr->translate("PLEASE_SELECT_PRODUCT").'</option>';
 		}
 		foreach($row_cate as $cate){
 			$option .= '<optgroup  label="'.htmlspecialchars($cate['name'], ENT_QUOTES).'">';

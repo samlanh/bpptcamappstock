@@ -75,6 +75,8 @@ class Sales_IndexController extends Zend_Controller_Action
 		// item option in select
 		$items = new Application_Model_GlobalClass();
 		$this->view->items = $items->getProductOption();
+		$this->view->items_leave = $items->getLeaveProductOption();
+		$this->view->jobtype=$items->getJobTypeOption();
 		$this->view->term_opt = $db->getAllTermCondition(1);
 		
 		$formpopup = new Sales_Form_FrmCustomer(null);
@@ -119,6 +121,8 @@ class Sales_IndexController extends Zend_Controller_Action
 		// item option in select
 		$items = new Application_Model_GlobalClass();
 		$this->view->items = $items->getProductOption();
+		$this->view->items_leave = $items->getLeaveProductOption();
+		$this->view->jobtype=$items->getJobTypeOption();
 		$this->view->term_opt = $db->getAllTermCondition(1);
 	}	
 	function viewappAction(){

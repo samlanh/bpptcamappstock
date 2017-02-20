@@ -112,7 +112,8 @@ class Product_Model_DbTable_DbProduct extends Zend_Db_Table_Abstract
   	$where = '';
   	if($data["ad_search"]!=""){
   	    $where.=' AND  p.`id`='.$data["ad_search"];
-  	    //$where.=' AND p.`id`='.$data["p.item_name"];
+  	} 
+  //	if($data["txt_search"]!=""){
   	//$s_where=array();
   		//$s_search = addslashes(trim($data['ad_search']));
   		//$s_where[]= " p.item_name LIKE '%{$s_search}%'";
@@ -121,7 +122,7 @@ class Product_Model_DbTable_DbProduct extends Zend_Db_Table_Abstract
   		//$s_where[]= " p.serial_number LIKE '%{$s_search}%'";
   		//$s_where[]= " cate LIKE '%{$s_search}%'";
   		//$where.=' AND ('.implode(' OR ', $s_where).')';
-  	}
+  	//}
   	if($data["branch"]!=""){
   		$where.=' AND pl.`location_id`='.$data["branch"];
   	}
