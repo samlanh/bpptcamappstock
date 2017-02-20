@@ -23,7 +23,7 @@ class Purchase_RequestproductController extends Zend_Controller_Action
 					'purchase_status'=>0,
 					);
 		}
-		$db = new Purchase_Model_DbTable_DbPurchaseOrder();
+		$db = new Purchase_Model_DbTable_DbRequestProductOrder();
 		$rows = $db->getAllPurchaseOrder($search);
 		$list = new Application_Form_Frmlist();
 		$columns=array("BRANCH_NAME","VENDOR_NAME","PURCHASE_ORDER","ORDER_DATE","DATE_IN",
@@ -42,14 +42,18 @@ class Purchase_RequestproductController extends Zend_Controller_Action
 		if($this->getRequest()->isPost()) {
 			$data = $this->getRequest()->getPost();
 			try {
-			$db = new Purchase_Model_DbTable_DbPurchaseOrder();
-			 if(!empty($data['identity'])){
-				$db->addPurchaseOrder($data);
-			 }
-			Application_Form_FrmMessage::message("Purchase has been Saved!");
-				if(!empty($data['btnsavenew'])){
+			$db = new Purchase_Model_DbTable_DbRequestProductOrder();
+			
+			    if(isset($data['btnsave_close'])){
+			    	$db->addPurchaseOrder($data);
+			    	Application_Form_FrmMessage::message("Purchase has been Saved!");
 					Application_Form_FrmMessage::redirectUrl("/purchase/index");
 				}
+				if(isset($data['btnsavenew'])){
+					$db->addPurchaseOrder($data);
+					Application_Form_FrmMessage::message("Purchase has been Saved!");
+					Application_Form_FrmMessage::redirectUrl("/purchase/index/add");
+				} 
 			}catch (Exception $e){
 				Application_Form_FrmMessage::message('INSERT_FAIL');
 				$err =$e->getMessage();
@@ -57,7 +61,7 @@ class Purchase_RequestproductController extends Zend_Controller_Action
 			}
 		}
 		///link left not yet get from DbpurchaseOrder 	
-		$frm_purchase = new Purchase_Form_FrmRequest(null);
+		$frm_purchase = new Application_Form_purchase(null);
 		$form_add_purchase = $frm_purchase->productOrder();
 		Application_Model_Decorator::removeAllDecorator($form_add_purchase);
 		$this->view->form_purchase = $form_add_purchase;
@@ -66,6 +70,7 @@ class Purchase_RequestproductController extends Zend_Controller_Action
 		$items = new Application_Model_GlobalClass();
 		$this->view->items = $items->getProductOption();
 		$this->view->items_leave = $items->getLeaveProductOption();
+		$this->view->jobtype=$items->getJobTypeOption();
 		
 		$formProduct = new Product_Form_FrmProduct();
 		$formStockAdd = $formProduct->add(null);
@@ -77,11 +82,7 @@ class Purchase_RequestproductController extends Zend_Controller_Action
 		$formStockAdd = $formpopup->popupVendor(null);
 		Application_Model_Decorator::removeAllDecorator($formStockAdd);
 		$this->view->form_vendor = $formStockAdd;
-		
-		//for add location
-// 		$formAdd = $formpopup->popuLocation(null);
-// 		Application_Model_Decorator::removeAllDecorator($formAdd);
-// 		$this->view->form_branch = $formAdd;	
+	 	
 	}
 	public function editAction(){
 		$db = new Application_Model_DbTable_DbGlobal();

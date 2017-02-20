@@ -808,6 +808,29 @@ class Purchase_indexController extends Zend_Controller_Action
   		Application_Form_FrmMessage::messageError("INSERT_ERROR",$err = $e->getMessage());
   	}
   }
+  
+  public function getBlockBysiteAction(){
+  	if($this->getRequest()->isPost()){
+  		$post=$this->getRequest()->getPost();
+  		$db = new Purchase_Model_DbTable_DbPurchaseOrder();
+  		$qo = $db->getBlock($post['branch_id']);
+  		//print_r($qo);exit();
+  		echo Zend_Json::encode($qo);
+  		exit();
+  	}
+  }
+  
+  public function getBlockBysitesAction(){
+  	if($this->getRequest()->isPost()){
+  		$post=$this->getRequest()->getPost();
+  		$db = new Purchase_Model_DbTable_DbPurchaseOrder();
+  		$qo = $db->getBlock($post['branch_id']);
+  		//print_r($qo);exit();
+  		echo Zend_Json::encode($qo);
+  		exit();
+  	}
+  }
+  
 
 	
 }
