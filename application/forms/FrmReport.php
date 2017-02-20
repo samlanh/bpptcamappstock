@@ -218,6 +218,15 @@ class Application_Form_FrmReport extends Zend_Form
     	$nameElement->setValue($nameValue);
     	$this->addElement($nameElement);
     	
+    	$note = $request->getParam('note');
+    	$note = new Zend_Form_Element_Text('note');
+    	$note->setAttribs(array(
+    			'class'=>'form-control'
+    	));
+    	 
+    	$this->addElement($note);
+    	
+    	
     	$rs=$db->getGlobalDb('SELECT vendor_id, v_name FROM tb_vendor WHERE v_name!="" AND status=1 ');
     	$options=array($tr->translate('Choose Suppliyer'));
     	$vendorValue = $request->getParam('suppliyer_id');
@@ -286,6 +295,18 @@ class Application_Form_FrmReport extends Zend_Form
     	));
     	$location_id->setValue($locationValue);
     	$this->addElement($location_id);
+    	
+    	$app_status = $request->getParam('status_app');
+    	$opt=array(1=>$tr->translate('APPROVE'),2=>$tr->translate('REJECT'));
+    	$app_status=new Zend_Form_Element_Select('status_app');
+    	$app_status->setMultiOptions($opt);
+    	$app_status->setattribs(array(
+    			 
+    			'class'=>'form-control'
+    	));
+    	 
+    	$app_status->setValue($app_status);
+    	$this->addElement($app_status);
     	
     	
     	return $this;

@@ -68,7 +68,7 @@ class Application_Form_purchase extends Zend_Form
     	$options = $db->getAllLocation(1);
     	$locationID->setMultiOptions($options);
     	$locationID->setattribs(array(
-    			'Onchange'=>'AddLocation()',));
+    			'Onchange'=>'AddLocation();getBlockBysites();'));
     	$locationID->setValue($productValue);
     	$this->addElement($locationID);
 
@@ -301,7 +301,7 @@ class Application_Form_purchase extends Zend_Form
     	$locationID = new Zend_Form_Element_Select('LocationId');
     	$locationID->setAttribs(array(
     			'id'=>'LocationId',
-    			'Onchange'=>'AddLocation()',
+    			'Onchange'=>'AddLocation();getBlockBysite()',
     			'class'=>'validate[required]',
     			//validate[required]
     	 ));
@@ -594,7 +594,7 @@ class Application_Form_purchase extends Zend_Form
     	$options="";
     	$sql = "SELECT LocationId, Name FROM tb_sublocation WHERE Name!='' AND status = 1 ";
     	if($user["level"]==1 OR $user["level"]== 2){
-    		$options=array("1"=>$tr->translate("Please_Select"),"-1"=>$tr->translate("ADD_NEW_LOCATION"));
+    		$options=array("1"=>$tr->translate("Please_Select"),"-1"=>$tr->translate("ADD_NEW_LOCATIONS"));
     	}
     	else{
     		$sql.=" ANd LocationId = ".$user["location_id"];
@@ -606,7 +606,7 @@ class Application_Form_purchase extends Zend_Form
     	$locationID = new Zend_Form_Element_Select('LocationId');
     	$locationID->setAttribs(array(
     			'id'=>'LocationId',
-    			'Onchange'=>'AddLocation()',
+    			'Onchange'=>'AddLocation();getBlockBysites()',
     			'class'=>'validate[required]',
     			//validate[required]
     	));
