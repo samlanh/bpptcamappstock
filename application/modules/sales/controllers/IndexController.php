@@ -1,7 +1,5 @@
 <?php
-class Sales_IndexController extends Zend_Controller_Action
-{	
-	
+class Sales_IndexController extends Zend_Controller_Action{	
     public function init()
     {
     	defined('BASE_URL')	|| define('BASE_URL', Zend_Controller_Front::getInstance()->getBaseUrl());
@@ -66,19 +64,15 @@ class Sales_IndexController extends Zend_Controller_Action
 				Application_Model_DbTable_DbUserLog::writeMessageError($err);
 			}
 		}
-		///link left not yet get from DbpurchaseOrder
 		$frm_purchase = new Sales_Form_FrmSale(null);
 		$form_sale = $frm_purchase->SaleOrder(null);
 		Application_Model_Decorator::removeAllDecorator($form_sale);
 		$this->view->form_sale = $form_sale;
-		 
-		// item option in select
 		$items = new Application_Model_GlobalClass();
 		$this->view->items = $items->getProductOption();
 		$this->view->items_leave = $items->getLeaveProductOption();
 		$this->view->jobtype=$items->getJobTypeOption();
 		$this->view->term_opt = $db->getAllTermCondition(1);
-		
 		$formpopup = new Sales_Form_FrmCustomer(null);
 		$formpopup = $formpopup->Formcustomer(null);
 		Application_Model_Decorator::removeAllDecorator($formpopup);
@@ -153,6 +147,27 @@ class Sales_IndexController extends Zend_Controller_Action
 			$post=$this->getRequest()->getPost();
 			$db = new Application_Model_DbTable_DbGlobal();
 			$qo = $db->getSalesNumber($post['branch_id']);
+			echo Zend_Json::encode($qo);
+			exit();
+		}
+	}
+	public function getqtybyidAction(){
+  		$post=$this->getRequest()->getPost();
+  		$item_id = $post['item_id'];
+  		$branch_id = $post['branch_id'];
+  		$sql="  SELECT `qty_perunit`,
+						(SELECT qty FROM `tb_prolocation` WHERE location_id=$branch_id AND pro_id=$item_id LIMIT 1 ) AS qty 
+						FROM tb_product WHERE id= $item_id LIMIT 1  ";
+  		$db = new Application_Model_DbTable_DbGlobal();
+  		$row=$db->getGlobalDbRow($sql);
+  		echo Zend_Json::encode($row);
+  		exit();
+	}
+	public function getBlockBysitesAction(){
+		if($this->getRequest()->isPost()){
+			$post=$this->getRequest()->getPost();
+			$db = new Sales_Model_DbTable_DbSaleOrder();			
+			$qo = $db->getBlock($post['branch_id']);
 			echo Zend_Json::encode($qo);
 			exit();
 		}

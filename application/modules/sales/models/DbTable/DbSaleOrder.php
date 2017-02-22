@@ -2,10 +2,9 @@
 
 class Sales_Model_DbTable_DbSaleOrder extends Zend_Db_Table_Abstract
 {
-	//use for add purchase order 29-13
 	protected $_name="tb_sales_order";
 	function getAllSaleOrder($search){
-			$db= $this->getAdapter();/*(SELECT cust_name FROM `tb_customer` WHERE tb_customer.id=tb_sales_order.customer_id LIMIT 1 ) AS customer_name,*/
+			$db= $this->getAdapter();
 			$sql="  SELECT id,
 			(SELECT NAME FROM `tb_sublocation` WHERE tb_sublocation.id = branch_id AND STATUS=1 AND NAME!='' LIMIT 1) AS branch_name,
 			(SELECT NAME FROM `tb_sale_agent` WHERE tb_sale_agent.id =tb_sales_order.saleagent_id  LIMIT 1 ) AS staff_name,
@@ -53,21 +52,16 @@ class Sales_Model_DbTable_DbSaleOrder extends Zend_Db_Table_Abstract
 			$so = $dbc->getSalesNumber($data["branch_id"]);
 
 			$info_purchase_order=array(
-					//"customer_id"   => 	$data['customer_id'],
 					"branch_id"     => 	$data["branch_id"],
-					"sale_no"       => 	$so,//$data['txt_order'],
+					"sale_no"       => 	$so,
 					"date_sold"     => 	date("Y-m-d",strtotime($data['order_date'])),
 					"saleagent_id"  => 	$data['saleagent_id'],
-					//"payment_method" => $data['payment_name'],
 					"currency_id"    => $data['currency'],
 					"remark"         => 	$data['remark'],
 					"all_total"      => 	$data['totalAmoun'],
 					"discount_value" => 	$data['dis_value'],
 					"discount_type"  => 	$data['discount_type'],
 					"net_total"      => 	$data['all_total'],
-					//"paid"         => 	$data['paid'],
-					//"balance"      => 	$data['remain'],
-					//"tax"			 =>     $data["total_tax"],
 					"user_mod"       => 	$GetUserId,
 					'pending_status' =>2,
 					"date"      => 	date("Y-m-d"),
@@ -75,7 +69,6 @@ class Sales_Model_DbTable_DbSaleOrder extends Zend_Db_Table_Abstract
 			$this->_name="tb_sales_order";
 			$sale_id = $this->insert($info_purchase_order); 
 			unset($info_purchase_order);
-
 			$ids=explode(',',$data['identity']);
 			$locationid=$data['branch_id'];
 			foreach ($ids as $i)
@@ -88,31 +81,13 @@ class Sales_Model_DbTable_DbSaleOrder extends Zend_Db_Table_Abstract
 						'qty_order'	  => 	$data['qty'.$i],
 						'price'		  => 	$data['price'.$i]+$data['extra_price'.$i],
 						'old_price'   =>    $data['oldprice_'.$i],
-						//'extra_price' =>    $data['extra_price'.$i],
-						'disc_value'  =>    str_replace("%",'',$data['dis_value'.$i]),//check it
-						'disc_type'	  =>    $data['discount_type'.$i],//check it
+						'disc_value'  =>    str_replace("%",'',$data['dis_value'.$i]),
+						'disc_type'	  =>    $data['discount_type'.$i],
 						'sub_total'	  =>    $data['total'.$i],
 				);
 				$this->_name='tb_salesorder_item';
 				$this->insert($data_item);
-				
-				/*$rows=$db_global ->productLocationInventory($data['item_id_'.$i], $locationid);//check stock product location
-				
-				if($rows)
-				{
-						$datatostock   = array(
-								'qty'   		=> 		$rows["qty"]-$data['qty'.$i],
-								'last_mod_date'		=>	date("Y-m-d"),
-								'last_mod_userid'=>$GetUserId
-						);
-						$this->_name="tb_prolocation";
-						$where=" id = ".$rows['id'];
-						$this->update($datatostock, $where);
-					
-				}else{
-				}*/
 			 }
-			 
 			 $ids=explode(',',$data['identity_term']);
 			 if(!empty($data['identity_term'])){
 				 foreach ($ids as $i)
@@ -245,4 +220,12 @@ class Sales_Model_DbTable_DbSaleOrder extends Zend_Db_Table_Abstract
 		$sql=" SELECT * FROM `tb_quoatation_termcondition` WHERE quoation_id=$id AND term_type=2 ";
 		return $db->fetchAll($sql);
 	} 
+	public function getBlock($id){
+		$db=$this->getAdapter();
+		$sql=" SELECT id,block_name as name FROM tb_block WHERE AND branch_id=$id";
+		$rows=$db->fetchAll($sql);
+		if(empty($rows)){
+		}
+		return $rows;
+	}
 }
