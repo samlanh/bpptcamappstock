@@ -50,7 +50,6 @@ class Sales_Model_DbTable_DbSaleOrder extends Zend_Db_Table_Abstract
 			$GetUserId= $session_user->user_id;
 			$dbc=new Application_Model_DbTable_DbGlobal();
 			$so = $dbc->getSalesNumber($data["branch_id"]);
-
 			$info_purchase_order=array(
 					"branch_id"     => 	$data["branch_id"],
 					"sale_no"       => 	$so,

@@ -1,6 +1,6 @@
 <?php
 	$tr = Application_Form_FrmLanguages::getCurrentlanguage();
-	$this->headTitle('Expense Report'); 
+	$this->headTitle($tr->translate('GRAND_REPORT')); 
 	echo $this->headTitle();
 	
 	$session_user=new Zend_Session_Namespace('auth');
@@ -18,7 +18,7 @@
 		<div class="portlet box blue">
 			<div class="portlet-title">
 				<div class="caption">
-					<i class="fa fa-globe"></i><?php echo $tr->translate("EXPENS_REPORT");?>
+					<i class="fa fa-globe"></i><?php echo $tr->translate("GRAND_REPORT");?>
 				</div>
 					<div class="btn-group pull-right">
 							 <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true" aria-expanded="false">
@@ -42,6 +42,7 @@
 						<?php $formFilter = $this->formFilter; ?>
 						<label class="control-label col-md-2"><?php echo $formFilter->getElement('text_search');?></label>
 						<label class="control-label col-md-2"><?php echo $formFilter->getElement('branch_id');?></label>
+						<label class="control-label col-md-2"><?php echo $formFilter->getElement('title_in');?></label>
 						<label class="control-label col-md-2"><?php echo $formFilter->getElement('title');?></label>
 						<label class="control-label col-md-2"><div class="input-icon right"><i class="icon-calendar"></i><?php echo $formFilter->getElement('start_date');?></div></label>
 						<label class="control-label col-md-2"><div class="input-icon right"><i class="icon-calendar"></i><?php echo $formFilter->getElement('end_date');?></div></label>
@@ -57,7 +58,7 @@
 							<tr style="font-size: 13px;">
 								<td colspan="3" align="center">
 								    <strong style="font-weight:bold;font-family: Arial Black;color:#000; font-size: 16px;font-family:'Khmer MEF2';"><?php echo $tr->translate("BOREY_PHNOM_PENH_THMEY");?></strong><br />
-									<strong style="font-weight:bold;font-family: Arial Black;color:#000; font-size: 13px;font-family:'Khmer MEF2';"><?php echo $tr->translate("EXPENS_REPORT");?></strong><br />
+									<strong style="font-weight:bold;font-family: Arial Black;color:#000; font-size: 13px;font-family:'Khmer MEF2';"><?php echo $tr->translate("GRAND_REPORT");?></strong><br />
 									<!--  <strong style="font-weight:bold;font-family: Arial Black;color:#000; font-size: 13px;font-family:'Khmer MEF2';">For Date <?php //echo date("d-M-Y",strtotime($this->search["start_date"]))?> to <?php //echo date("d-M-Y",strtotime($this->search["end_date"]));?></strong>-->
 								</td>
 							</tr>
@@ -69,15 +70,74 @@
 								</td>
 								<td align="right" width="20%">&nbsp;</td>
 							</tr>
+							<tr><td>
+									<p style="font-weight:bold;font-family: Arial Black;color:#000; font-size: 13px;font-family:'Khmer MEF2';"><?php echo $tr->translate("INCOME");?></p>
+									</td></tr>
 							<?php 
 								$total_income_kh=0;
 								$total_income_dollar=0;
 								$total =0;
 								$total_paid =0;
+								$total_income=0;
+								//$total_expense_kh=0;
+								//$total_expense_dollar=0;
+							?>
+							<tr>
+									<td colspan="3">
+									<table border="1" style="border-collapse:collapse;border:1px solid #000; font-size:10px;" width="100%" cellspacing="0">
+		            					<tr style="font-size:11px; height: 20px;border: 1px solid #000;white-space: nowrap;background-color: #ccc;line-height:30px;font-weight: bold;" align="center" >
+											<td style="border: 1px solid #000;"><?php echo $tr->translate('NUM')?></td>
+											<td style="border: 1px solid #000;"><?php echo $tr->translate('BRANCH_NAME')?></td>
+											<td style="border: 1px solid #000;"><?php echo $tr->translate('INCOME_TITLE')?></td>
+											<td style="border: 1px solid #000;"><?php echo $tr->translate('NAME_ENTITLE')?></td>
+											<td style="border: 1px solid #000;"><?php echo $tr->translate('INVOICE_NO')?></td>
+											<td style="border: 1px solid #000;"><?php echo $tr->translate('TOTAL')?></td>
+											<td style="border: 1px solid #000;"><?php echo $tr->translate('Actual Payment Date')?></td>
+											<td style="border: 1px solid #000;"><?php echo $tr->translate('NOTE')?></td>
+											<td style="border: 1px solid #000;"><?php echo $tr->translate('USER')?></td>
+										</tr>
+										 
+										 <style> td{padding:0 3px; }</style>
+										 <?php //$income=$this->income;?>
+									<?php $i=0;foreach($this->income as $row){ $i++;?>
+										<tr class="hover" style="font-size:11px; height: 20px;border: 1px solid #000; white-space: nowrap;" align="center" >
+											<td style="border: 1px solid #000;"><?php echo $i;?></td>
+											<td style="border: 1px solid #000;"><?php echo $row['branch_name'];?></td>
+											<td style="border: 1px solid #000;text-align: left;"><?php echo $row['title'];?></td>
+											<td align="canter" style="border: 1px solid #000;"><?php echo $row['title_en'];?></td>
+											<td style="border: 1px solid #000;"><?php echo $row['invoice'];?></td>
+											<td style="border: 1px solid #000;background:#c6e2fb"><?php echo number_format($row['total_amount'],2);?><?php if($row['curr_type']==1){echo ' $';}else{echo ' រៀល​ ';}?></td>
+											<td style="border: 1px solid #000;"><?php echo date('d-M-Y',strtotime($row['for_date']));?></td>
+											<td style="border: 1px solid #000;"><?php echo $row['desc'];?></td>
+											<td style="border: 1px solid #000;font-size: 10px;"><?php echo $row['user_name'];?></td>
+										</tr>
+											<?php 
+// 												if($row['curr_type']==2){
+// 													$total_expense_kh = $total_expense_kh + $row['total_amount'];
+// 												}else{
+													$total_income_dollar = $total_income_dollar + $row['total_amount'];
+// 												}
+											?> 
+										 <?php } ?>
+										 <!-- <tr class="hover" style="font-size:11px; height: 20px;border: 1px solid #000;" align="center" >
+											<td style="border: 1px solid #fff;border-right: 1px solid #000;" colspan="7"></td>
+											<td style="border: 1px solid #000; white-space: nowrap;"><?php //echo $tr->translate("GRAND_TOTAL"); ?></td>
+											<td style="border: 1px solid #000;"><?php //echo number_format($total_expense_dollar,2);?></td>
+										</tr> -->
+										</table>
+										<tr><td><br></td></tr>
+									<tr><td >
+									<p style="font-weight:bold;font-family: Arial Black;color:#000; font-size: 13px;font-family:'Khmer MEF2';"><?php echo $tr->translate("EXPENSE");?></p>
+									</td></tr>
+									<!-- expense -->
+									<?php 
+								$total =0;
+								$total_expense=0;
+								//$total_paid =0;
 								$total_expense_kh=0;
 								$total_expense_dollar=0;
 							?>
-							<tr>
+									<tr>
 									<td colspan="3">
 									<table border="1" style="border-collapse:collapse;border:1px solid #000; font-size:10px;" width="100%" cellspacing="0">
 		            					<tr style="font-size:11px; height: 20px;border: 1px solid #000;white-space: nowrap;background-color: #ccc;line-height:30px;font-weight: bold;" align="center" >
@@ -93,6 +153,7 @@
 										</tr>
 										 
 										 <style> td{padding:0 3px; }</style>
+										 <?php //print_r($this->expense);exit();?>
 									<?php $i=0;foreach($this->expense as $row){ $i++;?>
 										<tr class="hover" style="font-size:11px; height: 20px;border: 1px solid #000; white-space: nowrap;" align="center" >
 											<td style="border: 1px solid #000;"><?php echo $i;?></td>
@@ -113,14 +174,34 @@
 // 												}
 											?> 
 										 <?php } ?>
-										 <tr class="hover" style="font-size:11px; height: 20px;border: 1px solid #000;" align="center" >
+										 <!--  <tr class="hover" style="font-size:11px; height: 20px;border: 1px solid #000;" align="center" >
 											<td style="border: 1px solid #fff;border-right: 1px solid #000;" colspan="7"></td>
-											<td style="border: 1px solid #000; white-space: nowrap;"><?php echo $tr->translate("GRAND_TOTAL"); ?></td>
-											<td style="border: 1px solid #000;"><?php echo number_format($total_expense_dollar,2);?></td>
-										</tr>
+											<td style="border: 1px solid #000; white-space: nowrap;"><?php //echo $tr->translate("GRAND_TOTAL"); ?></td>
+											<td style="border: 1px solid #000;"></td>
+										</tr>-->
 										</table>
 									</td>
-								</tr> <br>
+								</tr>
+								<tr><td><br><br></td></tr>
+									<!-- End Expense -->
+									<!-- Grand -->
+								<tr><td colspan="3">
+									<table border="1" style="border-collapse:collapse;border:1px solid #000; font-size:10px;" width="100%" cellspacing="0">
+									  	<tr style="font-size:13px; height: 20px;border: 1px solid #000;white-space: nowrap;background-color: #ccc;line-height:30px;font-weight: bold;" align="center" >
+											<td  style="border: 1px solid #000;"><?php echo $tr->translate('TOTAL_INCOME')?></td>
+											<td  style="border: 1px solid #000;"><?php echo $tr->translate('TOTAL_EXPENSE')?></td>
+											<td  style="border: 1px solid #000;"><?php echo $tr->translate('TOTAL_GRAND')?></td>
+											
+										</tr>
+										<tr class="hover" style="font-size:13px; height: 20px;border: 1px solid #000; white-space: nowrap;" align="center" >
+										    <td style="border: 1px solid #000;color:red;"><?php echo number_format($total_income_dollar,2)." $ ";?></td>
+										    <td style="border: 1px solid #000;color:red;"><?php echo number_format($total_expense_dollar,2)." $ ";?></td> 
+										     <td style="border: 1px solid #000;color:red;"><?php echo number_format(($total_income_dollar-$total_expense_dollar),2)." $ ";?></td>
+										</tr>
+									</table>	
+								</td></tr>	
+									<!-- End Grand -->
+								<tr><td><br><br></td></tr>
 								<tr >
 									<td align="center" width="25%">
 										<span style=" font-size: 14px;"><?php echo $tr->translate("VERIFIED_BY"); ?></span>

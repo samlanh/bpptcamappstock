@@ -762,6 +762,65 @@ class report_indexController extends Zend_Controller_Action
 		$this->view->formFilter = $formFilter;
 		Application_Model_Decorator::removeAllDecorator($formFilter);
     }
+    
+    public function rptIncomeAction(){
+        try{
+            if($this->getRequest()->isPost()){
+                $search=$this->getRequest()->getPost();
+                $search['start_date']=date("Y-m-d",strtotime($search['start_date']));
+                $search['end_date']=date("Y-m-d",strtotime($search['end_date']));
+            }
+            else{
+                $search = array(
+                    "text_search"=>'',
+                    "branch_id"=>-1,
+                    'title_id'=>-1,
+                    "status"=>-1,
+                    'start_date'=> date('Y-m-d'),
+                    'end_date'=>date('Y-m-d'),
+                );
+            }
+            $db = new report_Model_DbQuery();
+            $this->view->income = $db->getAllIncome($search);
+            $this->view->search = $search;
+    
+        }catch(Exception $e){
+            Application_Form_FrmMessage::message("Application Error");
+            Application_Model_DbTable_DbUserLog::writeMessageError($e->getMessage());
+        }
+        $formFilter = new Application_Form_Frmsearch();
+        $this->view->formFilter = $formFilter;
+        Application_Model_Decorator::removeAllDecorator($formFilter);
+    }
+public function rptGrandAction(){
+    try{
+        if($this->getRequest()->isPost()){
+            $search=$this->getRequest()->getPost();
+            $search['start_date']=date("Y-m-d",strtotime($search['start_date']));
+            $search['end_date']=date("Y-m-d",strtotime($search['end_date']));
+        }
+        else{
+            $search = array(
+                "text_search"=>'',
+                "branch_id"=>-1,
+                'title_id'=>-1,
+                "status"=>-1,
+                'start_date'=> date('Y-m-d'),
+                'end_date'=>date('Y-m-d'),
+            );
+        }
+            $db = new report_Model_DbQuery();
+            $this->view->income = $db->getAllIncome($search);
+            //$this->view->search = $search;
+            $db = new report_Model_DbQuery();
+            $this->view->expense = $db->getAllExpense($search);
+     }catch(Exception $e){
+            Application_Form_FrmMessage::message("Application Error");
+            Application_Model_DbTable_DbUserLog::writeMessageError($e->getMessage());
+        }
+        $formFilter = new Application_Form_Frmsearch();
+        $this->view->formFilter = $formFilter;
+    } 
 	public function rptTypeexpenseAction(){
     	try{
     		if($this->getRequest()->isPost()){

@@ -21,14 +21,14 @@
 					<?php $formList = new Application_Form_Frmlist(); //echo $formList->showAddBuntton($url_new);?>
 			</div>
 		</div>
-		<div class="portlet-body form">
+		<div class="portlet-body form" style="margin: 0 0px 0 10px;">
 			<form class="form-horizontal" method="post" action="" >
 				<div class="form-body">
 							<div class="form-group">
-								<!--  <label class="col-md-1 control-label"><?php //echo $tr->translate("ADVANCE_SEARCH");?></label>-->
-								<!--  <div class="col-md-3">
-									<?php //echo $formFilter->getElement('txt_search');?>
-								</div>-->
+								 <!--  <label class="col-md-1 control-label"><?php //echo $tr->translate("ADVANCE_SEARCH");?></label>-->
+								 <div class="col-md-3">
+									<?php echo $formFilter->getElement('txt_search');?>
+								</div>
 								<div class="col-md-3">
 									<?php echo $formFilter->getElement('ad_search');?>
 								</div>
@@ -40,12 +40,12 @@
 								<div class="col-md-3">
 									<?php echo $formFilter->getElement('brand');?>
 								</div>
-								<!--<label class="col-md-1 control-label"><?php echo $tr->translate("CATEGORY");?></label>-->
+							</div>
+							<div class="form-group">
+							    <!--<label class="col-md-1 control-label"><?php echo $tr->translate("CATEGORY");?></label>-->
 								<div class="col-md-3">
 									<?php echo $formFilter->getElement('category');?>
 								</div>
-							</div>
-							<div class="form-group">
 								<!--<label class="col-md-1 control-label"><?php echo $tr->translate("MODEL");?></label>-->
 								<div class="col-md-3">
 									<?php echo $formFilter->getElement('model');?>
@@ -58,17 +58,16 @@
 								<div class="col-md-3">
 									<?php echo $formFilter->getElement('color');?>
 								</div>
+								</div>
+								<div class="form-group">
 								<!--<label class="col-md-1 control-label"><?php echo $tr->translate("STATUS");?></label>-->
 								<div class="col-md-3">
 									<?php echo $formFilter->getElement('status');?>
 								</div>
-							</div>		
-							
-						<div class="form-group">
-						<label class="control-label col-md-3 pull-right">
-							<button class="btn btn-primary col-md-12" value="" ><i class="fa fa-save"></i>&nbsp;<?php echo $tr->translate("REFRESH");?></button>
-						</label>
-					</div>
+								<label class="control-label col-md-3 pull-right">
+									<button class="btn btn-primary col-md-12" value="" ><i class="fa fa-save"></i>&nbsp;<?php echo $tr->translate("REFRESH");?></button>
+								</label>
+							</div>
 				</div>
 			</form>
 			

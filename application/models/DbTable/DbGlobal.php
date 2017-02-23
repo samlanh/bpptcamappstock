@@ -569,7 +569,7 @@ class Application_Model_DbTable_DbGlobal extends Zend_Db_Table_Abstract
    }
    function getAllCurrency($opt=null){
    	$db=$this->getAdapter();
-   	$sql=" SELECT id, description,symbal FROM tb_currency WHERE status = 1 ";
+   	$sql=" SELECT id, description,symbal FROM tb_currency WHERE status = 1 AND  id=1";
    	$row =  $db->fetchAll($sql);
    	if($opt==null){
    		return $row;
@@ -604,16 +604,30 @@ class Application_Model_DbTable_DbGlobal extends Zend_Db_Table_Abstract
    	}
    }
     function getAllExpense($opt=null){
-   	$db=$this->getAdapter();
-   	$sql=" SELECT * FROM tb_expensetitle where status=1 and title!='' ";
-   	$row =  $db->fetchAll($sql);
-   	if($opt==null){
-   		return $row;
-   	}else{
-   		$options=array(0=>"Select Expense",-1=>"Add New Expense Title");
-   		if(!empty($row)) foreach($row as $read) $options[$read['id']]=$read['title'];
-   		return $options;
-   	}
+        $tr = Application_Form_FrmLanguages::getCurrentlanguage();
+       	$db=$this->getAdapter();
+       	$sql=" SELECT * FROM tb_expensetitle where status=1 and title!='' and parent_id_title=0";
+       	$row =  $db->fetchAll($sql);
+       	if($opt==null){
+       		return $row;
+       	}else{
+       		$options=array(0=>$tr->translate("SELECT_EXPENSE"),-1=>$tr->translate("ADD_NEW_EXPENSE"));
+       		if(!empty($row)) foreach($row as $read) $options[$read['id']]=$read['title'];
+       		return $options;
+       	}
+   }
+   function getAllincome($opt=null){
+       $tr = Application_Form_FrmLanguages::getCurrentlanguage();
+      	$db=$this->getAdapter();
+      	$sql=" SELECT * FROM tb_expensetitle where status=1 and title!='' and parent_id_title=1 ";
+      	$row =  $db->fetchAll($sql);
+      	if($opt==null){
+      	    return $row;
+      	}else{
+      	    $options=array(0=>$tr->translate("SELECT_INCOME"),-1=>$tr->translate("ADD_NEW_INCOME"));
+      	    if(!empty($row)) foreach($row as $read) $options[$read['id']]=$read['title'];
+      	    return $options;
+      	}
    }
    public function getReceiptNumber($branch_id = 1){
     	$this->_name='tb_receipt';

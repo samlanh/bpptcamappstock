@@ -237,10 +237,10 @@ class Product_Form_FrmProduct extends Zend_Form
 		$tr = Application_Form_FrmLanguages::getCurrentlanguage();
 		$request=Zend_Controller_Front::getInstance()->getRequest();
 		$db = new Product_Model_DbTable_DbProduct();
-		///$txt_search = new Zend_Form_Element_Text("txt_search");
-		///$txt_search->setAttribs(array(
-		///		'class'=>'form-control',
-		///));
+		$txt_search = new Zend_Form_Element_Text("txt_search");
+		$txt_search->setAttribs(array(
+				'class'=>'form-control',
+		));
 		$ad_search = new Zend_Form_Element_Select("ad_search");
 		$opt_product=array(''=>$tr->translate("SELECT_PRODUCT"));
 		$ad_search->setValue($request->getParam("ad_search"));
@@ -349,7 +349,7 @@ class Product_Form_FrmProduct extends Zend_Form
 		$size->setMultiOptions($opt);
 		$size->setValue($request->getParam("size"));
 		
-		$this->addElements(array($ad_search,$branch,$brand,$model,$category,$color,$size,$status));
+		$this->addElements(array($txt_search,$ad_search,$branch,$brand,$model,$category,$color,$size,$status));
 		return $this;
 	}
 }

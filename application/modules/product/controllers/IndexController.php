@@ -22,7 +22,7 @@ public function init()
     		$data = $this->getRequest()->getPost();
     	}else{
     		$data = array(
-    		   // 'txt_search'=>  '',
+    		    'txt_search'=>  '',
     			'ad_search'	=>	'',
     			'branch'	=>	'',
     			'brand'		=>	'',

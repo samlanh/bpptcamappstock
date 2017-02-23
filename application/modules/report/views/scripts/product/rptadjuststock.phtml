@@ -3,26 +3,26 @@ $tr=Application_Form_FrmLanguages::getCurrentlanguage();
 $brach_name =  $this->branch;
 $formFilter = $this->formFilter;
 ?>
-<title>Product List Report</title>
+<title><?php echo $tr->translate("ADJUSTSTOCK_REPORT");?></title>
 <div class="row">
 	<div class="col-md-12">
 		<div class="portlet box blue">
 			<div class="portlet-title">
 				<div class="caption">
-					<i class="fa fa-globe"></i><?php echo $tr->translate("PRODUCT_REPORT");?>
+					<i class="fa fa-globe"></i><?php echo $tr->translate("ADJUSTSTOCK_REPORT");?>
 				</div>
 						<div class="btn-group pull-right">
 							 <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true" aria-expanded="false">
-							   Actions <i class="fa fa-angle-down"></i>
+							   <?php echo $tr->translate("ACTION");?> <i class="fa fa-angle-down"></i>
 							 </button>
 								<ul class="dropdown-menu" role="menu">
 									<li>
 										<a href="#" onclick="doPrint();">
-											<i class="fa fa-print" aria-hidden="true"></i>&nbsp;&nbsp;Print
+											<i class="fa fa-print" aria-hidden="true"></i>&nbsp;&nbsp;<?php echo $tr->translate("PRINT");?>
 										</a>
 									</li>
 									<li>
-										<a href="javascript:;"><i class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;&nbsp;Export Excel </a>
+										<a href="javascript:;"><i class="fa fa-file-excel-o" aria-hidden="true"></i>&nbsp;&nbsp;<?php echo $tr->translate("REPORT_EXCEL");?> </a>
 									</li>
 									
 								</ul>
@@ -84,8 +84,8 @@ $formFilter = $this->formFilter;
 		                	<td width="20%" valign="top"><img src="<?php echo $this->baseUrl();?>/images/logo.jpg" height="55px"></td>
 		                	<td width="60%" valign="top">
 		                		<ul>
-		                			<li style="text-align:center; font-size:16px; font-family:'Khmer MEF2'">សូរ៉ា ហាងលក់សម្ភារៈអគ្គិសនី</li>
-		                			<li style="text-align:center; font-size:13px; font-family:'Khmer MEF2'">របាយការណ៏ បញ្ជីកែប្រែចំនួនផលិតផលក្នុងស្តុក</li>
+		                			<li style="text-align:center; font-size:16px; font-family:'Khmer MEF2'"><?php echo $tr->translate("BOREY_PHNOM_PENH_THMEY");?></li>
+		                			<li style="text-align:center; font-size:13px; font-family:'Khmer MEF2'"><?php echo $tr->translate("REPORT_LIST_ADJUST_QTY_IN_STOCK");?></li>
 		                			<!-- <li style="text-align:center; font-size:13px;"><?php //echo date("d/m/Y",strtotime($this->rssearch['start_date']));?> ដល់ <?php //echo date("d/m/Y",strtotime($this->rssearch['end_date']));?></li> -->
 		                		</ul>
 		                	</td>

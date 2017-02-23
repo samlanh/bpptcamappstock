@@ -449,12 +449,11 @@ class Purchase_Model_DbTable_DbPurchaseOrder extends Zend_Db_Table_Abstract
 		return $row;
 	}
 	
-	function getBlock($id){
+	public function getBlock($id){
 		$db=$this->getAdapter();
 		$sql=" SELECT id,block_name as name FROM tb_block WHERE  STATUS=1 AND branch_id=$id";
 		$rows=$db->fetchAll($sql);
 		if(empty($rows)){
-			//$rows='no block';
 		}
 		return $rows;
 	}

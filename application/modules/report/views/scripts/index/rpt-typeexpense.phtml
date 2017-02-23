@@ -11,21 +11,22 @@
 <style>
 .hover:hover{ background: #ddd;}
 </style>
+<title><?php echo $tr->translate("TYPE_EXPENS_REPORT");?></title>
 <div class="row">
 	<div class="col-md-12">
 		<div class="portlet box blue">
 			<div class="portlet-title">
 				<div class="caption">
-					<i class="fa fa-globe"></i><?php echo $tr->translate("Expense Report");?>
+					<i class="fa fa-globe"></i><?php echo $tr->translate("TYPE_EXPENS_REPORT");?>
 				</div>
 					<div class="btn-group pull-right">
 							 <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="1000" data-close-others="true" aria-expanded="false">
-							   Actions <i class="fa fa-angle-down"></i>
+							   <?php echo $tr->translate("ACTION");?> <i class="fa fa-angle-down"></i>
 							 </button>
 								<ul class="dropdown-menu" role="menu">
 									<li>
 										<a href="#" onclick="doPrint();">
-											<i class="fa fa-print" aria-hidden="true"></i>&nbsp;&nbsp;Print
+											<i class="fa fa-print" aria-hidden="true"></i>&nbsp;&nbsp;<?php echo $tr->translate("PRINT");?>
 										</a>
 									</li>
 								</ul>
@@ -51,8 +52,9 @@
 			<table style="background:#fff; margin: 0 auto; width: 100%; padding: 0px 10px 1cm 10px;font-family: 'Hanuman';">
 							<tr style="font-size: 13px;">
 								<td colspan="3" align="center">
-									<strong style="font-weight:bold;font-family: Arial Black;color:#000; font-size: 13px;font-family:'Khmer MEF2';">របាយការណ៏ចំណាយ-Expense Report</strong><br />
-									<strong style="font-weight:bold;font-family: Arial Black;color:#000; font-size: 13px;font-family:'Khmer MEF2';">For Date <?php echo date("d-M-Y",strtotime($this->search["start_date"]))?> to <?php echo date("d-M-Y",strtotime($this->search["end_date"]));?></strong>
+								 <strong style="font-weight:bold;font-family: Arial Black;color:#000; font-size: 16px;font-family:'Khmer MEF2';"><?php echo $tr->translate("BOREY_PHNOM_PENH_THMEY");?></strong><br />
+									<strong style="font-weight:bold;font-family: Arial Black;color:#000; font-size: 13px;font-family:'Khmer MEF2';"><?php echo $tr->translate("TYPE_EXPENS_REPORT");?></strong><br />
+									<!--  <strong style="font-weight:bold;font-family: Arial Black;color:#000; font-size: 13px;font-family:'Khmer MEF2';">For Date <?php //echo date("d-M-Y",strtotime($this->search["start_date"]))?> to <?php //echo date("d-M-Y",strtotime($this->search["end_date"]));?></strong>-->
 								</td>
 							</tr>
 							<tr>
@@ -101,7 +103,7 @@
 										 <?php } ?>
 										 <tr class="hover" style="font-size:11px; height: 30px;border: 1px solid #000;" align="center" >
 											<td style="border: 1px solid #fff;border-right: 1px solid #000;" colspan="3"></td>
-											<td style="border: 1px solid #000;white-space: nowrap;">សរុបរួម/Grand Total</td>
+											<td style="border: 1px solid #000;white-space: nowrap;"><?php echo $tr->translate("GRAND_TOTAL"); ?></td>
 											<td style="border: 1px solid #000;"><?php echo  number_format($total_expense_dollar,2);?></td>
 										</tr>
 										</table>

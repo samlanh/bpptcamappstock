@@ -244,11 +244,17 @@
 		            			<i class="icon-arrow-right"></i><?php echo $tr->translate("EXPENSE_LIST");?>
 		            		</a>
 	            		</li> 
-							<li>
+						<li>
 	            			<a href="<?php echo $this->url(array('module'=>'purchase','controller'=>'expensetitle','action'=>'index'),null, true); ?>">
 		            			<i class="icon-arrow-right"></i><?php echo $tr->translate("EXPENSE_TITLE");?>
 		            		</a>
 	            		</li> 
+	            		<li>
+	            			<a href="<?php echo $this->url(array('module'=>'purchase','controller'=>'otherincome','action'=>'index'),null, true); ?>">
+		            			<i class="icon-arrow-right"></i><?php echo $tr->translate("OTHERINCOME");?>
+		            		</a>
+	            		</li> 
+	            		
 	            		<?php //}?>
 					</ul>
 				</li>

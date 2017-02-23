@@ -94,7 +94,16 @@ class Application_Form_Frmsearch extends Zend_Form
 		$title->setValue($valuetitle);
 		$this->addElement($title);
 		
+		$optincome=$db->getAllincome(1);
+		$title_in = new Zend_Form_Element_Select('title_in');
+		$title_in->setAttribs(array(
+				'class'=>' form-control select2me',
+				'onchange'=>'showincome();'
+		));
+		$title_in->setMultiOptions($optincome);
+		$valuetitle_in=$request->getParam('title');
+		$title_in->setValue($valuetitle_in);
+		$this->addElement($title_in);
 	}
-	
 }
 

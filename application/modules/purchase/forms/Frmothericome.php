@@ -1,18 +1,18 @@
 <?php 
-Class Purchase_Form_Frmexpense extends Zend_Form {
+Class Purchase_Form_Frmothericome extends Zend_Form {
 	protected $tr;
 	public function init()
 	{
 		$this->tr = Application_Form_FrmLanguages::getCurrentlanguage();
 	}
-	public function FrmAddExpense($data=null){
+	public function FrmAddincome($data=null){
 		
 		$db = new Application_Model_DbTable_DbGlobal();
-		$optexpense = $db->getAllExpense(1);
+		$optexpense = $db->getAllincome(1);
 		$title = new Zend_Form_Element_Select('title');
 		$title->setAttribs(array(
 				'class'=>' form-control select2me',
-				'onchange'=>'showexpense();'
+				'onchange'=>'showincome();'
 				));
 		$title->setMultiOptions($optexpense);
 		

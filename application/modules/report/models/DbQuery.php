@@ -833,8 +833,8 @@ Class report_Model_DbQuery extends Zend_Db_Table_Abstract{
 	function getAllExpense($search){
 		$db=$this->getAdapter();
 		$sql = "SELECT e.*,
-		(SELECT tb_expensetitle.title_en FROM `tb_expensetitle` WHERE tb_expensetitle.id=e.title LIMIT 1) as title_en,
-		(SELECT tb_expensetitle.title FROM `tb_expensetitle` WHERE tb_expensetitle.id=e.title LIMIT 1) as title,
+		(SELECT tb_expensetitle.title_en FROM `tb_expensetitle` WHERE tb_expensetitle.id=e.title_id LIMIT 1) as title_en,
+		(SELECT tb_expensetitle.title FROM `tb_expensetitle` WHERE tb_expensetitle.id=e.title_id LIMIT 1) as title,
 		(SELECT name FROM `tb_sublocation` WHERE id=e.branch_id LIMIT 1) AS branch_name,
 		(SELECT description FROM tb_currency WHERE tb_currency.id=e.curr_type) AS curr_name,
 		(SELECT fullname FROM `tb_acl_user` AS u WHERE u.user_id = e.user_id)  AS user_name
@@ -862,12 +862,54 @@ Class report_Model_DbQuery extends Zend_Db_Table_Abstract{
 		if(!empty($search['text_search'])){
 			$s_where = array();
 			$s_search = addslashes(trim($search['text_search']));
-			$s_where[] = " e.title LIKE '%{$s_search}%'";
+			$s_where[] = " e.title_id LIKE '%{$s_search}%'";
 			$s_where[] = " e.desc LIKE '%{$s_search}%'";
 			$s_where[] = " e.invoice LIKE '%{$s_search}%'";
+			$s_where[] = " e.total_amount LIKE '%{$s_search}%'";
 			$where .=' AND ( '.implode(' OR ',$s_where).')';
 		}
 		return $db->fetchAll($sql.$where.$order);
+	}
+	
+	function getAllIncome($search){
+	    $db=$this->getAdapter();
+	    $sql = "SELECT i.*,
+       (SELECT tb_expensetitle.title_en FROM `tb_expensetitle` WHERE tb_expensetitle.id=i.title_id  LIMIT 1) AS title_en,
+	(SELECT tb_expensetitle.title FROM `tb_expensetitle` WHERE tb_expensetitle.id=i.title_id  LIMIT 1) AS title,
+	(SELECT NAME FROM `tb_sublocation` WHERE id=i.branch_id LIMIT 1) AS branch_name,
+		(SELECT description FROM tb_currency WHERE tb_currency.id=i.curr_type) AS curr_name,
+		(SELECT fullname FROM `tb_acl_user` AS u WHERE u.user_id = i.user_id)  AS user_name
+		FROM tb_income AS i  WHERE i.status=1  ";
+	    $where= ' ';
+	    $order=" ORDER BY i.for_date DESC  ";
+	    	
+	    $from_date =(empty($search['start_date']))? '1': " i.for_date >= '".$search['start_date']." 00:00:00'";
+	    $to_date = (empty($search['end_date']))? '1': " i.for_date <= '".$search['end_date']." 23:59:59'";
+	    $where .= "  AND ".$from_date." AND ".$to_date;
+	    	
+	    if(empty($search)){
+	        return $db->fetchAll($sql.$order);
+	    }
+	    if(!empty($search['user'])){
+	        $where.=" AND i.user_id = ".$search['user'] ;
+	    }
+	    if($search['branch_id']>-1){
+	        $where.= " AND i.branch_id = ".$search['branch_id'];
+	    }
+	    if($search['title_in']>0){
+	        $where.= " AND i.title_id = ".$search['title_in'];
+	    }
+	    	
+	    if(!empty($search['text_search'])){
+	        $s_where = array();
+	        $s_search = addslashes(trim($search['text_search']));
+	        $s_where[] = " i.title_id LIKE '%{$s_search}%'";
+	        $s_where[] = " i.desc LIKE '%{$s_search}%'";
+	        $s_where[] = " i.invoice LIKE '%{$s_search}%'";
+	        $s_where[] = " i.total_amount LIKE '%{$s_search}%'";
+	        $where .=' AND ( '.implode(' OR ',$s_where).')';
+	    }
+	    return $db->fetchAll($sql.$where.$order);
 	}
 	function getAllExpenseType($search){
 		$db=$this->getAdapter();

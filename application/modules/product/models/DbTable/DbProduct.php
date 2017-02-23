@@ -110,19 +110,19 @@ class Product_Model_DbTable_DbProduct extends Zend_Db_Table_Abstract
 			  `tb_prolocation` AS pl
 			WHERE p.`id`=pl.`pro_id`";
   	$where = '';
+  if($data["txt_search"]!=""){
+  		$s_where=array();
+  		$s_search = addslashes(trim($data['txt_search']));
+  		$s_where[]= " p.item_name LIKE '%{$s_search}%'";
+  		$s_where[]=" p.barcode LIKE '%{$s_search}%'";
+  		$s_where[]= " p.item_code LIKE '%{$s_search}%'";
+  		$s_where[]= " p.serial_number LIKE '%{$s_search}%'";
+  		//$s_where[]= " cate LIKE '%{$s_search}%'";
+  		$where.=' AND ('.implode(' OR ', $s_where).')';
+  	}
   	if($data["ad_search"]!=""){
   	    $where.=' AND  p.`id`='.$data["ad_search"];
   	} 
-  //	if($data["txt_search"]!=""){
-  	//$s_where=array();
-  		//$s_search = addslashes(trim($data['ad_search']));
-  		//$s_where[]= " p.item_name LIKE '%{$s_search}%'";
-  		//$s_where[]=" p.barcode LIKE '%{$s_search}%'";
-  		//$s_where[]= " p.item_code LIKE '%{$s_search}%'";
-  		//$s_where[]= " p.serial_number LIKE '%{$s_search}%'";
-  		//$s_where[]= " cate LIKE '%{$s_search}%'";
-  		//$where.=' AND ('.implode(' OR ', $s_where).')';
-  	//}
   	if($data["branch"]!=""){
   		$where.=' AND pl.`location_id`='.$data["branch"];
   	}
@@ -176,15 +176,18 @@ class Product_Model_DbTable_DbProduct extends Zend_Db_Table_Abstract
 			  `tb_prolocation` AS pl
 			WHERE p.`id`=pl.`pro_id` AND pl.qty<=0";
   	$where = '';
-  	if($data["ad_search"]!=""){
+  	if($data["txt_search"]!=""){
   		$s_where=array();
-  		$s_search = addslashes(trim($data['ad_search']));
+  		$s_search = addslashes(trim($data['txt_search']));
   		$s_where[]= " p.item_name LIKE '%{$s_search}%'";
   		$s_where[]=" p.barcode LIKE '%{$s_search}%'";
   		$s_where[]= " p.item_code LIKE '%{$s_search}%'";
   		$s_where[]= " p.serial_number LIKE '%{$s_search}%'";
   		//$s_where[]= " cate LIKE '%{$s_search}%'";
   		$where.=' AND ('.implode(' OR ', $s_where).')';
+  	}
+  	if($data["ad_search"]!=""){
+  	    $where.=' AND  p.`id`='.$data["ad_search"];
   	}
   	if($data["branch"]!=""){
   		$where.=' AND pl.`location_id`='.$data["branch"];
@@ -243,15 +246,18 @@ class Product_Model_DbTable_DbProduct extends Zend_Db_Table_Abstract
 			  `tb_prolocation` AS pl
 			WHERE p.`id`=pl.`pro_id` AND (pl.`qty`>0 AND pl.qty<pl.qty_warning)";
   	$where = '';
-  	if($data["ad_search"]!=""){
+  	if($data["txt_search"]!=""){
   		$s_where=array();
-  		$s_search = addslashes(trim($data['ad_search']));
+  		$s_search = addslashes(trim($data['txt_search']));
   		$s_where[]= " p.item_name LIKE '%{$s_search}%'";
   		$s_where[]=" p.barcode LIKE '%{$s_search}%'";
   		$s_where[]= " p.item_code LIKE '%{$s_search}%'";
   		$s_where[]= " p.serial_number LIKE '%{$s_search}%'";
   		//$s_where[]= " cate LIKE '%{$s_search}%'";
   		$where.=' AND ('.implode(' OR ', $s_where).')';
+  	}
+  	if($data["ad_search"]!=""){
+  	    $where.=' AND  p.`id`='.$data["ad_search"];
   	}
   	if($data["branch"]!=""){
   		$where.=' AND pl.`location_id`='.$data["branch"];

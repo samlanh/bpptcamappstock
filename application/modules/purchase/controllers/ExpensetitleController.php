@@ -19,7 +19,7 @@ public function init()
 		$glClass = new Application_Model_GlobalClass();
 		$rows = $glClass->getImgStatus($rows, BASE_URL, true);
 		$list = new Application_Form_Frmlist();
-		$columns=array("TITLE","NAME_ENTITLE","STATUS");
+		$columns=array("CATEGORY","TITLE","NAME_ENTITLE","STATUS");
 		$link=array(
 				'module'=>'purchase','controller'=>'expensetitle','action'=>'edit',
 		);
@@ -70,7 +70,16 @@ public function init()
 		echo Zend_Json::encode($result);
 		exit();
 	}
-
+	function addajaxtitleincomeAction(){
+	    
+	    $post=$this->getRequest()->getPost();
+	    $db = new Purchase_Model_DbTable_Dbexpensetitle();
+	    $pid = $db->addajaxtitleincome($post);
+	    $result = array("id"=>$pid);
+	    echo Zend_Json::encode($result);
+	    exit();
+	   
+	}
 	
 }
 
