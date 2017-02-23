@@ -23,11 +23,11 @@ class Purchase_PurchaseapproveController extends Zend_Controller_Action
 					'purchase_status'=>0,
 					);
 		}
-		$db = new Purchase_Model_DbTable_DbRequestProductOrder();
+		$db = new Purchase_Model_DbTable_DbPurchaseApproveOrder();
 		$rows = $db->getAllPurchaseOrder($search);
 		$list = new Application_Form_Frmlist();
 		$columns=array("BRANCH_NAME","VENDOR_NAME","PURCHASE_ORDER","ORDER_DATE","DATE_IN",
-				 "CURRNECY_TYPE","TOTAL_AMOUNT","PAID","BALANCE","ORDER_STATUS","STATUS","BY_USER","CHECK");
+				 "CURRNECY_TYPE","TOTAL_AMOUNT","PAID","BALANCE","ORDER_STATUS","RECEIVE_STATUS","STATUS","BY_USER","CHECK");
 		$link=array(
 				'module'=>'purchase','controller'=>'purchaseapprove','action'=>'edit',
 		);
@@ -88,25 +88,56 @@ class Purchase_PurchaseapproveController extends Zend_Controller_Action
 	 	
 	}
 	public function editAction(){
+		
+		$id=$this->getRequest()->getParam('id');
+		$data_data=new Purchase_Model_DbTable_DbPurchaseApproveOrder();
+		$row=$data_data->getPurchaseById($id);
+		if($row['recieve_status']==1 || $row['recieve_status']==1 ){
+			Application_Form_FrmMessage::message("Can not edit !");
+			Application_Form_FrmMessage::redirectUrl("/purchase/purchaseapprove");
+		}
+		
 		if($this->getRequest()->isPost()){
 			$data = $this->getRequest()->getPost();
-			$data['start_date']=date("Y-m-d",strtotime($data['start_date']));
-			$data['end_date']=date("Y-m-d",strtotime($data['end_date']));
-		}else{
-			$data = array(
-					'text_search'=>'',
-					'start_date'=>date("Y-m-d"),
-					'end_date'=>date("Y-m-d"),
-					'suppliyer_id'=>0,
-					'branch_id'=>0,
-			);
+			$db=new Purchase_Model_DbTable_DbPurchaseApproveOrder();
+			$data['id']=$id;
+			if(isset($data['btnsaveclose'])){
+				$db->updatePurchaseOrder($data);
+				Application_Form_FrmMessage::message("Purchase has been Saved!");
+				Application_Form_FrmMessage::redirectUrl("/purchase/purchaseapprove");
+			}
+			
 		}
-		$this->view->rssearch = $data;
+		//$this->view->rssearch = $data;
+		
 		$query = new report_Model_DbQuery();
-		$this->view->repurchase =  $query->getAllPurchaseReport($data);
+		$this->view->product =  $query->getProductPruchaseById($id);
 		$frm = new Application_Form_FrmReport();
 		
-		$form_search=$frm->FrmReportPurchase($data);
+		$form_search=$frm->FrmReportPurchase($row);
+		Application_Model_Decorator::removeAllDecorator($form_search);
+		$this->view->form_purchase = $form_search;
+	}
+	
+	public function oldeditAction(){
+		$id=$this->getRequest()->getParam('id');
+		if($this->getRequest()->isPost()){
+			$data = $this->getRequest()->getPost();
+			$db=new Purchase_Model_DbTable_DbPurchaseApproveOrder();
+			$data['id']=$id;
+			if(isset($data['btnsaveclose'])){
+				$db->updatePurchaseOrder($data);
+				Application_Form_FrmMessage::message("Purchase has been Saved!");
+				Application_Form_FrmMessage::redirectUrl("/purchase/purchaseapprove");
+			}
+				
+		}
+		//$this->view->rssearch = $data;
+		$query = new report_Model_DbQuery();
+		$this->view->repurchase =  $query->getAllPurchaseReport();
+		$frm = new Application_Form_FrmReport();
+	
+		$form_search=$frm->FrmReportPurchase();
 		Application_Model_Decorator::removeAllDecorator($form_search);
 		$this->view->form_purchase = $form_search;
 	}

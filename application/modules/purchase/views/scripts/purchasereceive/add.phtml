@@ -1,8 +1,8 @@
 ﻿<?php 
 	$tr = Application_Form_FrmLanguages::getCurrentlanguage();
 	$form=$this->form_purchase;
-	$url_submit = $this->url(array('module'=>'purchase','controller'=>'requestproduct','action'=>'add'));
-	$url_cancel = $this->url(array('module'=>'purchase','controller'=>'requestproduct','action'=>'index'));
+	$url_submit = $this->url(array('module'=>'purchase','controller'=>'purchasereceive','action'=>'add'));
+	$url_cancel = $this->url(array('module'=>'purchase','controller'=>'purchasereceive','action'=>'index'));
 ?>
 <title><?php echo $tr->translate("ADD_PURCAHSE_ORDER");?></title>
 <div class="row">
@@ -431,12 +431,23 @@
 </div>
 <script>
 $('#frm').submit(function() {
+//aa = $("#frm").validationEngine();
+//alert(JSON.stringify(aa));
+//return false;
 	customer_id=$("#v_name").val();
 	if(customer_id=='' || customer_id==-1){
 		alert("Please select vendor name");
 		$('#v_name').select2('open');
 		return false;	
 	}
+	/*
+	identity =$("#leave_stock_identity").val();
+	if(identity=='' || identity==-1){
+		alert("Please add product row");
+		$('#add_item').select2('open');
+		return false;
+	} 
+	*/
 });
 </script>
 <?php $frm_product= $this->form;?>
@@ -739,6 +750,8 @@ function getBlockBysite(){
 						  	 $("#block_id_l_"+k).select2();
 					  }
 			 		}else{
+				 		
+			 			//$('option', '#block_id_'+k).append($("<option></option>").attr("value","").text(""));
 			 			$('option', '#block_id_l_'+k).remove();
 			 			$("#block_id_l_"+k).select2();
 			 		 	$('#block_id_l_'+k).append('<option value="-1">Add New Block</option>');

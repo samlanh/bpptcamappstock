@@ -1,5 +1,5 @@
 <?php
-class Purchase_RequestproductController extends Zend_Controller_Action
+class Purchase_PurchasereceiveController extends Zend_Controller_Action
 {	
     public function init()
     {
@@ -23,17 +23,17 @@ class Purchase_RequestproductController extends Zend_Controller_Action
 					'purchase_status'=>0,
 					);
 		}
-		$db = new Purchase_Model_DbTable_DbRequestProductOrder();
+		$db = new Purchase_Model_DbTable_DbPurchaseReceive();
 		$rows = $db->getAllPurchaseOrder($search);
 		$list = new Application_Form_Frmlist();
 		$columns=array("BRANCH_NAME","VENDOR_NAME","PURCHASE_ORDER","ORDER_DATE","DATE_IN",
 				 "CURRNECY_TYPE","IN_STOCK","LEAVE STOCK","TOTAL_AMOUNT","PAID","BALANCE","ORDER_STATUS","RECEIVE_STATUS","STATUS","BY_USER");
 		$link=array(
-				'module'=>'purchase','controller'=>'requestproduct','action'=>'edit',
+				'module'=>'purchase','controller'=>'purchasereceive','action'=>'edit',
 		);
 		
 		$this->view->list=$list->getCheckList(0, $columns, $rows, array('branch_name'=>$link,'date_order'=>$link,
-				                                                   'vendor_name'=>$link,'order_number'=>$link,));
+				                                                   'vendor_name'=>$link,'order_number'=>$link,'Receive'=>$link,));
 		$formFilter = new Application_Form_Frmsearch();
 		$this->view->formFilter = $formFilter;
 		Application_Model_Decorator::removeAllDecorator($formFilter);
@@ -43,17 +43,17 @@ class Purchase_RequestproductController extends Zend_Controller_Action
 		if($this->getRequest()->isPost()) {
 			$data = $this->getRequest()->getPost();
 			try {
-			$db = new Purchase_Model_DbTable_DbRequestProductOrder();
+			$db = new Purchase_Model_DbTable_DbPurchaseReceive();
 			
 			    if(isset($data['btnsave_close'])){
 			    	$db->addPurchaseOrder($data);
 			    	Application_Form_FrmMessage::message("Purchase has been Saved!");
-					Application_Form_FrmMessage::redirectUrl("/purchase/requestproduct");
+					Application_Form_FrmMessage::redirectUrl("/purchase/purchasereceive");
 				}
 				if(isset($data['btnsavenew'])){
 					$db->addPurchaseOrder($data);
 					Application_Form_FrmMessage::message("Purchase has been Saved!");
-					Application_Form_FrmMessage::redirectUrl("/purchase/requestproduct/add");
+					Application_Form_FrmMessage::redirectUrl("/purchase/purchasereceive/add");
 				} 
 			}catch (Exception $e){
 				Application_Form_FrmMessage::message('INSERT_FAIL');
@@ -62,7 +62,7 @@ class Purchase_RequestproductController extends Zend_Controller_Action
 			}
 		}
 		///link left not yet get from DbpurchaseOrder 	
-		$frm_purchase = new Application_Form_purchase(null);
+		$frm_purchase = new Purchase_Form_purchase(null);
 		$form_add_purchase = $frm_purchase->productOrder();
 		Application_Model_Decorator::removeAllDecorator($form_add_purchase);
 		$this->view->form_purchase = $form_add_purchase;
@@ -88,13 +88,13 @@ class Purchase_RequestproductController extends Zend_Controller_Action
 	public function editAction(){
 		
 		$id=$this->getRequest()->getParam('id');
-		$db = new Purchase_Model_DbTable_DbRequestProductOrder();
+		$db = new Purchase_Model_DbTable_DbPurchaseReceive();
 		$id = $this->getRequest()->getParam('id');
 		$row = $db->getPurchaseById($id);
-		if($row['purchase_status']==1 || $row['recieve_status']==1 ){
-			Application_Form_FrmMessage::message("Can not edit !");
-			Application_Form_FrmMessage::redirectUrl("/purchase/requestproduct");
-		}
+// 		if($row['purchase_status']==1 || $row['recieve_status']==1 ){
+// 			Application_Form_FrmMessage::message("Can not edit !");
+// 			Application_Form_FrmMessage::redirectUrl("/purchase/purchasereceive");
+// 		}
 		$this->view->rs_p_detail = $db->getPurchaseDetailById($id);
 		$this->view->rs_job_detail= $db->getPurchaseDetailJobTypById($id);
 		$this->view->rs_p = $row;
@@ -103,17 +103,17 @@ class Purchase_RequestproductController extends Zend_Controller_Action
 			$data = $this->getRequest()->getPost();
 			$data['id']=$id;
 			try {
-			$db = new Purchase_Model_DbTable_DbRequestProductOrder();
+			$db = new Purchase_Model_DbTable_DbPurchaseReceive();
 			
-			    if(isset($data['btnsave_close'])){
-			    	$db->updatePurchaseOrder($data);
+			    if(isset($data['btnsave_print'])){
+			    	$db->addPurchaseOrder($data);
 			    	Application_Form_FrmMessage::message("Purchase has been Saved!");
-					Application_Form_FrmMessage::redirectUrl("/purchase/requestproduct");
+					Application_Form_FrmMessage::redirectUrl("/purchase/purchasereceive");
 				}
 				if(isset($data['btnsavenew'])){
-					$db->updatePurchaseOrder($data);
+					$db->addPurchaseOrder($data);
 					Application_Form_FrmMessage::message("Purchase has been Saved!");
-					Application_Form_FrmMessage::redirectUrl("/purchase/requestproduct");
+					Application_Form_FrmMessage::redirectUrl("/purchase/purchasereceive");
 				} 
 			}catch (Exception $e){
 				Application_Form_FrmMessage::message('INSERT_FAIL');
@@ -122,7 +122,7 @@ class Purchase_RequestproductController extends Zend_Controller_Action
 			}
 		}
 		///link left not yet get from DbpurchaseOrder
-		$frm_purchase = new Application_Form_purchase(null);
+		$frm_purchase = new Purchase_Form_purchase(null);
 		$form_add_purchase = $frm_purchase->productOrder($row);
 		Application_Model_Decorator::removeAllDecorator($form_add_purchase);
 		$this->view->form_purchase = $form_add_purchase;
@@ -719,10 +719,10 @@ class Purchase_RequestproductController extends Zend_Controller_Action
   		$post=$this->getRequest()->getPost();
   		$item_id = $post['item_id'];
   		$branch_id = $post['branch_id'];
-  		$sql="  SELECT `qty_perunit`,
+  		$sql="  SELECT `qty_perunit`,unit_label,
 						(SELECT qty FROM `tb_prolocation` WHERE location_id=$branch_id AND pro_id=$item_id LIMIT 1 ) AS qty 
 						FROM tb_product WHERE id= $item_id LIMIT 1  ";
-  		//return $sql;
+  		return $sql;
   		//echo $sql;
   		$db = new Application_Model_DbTable_DbGlobal();
   		$row=$db->getGlobalDbRow($sql);
