@@ -205,7 +205,7 @@ class Application_Form_FrmReport extends Zend_Form
     	$this->addElements(array($txt_search,$startDate,$endDate,$location_id));
     	return $this;
     }
-    function FrmReportPurchase(){
+    function FrmReportPurchase($data=null){
     	$request=Zend_Controller_Front::getInstance()->getRequest();
     	$db=new Application_Model_DbTable_DbGlobal();
     	
@@ -219,9 +219,10 @@ class Application_Form_FrmReport extends Zend_Form
     	$this->addElement($nameElement);
     	
     	$note = $request->getParam('note');
-    	$note = new Zend_Form_Element_Text('note');
+    	$note = new Zend_Form_Element_Textarea('note');
     	$note->setAttribs(array(
-    			'class'=>'form-control'
+    			'class'=>'form-control',
+    			'style'=>'  height:60px;'
     	));
     	 
     	$this->addElement($note);
@@ -296,18 +297,23 @@ class Application_Form_FrmReport extends Zend_Form
     	$location_id->setValue($locationValue);
     	$this->addElement($location_id);
     	
-    	$app_status = $request->getParam('status_app');
+    	$app_s = $request->getParam('status_app');
     	$opt=array(1=>$tr->translate('APPROVE'),2=>$tr->translate('REJECT'));
     	$app_status=new Zend_Form_Element_Select('status_app');
     	$app_status->setMultiOptions($opt);
     	$app_status->setattribs(array(
     			 
-    			'class'=>'form-control'
+    			'class'=>'form-control select2me'
     	));
     	 
-    	$app_status->setValue($app_status);
+    	
+    	$app_status->setValue($app_s);
     	$this->addElement($app_status);
     	
+    	if($data !=null){
+    		$note->setValue($data['note']);
+    		$app_status->setValue($data['purchase_status']);
+    	}
     	
     	return $this;
     }

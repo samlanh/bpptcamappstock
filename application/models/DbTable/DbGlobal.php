@@ -100,7 +100,7 @@ class Application_Model_DbTable_DbGlobal extends Zend_Db_Table_Abstract
     public function productLocationInventory($pro_id, $location_id){
     	$db=$this->getAdapter();
     	$sql="SELECT id,pro_id,location_id,qty,qty_warning,user_id,last_mod_date,last_mod_userid
-    	 FROM tb_prolocation WHERE pro_id =".$pro_id." AND location_id=".$location_id." LIMIT 1 "; 
+    	 FROM tb_prolocation WHERE pro_id =".$pro_id." AND location_id=".$location_id."   LIMIT 1 "; 
 
     	
     	$row = $db->fetchRow($sql);
@@ -123,7 +123,7 @@ class Application_Model_DbTable_DbGlobal extends Zend_Db_Table_Abstract
     		$this->insert($array);
     		
     		$sql="SELECT id,pro_id,location_id,qty,qty_warning,user_id,last_mod_date,last_mod_userid
-    		FROM tb_prolocation WHERE pro_id =".$pro_id." AND location_id=".$location_id." LIMIT 1 ";
+    		FROM tb_prolocation WHERE pro_id =".$pro_id." AND location_id=".$location_id."  LIMIT 1 ";
     		return $row = $db->fetchRow($sql);
     	}else{
     		

@@ -72,12 +72,12 @@ class Application_Form_Frmsearch extends Zend_Form
 	  
 		$statusCOValue=4;
 		$statusCOValue = $request->getParam('purchase_status');
-		$optionsCOStatus=array(0=>$tr->translate('CHOOSE_STATUS'),2=>$tr->translate('OPEN'),3=>$tr->translate('IN_PROGRESS'),4=>$tr->translate('PAID'),5=>$tr->translate('RECEIVED'),6=>$tr->translate('MENU_CANCEL'));
+		$optionsCOStatus=array(''=>$tr->translate('CHOSE_STATUS'),0=>$tr->translate('NOT_YET_APPROVE'),1=>$tr->translate('APPROVE'),2=>$tr->translate('REJECT'),);
 		$statusCO=new Zend_Form_Element_Select('purchase_status');
 		$statusCO->setMultiOptions($optionsCOStatus);
 		$statusCO->setattribs(array(
 				'id'=>'status',
-				'class'=>'form-control'
+				'class'=>'form-control select2me'
 		));
 		
 		$statusCO->setValue($statusCOValue);

@@ -61,7 +61,7 @@ Class report_Model_DbQuery extends Zend_Db_Table_Abstract{
 				 (SELECT v_phone FROM `tb_vendor` WHERE tb_vendor.vendor_id=p.vendor_id LIMIT 1 ) AS v_phone,
 				 (SELECT contact_name FROM `tb_vendor` WHERE tb_vendor.vendor_id=p.vendor_id LIMIT 1 ) AS contact_name,
 				 (SELECT add_name FROM `tb_vendor` WHERE tb_vendor.vendor_id=p.vendor_id LIMIT 1 ) AS add_name,
-				 (SELECT name_en FROM `tb_view` WHERE key_code = purchase_status AND `type`=1 LIMIT 1) As purchase_status,
+				 (SELECT name_en FROM `tb_view` WHERE key_code = purchase_status AND `type`=7 LIMIT 1) As purchase_status,
 				 (SELECT u.username FROM tb_acl_user AS u WHERE u.user_id = p.user_mod LIMIT 1 ) AS user_name,
 				 po.qty_order,po.price,po.sub_total,p.net_total,
 				 p.paid,p.discount_real,p.tax,

@@ -22,6 +22,7 @@
 	
 	$url_requestproduct =  array($this->url(array('module'=>'purchase','controller'=>'requestproduct','action'=>'index'),null, true), "REQUEST_PRODUCT");
 	$url_purchase_approve =  array($this->url(array('module'=>'purchase','controller'=>'purchaseapprove','action'=>'index'),null, true), "PURCHASE_APPROVE");
+	$url_purchase_receive =  array($this->url(array('module'=>'purchase','controller'=>'purchasereceive','action'=>'index'),null, true), "PURCHASE_RECEIVE");
 	
 	$url_add_purchase = array($this->url(array('module'=>'purchase','controller'=>'index','action'=>'add'),null, true), "MENU_PURCHASE_INDEX_ADD_PURCHASE");
 	$url_vendor = array($this->url(array('module'=>'purchase','controller'=>'vendor','action'=>'index'),null, true), "MENU_PURCHASE_VENDOR_INDEX");
@@ -196,6 +197,12 @@
 	            		 <li>
             				<a href="<?php echo $url_purchase_approve[0]; ?>">
 						        <i class="icon-arrow-right"></i><?php echo $tr->translate($url_purchase_approve[1]);?>
+	            			</a>
+	            		</li> 
+	            		
+	            		<li>
+            				<a href="<?php echo $url_purchase_receive[0]; ?>">
+						        <i class="icon-arrow-right"></i><?php echo $tr->translate($url_purchase_receive[1]);?>
 	            			</a>
 	            		</li> 
 					    

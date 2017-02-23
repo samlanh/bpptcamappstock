@@ -243,6 +243,9 @@ class Application_Form_purchase extends Zend_Form
     			$netTotalElement->setValue($data['all_total']);//r
     			$allTotalElement->setValue($data['net_total']);//r
     			$remainlElement->setValue($data['balance']);//r
+    			
+    			$price_product->setValue($data['sub_total_pro']);
+    			$price_jobtype->setValue($data['sub_total_jobtype']);
     		
     		} else {$discountTypeElement->setValue(1);
     	}
