@@ -112,7 +112,7 @@ class Purchase_Model_DbTable_DbRequestProductOrder extends Zend_Db_Table_Abstrac
 						'disc_value'	=> $data['real-value'.$i],
 						'sub_total'	  	=> $data['total'.$i],
 						'type'          => 1,
-						'block_id'      => $data['block_id_'.$i],
+						//'block_id'      => $data['block_id_'.$i],
 						
 				);
 				$this->_name='tb_purchase_order_item';
@@ -136,7 +136,7 @@ class Purchase_Model_DbTable_DbRequestProductOrder extends Zend_Db_Table_Abstrac
 						'sub_total'	  		=> $data['total_l_'.$i],
 						'type'	  			=> 0,
 						'job_type'	    => $data['job_id_'.$i],
-						'block_id'      => $data['block_id_l_'.$i],
+						//'block_id'      => $data['block_id_l_'.$i],
 				);
 				$this->_name='tb_purchase_order_item';
 				$this->insert($data_item);

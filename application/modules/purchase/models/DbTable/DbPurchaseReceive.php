@@ -76,7 +76,7 @@ class Purchase_Model_DbTable_DbPurchaseReceive extends Zend_Db_Table_Abstract
 					"date_order"     => 	date("Y-m-d",strtotime($data['order_date'])),
 					"date_in"     	 => 	date("Y-m-d",strtotime($data['date_in'])),
 					"purchase_status"=> 	1,// approve 
-					'recieve_status' =>		1,//receive add product to stock 
+					"recieve_status" =>		1,//receive add product to stock 
 					"currency_id"    => 1,
 					"remark"         => 	$data['remark'],
 // 					"all_total"      => 	$data['totalAmoun'],
@@ -127,13 +127,16 @@ class Purchase_Model_DbTable_DbPurchaseReceive extends Zend_Db_Table_Abstract
 						"paid"           => 	$data['paid'],
 						"balance"        => 	$data['remain'],
 						
-						//"payment_method" => $data['payment_name'],
+						//"payment_method"   => $data['payment_name'],
 						//"discount_type"	 => $data['discount_type'],
-						//"sub_total_pro"  => 	$data['price_product'],
+						//"sub_total_pro"    => 	$data['price_product'],
 						//"sub_total_jobtype" => 	$data['price_jobtype'],
+						"receive_status" =>		1,//receive add product to stock
+						"sub_total_product"  => 	$data['price_product'],
+						"sub_total_jobtype" => 	$data['price_jobtype'],
 						
-						"user_mod"       => 	$GetUserId,
-						"date"      	 => 	new Zend_Date(),
+						"user_mod"       	=> 	$GetUserId,
+						"date"      		=> 	new Zend_Date(),
 				);
 				$this->_name='tb_recieve_order';
 				$recieved_order = $this->insert($orderdata);
@@ -173,6 +176,8 @@ class Purchase_Model_DbTable_DbPurchaseReceive extends Zend_Db_Table_Abstract
 							'price'		  	=> 	$data['price'.$i],
 							'disc_value'	=> $data['real-value'.$i],
 							'sub_total'	  	=> $data['total'.$i],
+							'type'	  		=> 1,
+ 				 
 					);
 					$this->_name='tb_recieve_order_item';
 					$this->insert($recieved_item);
@@ -220,13 +225,16 @@ class Purchase_Model_DbTable_DbPurchaseReceive extends Zend_Db_Table_Abstract
 				if($data["purchase_status"]==1){
 					$recieved_item = array(
 							'recieve_id'	  => 	$recieved_order,
-							'pro_id'	  => 	$data['item_leave_id_'.$i],
-							'qty_order'	  => 	$data['qty_l_'.$i],
-							'qty_unit' => 	$data['qty_unit_l_'.$i],
-							'qty_detail'  => 	$data['qty_per_unit_l_'.$i],
-							'price'		  => 	$data['price_l_'.$i],
+							'pro_id'	      => 	$data['item_leave_id_'.$i],
+							'qty_order'	      => 	$data['qty_l_'.$i],
+							'qty_unit'        => 	$data['qty_unit_l_'.$i],
+							'qty_detail'      => 	$data['qty_per_unit_l_'.$i],
+							'price'		      => 	$data['price_l_'.$i],
 							'disc_value'	  => $data['dis_value_l_'.$i],
-							'sub_total'	  => $data['total_l_'.$i],
+							'sub_total'	      => $data['total_l_'.$i],
+							'type'	  		  => 0,
+							'job_type'	      => $data['job_id_'.$i],
+						 
 					);
 					$db->insert("tb_recieve_order_item", $recieved_item);
 			

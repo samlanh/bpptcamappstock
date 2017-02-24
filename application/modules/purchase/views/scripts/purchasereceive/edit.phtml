@@ -157,7 +157,7 @@
 								<!--<th><?php echo $tr->translate("BLOCK");?></th>-->
 							</tr>
 						 </table>
-						 <input type="text" id="identity" name="identity" />
+						 <input type="hidden" id="identity" name="identity" />
 								
 					</div>
 						
@@ -422,7 +422,7 @@
 							
 							<div class="col-md-4">
 								<div class="input-icon right">
-									<button type="submit" name="btnsave_print" class="btn blue btn-block btn-lg" ><i class="fa fa-close"></i> <?php echo $tr->translate("SAVE_PRINT")?></button>
+									<button type="button" name="btnsave_print" class="btn blue btn-block btn-lg" onClick="getPriceProduct();doPrint();" ><i class="fa fa-close"></i> <?php echo $tr->translate("SAVE_PRINT")?></button>
 								</div>
 							</div>
 							
@@ -434,7 +434,163 @@
 		</div>
 	</div>
 </div>
+
+ <!-- save print -->
+ <div id="customer_receipt" class="modal fade" tabindex="-1" data-width="110px">
+      <div class="modal-dialog" style="width: 65%;">
+           <div class="modal-content" >
+               <div class="portlet box blue ">
+               		<div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                           
+                           <div class="portlet-body form">
+                   <form id="frmvendor" method="post" name="frmvendor">
+                    <div class="form-body"   >
+                      <div class="form-group"  >
+					     <div id="divPrint" style="width: 23cm !important; height: 14cm ; padding: 0px; margin: 0px;">  
+					           <style>
+										#tds{
+								           border:1px solid #000;
+								        }
+										.style{
+											line-height: 20px;font-size: 9px !important;
+											font-family: 'Khmer OS Battambang';
+										}
+										ul{margin: 0;padding:0;}
+										table tr td ul li{text-align: center;list-style: none;line-height: 25px; font-weight: bold;}
+										ul.pur_info li{line-height:18px; 
+												font-weight: normal !important;}
+										ul.pur_info li strong{font-weight: bold;}
+								       .hover:hover{background: #ccc;}
+										label {
+										    font-weight: bold;
+										    font-size: 11px;
+										}
+								</style>
+					           
+					       <table  class="table_reciept" style="border-collapse: collapse;font-family:'Khmer OS Battambang';font-size: 11px !important;color:blue;" width="100%;"  >
+					             <tr >
+					               <td  valign="top" style="padding-top: 0px;"> <img style="width:100px;height:100px;" alt="No Images " src="<?php echo $this->baseUrl();?>/images/logo.jpg"></td>
+				                   <td colspan="3" valign="bottom" ><h4 class="modal-title center" style="text-align:center; font-size:13px;font-weight:10px; font-family:'Khmer MEF2'"><strong><?php echo $tr->translate("វិក្កយបត្រ");?>
+				                                     <br/><?php echo $tr->translate("INVOICE");?>
+				                                </strong></h4>
+				                   </td>
+				                   <td nowrap valign="top" style="padding-left:100px;">  
+				                     <p class="modal-title center" ><strong></strong></p>
+				                     <span style="text-align:center; font-size:13px;font-weight:bold; font-family:'Khmer MEF2'">GOOD ELECTRICAL TRADING CO.,LTD</span>
+				                     <br/> 	ផ្ទះលេខ  103B ផ្លូវលេខ 218
+				                     <br/>សង្កាត់ទឹកល្អក់៣ ខណ្ឌទូលគោក ភ្នំពេញ
+				                     <br/>Tel: 070800177 / 017588897 / 0319555559 
+				                     <br/>Email: goodelectricaltrading.info@gmail.com
+				                     <br/>No:<span style="color:red;"><label id="lb_sal_no"></label></span> ថ្ងៃទី&nbsp;<label id="lb_day"></label>&nbsp;ខែ&nbsp;<label id="lb_month"></label>&nbsp;ឆ្នាំ&nbsp;<label id="lb_year"></label>
+				                   </td>
+				               </tr>
+				               <tr>
+				                   <td colspan="5">
+				                       <table  style="border-collapse: collapse;font-family:'Khmer OS Battambang';font-size: 11px !important;color:blue;width:100%">
+										  <tr>
+										    <td>ឈ្មោះ&nbsp;<label id="lb_cus_name"></label></td>
+										    <td>ភេទ:&nbsp;<label id="lb_cus_sex"></label></td> 
+										    <td>DoB:&nbsp;<label id="lb_cus_dob"></label></td>
+										    <td>ID:&nbsp;<label id="lb_cus_id"></label></td>
+										  </tr>
+										  <tr>
+										    <td>បំពាក់លើ:&nbsp;<label id="lb_on_wear"></label></td>
+										    <td >ទីតាំងបំពាក់:&nbsp;<label id="lb_loc_wear"></label></td> 
+										    <td >ថ្ងៃបំពាក់:&nbsp;<label id="lb_dat_start"></label></td>
+										    <td >ថ្ងៃផុតកំណត់:&nbsp;<label id="lb_dat_end"></label></td> 
+										  </tr>
+										  <tr>
+										    <td>IMEI:&nbsp;<label id="lb_imei"></label></td>
+										    <td>SIM:&nbsp;<label id="lb_sim"></label></td> 
+										    <td colspan="2">Contact:&nbsp;<label id="lb_con"></label></td>
+										  </tr>
+										  <tr>
+										    <td>Web:&nbsp;<label id="lb_web"></label></td>
+										    <td>User:&nbsp;<label id="lb_user"></label></td> 
+										    <td colspan="2">Password:&nbsp;<label id="lb_pass"></label></td> 
+										  </tr>
+										</table> 		 
+				                   </td>
+				               </tr>
+				               <tr>
+				                  <td colspan="5">
+				                  	   <table id="table_product_price" class="table_reciept" style="border-collapse: collapse;font-family:'Khmer OS Battambang';font-size: 11px !important;color:blue;" width="100%">
+				                  	           <tr align="center">
+								                   <td style=" border:1px solid #000;width:3px;" nowrap >ល.រ <br/>No.</td>
+								                   <td id="tds" nowrap>បរិយាយ <br/>Description</td>
+								                   <td id="tds" nowrap>ចំនួន <br/>Quantity</td>
+								                   <td id="tds" nowrap>តម្លៃរាយ <br/>Unit Price</td>
+								                   <td style=" border:1px solid #000;width:160px;" nowrap >តម្លៃសរុប <br/>Amount</td>
+								               </tr>
+								               
+				                  	   </table>
+				                  </td>
+				               </tr> 
+				               <tr>
+				                   <td colspan="5">
+				                       <span style="color:red">ខ្ញុំបាទ ឬនាងខ្ញុំបានអាន និងយល់ព្រមនូវលក្ខណ្ឌរបស់ក្រុមហ៊ុន៖</span>
+				                   </td>
+				               </tr>
+				               <tr>
+				                   <td colspan="5">
+				                       <table id="table_condition" class="table_reciept" style="border-collapse: collapse;font-family:'Khmer OS Battambang';font-size: 11px !important;color:blue;" width="100%">
+				                  	          
+				                  	   </table>
+				                   </td>
+				               </tr>
+				               <tr>
+				                   <td nowrap style="padding-left: 60px;" align="center">
+				                     <?php $session_user=new Zend_Session_Namespace('auth');
+								           //$last_name=$session_user->username;
+								           $username = $session_user->fullname;
+						       			?>
+				                       <?php //echo $tr->translate("USER_NAME");?><?php //echo $username ?> 
+				                   			   ហត្ថលេខា និងឈ្មោះអ្នកទិញ<br/>
+				                       		​​Customer's Signature and full name <br/>
+				                       <?php echo 'កាលបរិច្ឆេទ Date:'.date("F j, Y, g:i a");?>
+				                       
+				                   </td>
+				                   <td colspan="3"></td>
+				                   <td  style="padding-left: 100px;" align="center">
+				                     <?php $session_user=new Zend_Session_Namespace('auth');
+								           //$last_name=$session_user->username;
+								           $username = $session_user->fullname;
+						       			?>
+				                        <?php //echo $tr->translate("USER_NAME");?><?php //echo $username ?> 
+				                       		ហត្ថលេខា និងឈ្មោះអ្នកលក់<br/>
+				                       		Saleperson's Signature and full name <br/>
+				                       <?php echo 'កាលបរិច្ឆេទ Date:'.date("F j, Y, g:i a");?>
+				                   </td>
+				                </tr>
+						       </table>
+					        </div>
+					        
+					</div>
+					<div class="form-group">
+								<label  class="col-md-12 col-md-offset-4 col-md-8">
+								   <button type="button" class="btn red" onclick="hideDialog();"><i class="fa fa-times"></i> បោះបង់/Cancel</button> 
+								  <button type="button" name="btnsprint" onclick="doPrint();printSubmit();" class="btn blue"><i class="fa fa-save"></i>បោះពុម្ព/Print</button>
+								</label>
+					</div>
+                                <!--     <label class="control-label"></label><input  id="btn_add" Onclick="addNewVendor()" type="button" class="btn default blue col-md-12" value="<?php echo $tr->translate("ADD_NEW");?>" />
+                             
+                                --> 
+                       </div>
+                     </form>
+                    </div>
+                 </div>
+           </div>
+        </div>
+    </div>
+   <input type="hidden" name="eee" value="3333" id="eee"/>
+ </div>
+ <!-- End Save Print -->
+  <label id='a'></label>
+ <iframe name=print_frame width=0 height=0 frameborder=0 src=about:blank></iframe>
+
 <script>
+						       			
 $('#frm').submit(function() {
 //aa = $("#frm").validationEngine();
 //alert(JSON.stringify(aa));
@@ -454,6 +610,112 @@ $('#frm').submit(function() {
 	} 
 	*/
 });
+
+////function get table list product invoid
+function getPriceProductNoneStock(){
+	var identity = $('#leave_stock_identity').val();
+	var arrays = identity.split(',');
+	var index=0;
+	var template = '';
+	var title=1;
+	//$('#table_product_price').html("");
+	///setvalue to tabel 
+	//setLabel();
+	for(var i=0;i<arrays.length;i++) {index++;
+		// $('#a').text($("option:selected",$("#item_id_"+index)).text());
+	    if(title !=1){
+	    	template='<tr id="row_product_'+index+'" style="height:33px;border:1px solid #000;">';
+			template+='<th style="border:1px solid blue;" width="4%">ល.រ<br/>No.</th>';
+			template+='<th style="border:1px solid blue;" width="40%">បរិយាយ <br/>Description</th>';
+			template+='<th style="border:1px solid blue;">ចំនួន <br/>Quantity</th>';
+			template+='<th style="border:1px solid blue;">តម្លៃរាយ <br/>Unit Price</th>';
+			template+='<th style="border:1px solid blue;">តម្លៃសរុប <br/>Amount</th>';
+			template+="</tr>";
+		    title=1;
+		    $('#table_product_price').append(template);	
+		    
+	    }
+		item_name=($("option:selected",$("#item_leave_ids_"+index)).text());
+		qty=$("#qty_l_"+index).val();
+		price=$("#price_l_"+index).val();
+		total=$("#total_l_"+index).val();
+		pro_id=$("#pro_type_"+index).val();
+		    template='<tr id="row_product_'+index+'" style="height:33px;border:1px solid blue;">';
+			template+='<td style="border:1px solid blue;text-align:center;" width="2%">'+index+'</td>';
+			template+='<td style="border:1px solid blue;text-align:center;">'+item_name+'</td>';
+			template+='<td style="border:1px solid blue;text-align:center;">'+qty+'</td>';
+			template+='<td style="border:1px solid blue;text-align:center;">$&nbsp;&nbsp;'+price+'</td>';
+			template+='<td style="border:1px solid blue;text-align:center;">$&nbsp;&nbsp;'+total+'</td>';
+			template+="</tr>";
+			//if(pro_id==1){
+			$('#table_product_price').append(template);	
+			//}
+	}
+}
+function getPriceProduct(){
+	var identity = $('#identity').val();
+	var arrays = identity.split(',');
+	var index=0;
+	var template = '';
+	var title=0;
+	$('#table_product_price').html("");
+	///setvalue to tabel 
+	//setLabel();
+	
+	for(var i=0;i<arrays.length;i++) {index++;
+		// $('#a').text($("option:selected",$("#item_id_"+index)).text());
+	    if(title !=1){
+	    	template='<tr id="row_product_'+index+'" style="height:33px;border:1px solid #000;">';
+			template+='<th style="border:1px solid blue;" width="4%">ល.រ<br/>No.</th>';
+			template+='<th style="border:1px solid blue;" width="40%">បរិយាយ <br/>Description</th>';
+			template+='<th style="border:1px solid blue;">ចំនួន <br/>Quantity</th>';
+			template+='<th style="border:1px solid blue;">តម្លៃរាយ <br/>Unit Price</th>';
+			template+='<th style="border:1px solid blue;">តម្លៃសរុប <br/>Amount</th>';
+			template+="</tr>";
+		    title=1;
+		    $('#table_product_price').append(template);	
+	    }
+		item_name=($("option:selected",$("#item_ids_"+index)).text());
+		qty=$("#qty"+index).val();
+		price=$("#price"+index).val();
+		total=$("#total"+index).val();
+		pro_id=$("#pro_type_"+index).val();
+		    template='<tr id="row_product_'+index+'" style="height:33px;border:1px solid blue;">';
+			template+='<td style="border:1px solid blue;text-align:center;" width="2%">'+index+'</td>';
+			template+='<td style="border:1px solid blue;text-align:center;">'+item_name+'</td>';
+			template+='<td style="border:1px solid blue;text-align:center;">'+qty+'</td>';
+			template+='<td style="border:1px solid blue;text-align:center;">$&nbsp;&nbsp;'+price+'</td>';
+			template+='<td style="border:1px solid blue;text-align:center;">$&nbsp;&nbsp;'+total+'</td>';
+			template+="</tr>";
+			//if(pro_id==1){
+			$('#table_product_price').append(template);	
+			//}
+	}
+	getPriceProductNoneStock();
+	 
+	template='<tr id="row_product_'+index+'">';
+	template+='<td colspan="3"></td>';
+	template+='<td style="border:1px solid blue;text-align:right;">ទឹកប្រាក់សរុប /Subtotal</td>';
+	template+='<td style="border:1px solid blue;text-align:center;">$&nbsp;&nbsp'+$("#totalAmoun").val()+'</td>';
+	template+="</tr>";
+	$('#table_product_price').append(template);
+	template='<tr id="row_product_'+index+'">';
+	template+='<td colspan="3"></td>';
+	template+='<td style="border:1px solid blue;text-align:right;">ទឹកប្រាក់បានទូទាត់ /Paid</td>';
+	template+='<td style="border:1px solid blue;text-align:center;">$&nbsp;&nbsp;'+$("#paid").val()+'</td>';
+	template+="</tr>";
+	$('#table_product_price').append(template);
+	template='<tr id="row_product_'+index+'">';
+	template+='<td colspan="3"></td>';
+	template+='<td style="border:1px solid blue;text-align:right;">ទឹកប្រាក់នៅសល់ ​ /Balance</td>';
+	template+='<td style="border:1px solid blue;text-align:center;">$&nbsp;&nbsp;'+$("#remain").val()+'</td>';
+	template+="</tr>";
+	$('#table_product_price').append(template);
+	//getConditon();
+	
+}
+
+
 </script>
 <?php $frm_product= $this->form;?>
 <div id="productpopup" class="modal fade" tabindex="-1" data-width="1200">
@@ -896,7 +1158,7 @@ function oldAddRow() {
 	if(index5 == 1) {
 		template+='<td >&nbsp;</td>';
 	} else {
-		template+='<td ><img onClick="" src="<?php echo BASE_URL; ?>/images/icon/delete.gif" /></td>';
+		template+='<td > </td>';
 	}
 	template+='<td  width="2%">'+index5+'</td>';
 	template+='<td width="30%"> <input type="hidden" class="form-control "   id="item_id_'+index5+'" name="item_id_'+index5+'" > <select class="form-control select2me" Onchange="ShowPopupProduct('+ index5 + ');" id="item_ids_'+index5+'" name="item_ids_'+index5+'" >'+option5+'<option></option></select>'+inp+'</td>';
@@ -912,6 +1174,9 @@ function oldAddRow() {
 	$('#table_order').append(template);
 	
 	$("#item_id_"+index5).val("<?php echo $r['pro_id'];?>");
+	$("#item_ids_"+index5).val("<?php echo $r['pro_id'];?>");
+	$('#item_ids_'+index5).attr('disabled',true);
+	
 	$("#qty"+index5).val("<?php echo $r['qty_order'];?>");
 	$("#qty_unit_"+index5).val("<?php echo $r['qty_unit'];?>");
 	$("#qty_per_unit_"+index5).val("<?php echo $r['qty_detail'];?>");
@@ -919,15 +1184,14 @@ function oldAddRow() {
 	$("#total"+index5).val("<?php echo $r['sub_total'];?>");
 	$("#dis_value"+index5).val("<?php echo $r['disc_value'];?>");
 	$("#oldprice_"+index5).val("<?php echo $r['price'];?>");
-	$("#item_ids_"+index5).val("<?php echo $r['pro_id'];?>");
-	$('#item_ids_'+index5).attr('disabled',true);
-	//$('#block_id_'+index5).attr('disabled',true);
 
+	//$('#block_id_'+index5).attr('disabled',true);
+	 
 	if($('#identity').val()!="") {
 		var identity = $('#identity').val();
 		$('#identity').val(identity+','+index5);
 	} else {$('#identity').val(index5);}
-	$("#item_ids_"+index5).select2();
+	
 	$("#row_order_0").remove();
 		<?php } }?>
 }
@@ -1022,7 +1286,7 @@ function oldAddRowLeave(item_id){
 		}
 	
 	template+='<td  width="2%">'+index+'</td>';
-	template+='<td width="25%"><select class="form-control select2me" Onchange="ShowPopupProduct('+ index + ');" id="item_leave_id_'+index+'" name="item_leave_id_'+index+'" ><option>'+option6+'</option></select>'+inp+'</td>';
+	template+='<td width="25%">  <input type="hidden" class="form-control "   id="item_leave_id_'+index+'" name="item_leave_id_'+index+'" > <select class="form-control select2me" Onchange="ShowPopupProduct('+ index + ');" id="item_leave_ids_'+index+'" name="item_leave_ids_'+index+'" ><option>'+option6+'</option></select>'+inp+'</td>';
 	template+='<input type="hidden" onkeyup="getPriceFree('+index+')" id="pricefree_l_'+index+'" name="pricefree_l_'+index+'"/>';
 	template+='<td ><input type="text" onkeyup="totalQtys('+index+')" class="validate[required,custom[number]] input form-control" required="1" value="1" id="qty_unit_l_'+index+'" name="qty_unit_l_'+index+'" /></td>';
 	template+='<td ><input type="text" onkeyup="totalQtys('+index+')" class="validate[required,custom[number]] input form-control" value="0" id="qty_per_unit_l_'+index+'" name="qty_per_unit_l_'+index+'" /></td>';
@@ -1034,12 +1298,15 @@ function oldAddRowLeave(item_id){
 	template+='<td  width="5%"><input type="text" onkeyup="calculatePriceLeave('+index+')" value="0" id="dis_value_l_'+index+'" name="dis_value_l_'+index+'" class="form-control" /><input type="hidden" id="olddis_value_'+index+'" name="olddis_value_'+index+'"/><input type="hidden" readonly="readonly" class="input70px" id="real-value'+index+'" name="real-value'+index+'" /></td>';
 	template+='<td ><input type="text" class="form-control" readonly="readonly" id="total_l_'+index+'" name="total_l_'+index+'" /></span></td>';
 //	template+='<td width="10%"><select class="form-control select2me"  id="block_id_l_'+index+'" name="block_id_l_'+index+'" ><option>'+getBlockBysite()+'</option></select>'+inp+'</td>';
-	template+='<td width="6%"><select class="form-control select2me"   id="job_id_'+index+'" name="job_id_'+index+'" ><option>'+job+'</option></select>'+inp+'</td>';
+	template+='<td width="6%"> <input type="hidden" class="form-control "   id="job_id_'+index+'" name="job_id_'+index+'" > <select class="form-control select2me"   id="job_ids_'+index+'" name="job_ids_'+index+'" ><option>'+job+'</option></select>'+inp+'</td>';
 	
 	template+="</tr>";
 	$('#table_leave_product').append(template);
 	
 	$("#item_leave_id_"+index).val("<?php echo $r['pro_id'];?>");
+	$("#item_leave_ids_"+index).val("<?php echo $r['pro_id'];?>");
+	$('#item_leave_ids_'+index).attr('disabled',true);
+	
 	$("#qty_l_"+index).val("<?php echo $r['qty_order'];?>");
 	//$("#label_l_"+index).val("<?php //echo $r['unit_label'];?>");
 	$("#qty_unit_"+index).val("<?php echo $r['qty_unit'];?>");
@@ -1048,11 +1315,10 @@ function oldAddRowLeave(item_id){
 	$("#total_l_"+index).val("<?php echo $r['sub_total'];?>");
 	$("#dis_value_l_"+index).val("<?php echo $r['disc_value'];?>");
 	$("#oldprice_"+index).val("<?php echo $r['price'];?>");
-	$("#block_id_l_"+index).val("<?php echo $r['block_id'];?>");
+	//$("#block_id_l_"+index).val("<?php //echo $r['block_id'];?>");
 	$("#job_id_"+index).val("<?php echo $r['job_type'];?>");
-	$("#item_leave_id_"+index).attr('disabled',true);
-//	$("#block_id_l_"+index).attr('disabled',true);
-	$("#job_id_"+index).attr('disabled',true);
+	$("#job_ids_"+index).val("<?php echo $r['job_type'];?>");
+	$("#job_ids_"+index).attr('disabled',true);
 	
 	if($('#leave_stock_identity').val()!="") {
 		var identity = $('#leave_stock_identity').val();
@@ -1060,8 +1326,7 @@ function oldAddRowLeave(item_id){
 	} else {$('#leave_stock_identity').val(index);}
 	//$("#item_leave_id_"+index).val(item_id);
 	 
-	 $("#item_leave_id_"+index).select2();
-	 $("#block_id_l_"+index).select2();
+ 
 	getQtyByIds(index);
 	
 	$("#row_order_0").remove();
@@ -1462,5 +1727,12 @@ function CheckPOInvoice(){
 						}
 					});
 				}	
+}
+
+function doPrint() {
+	window.frames["print_frame"].document.body.innerHTML=document.getElementById('divPrint').innerHTML;
+    window.frames["print_frame"].window.focus();
+    window.frames["print_frame"].window.print();
+    //hideDialog();
 }
 </script>	
