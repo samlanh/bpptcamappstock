@@ -41,7 +41,7 @@ class Sales_Form_FrmSale extends Zend_Form
 		$options = $db->getAllLocation(1);
     	$locationID->setMultiOptions($options);
     	$locationID->setattribs(array(
-    			'Onchange'=>'getsaleOrderNumber()',));
+    			'Onchange'=>'getBlockBysites();'));
     	$this->addElement($locationID);
     	    	
     	$rowspayment= $db->getGlobalDb('SELECT * FROM tb_paymentmethod');

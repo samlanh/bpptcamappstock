@@ -29,7 +29,7 @@ class Sales_IndexController extends Zend_Controller_Action{
 		$db = new Sales_Model_DbTable_DbSaleOrder();
 		$rows = $db->getAllSaleOrder($search);
 		$columns=array("BRANCH_NAME","SALE_AGENT","SALE_NO", "ORDER_DATE",
-				"CURRNECY_TYPE","TOTAL","DISCOUNT","TOTAL_AMOUNT","PAID","BALANCE","APPROVED_STATUS","PENDING_STATUS","BY_USER");
+				"CURRNECY_TYPE","TOTAL","DISCOUNT","TOTAL_AMOUNT","BY_USER");
 		$link=array(
 				'module'=>'sales','controller'=>'index','action'=>'edit',
 		);
@@ -163,14 +163,11 @@ class Sales_IndexController extends Zend_Controller_Action{
   		echo Zend_Json::encode($row);
   		exit();
 	}
-	public function getBlockBysitesAction(){
-		if($this->getRequest()->isPost()){
+	public function getblockAction(){	
 			$post=$this->getRequest()->getPost();
 			$db = new Sales_Model_DbTable_DbSaleOrder();			
 			$qo = $db->getBlock($post['branch_id']);
 			echo Zend_Json::encode($qo);
 			exit();
-		}
-	}
-		
+	}		
 }
