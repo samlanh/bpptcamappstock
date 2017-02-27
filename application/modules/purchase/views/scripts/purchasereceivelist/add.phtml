@@ -1,8 +1,8 @@
-<?php 
+﻿<?php 
 	$tr = Application_Form_FrmLanguages::getCurrentlanguage();
 	$form=$this->form_purchase;
-	$url_submit = $this->url(array('module'=>'purchase','controller'=>'purchasereceive','action'=>'add'));
-	$url_cancel = $this->url(array('module'=>'purchase','controller'=>'purchasereceive','action'=>'index'));
+	$url_submit = $this->url(array('module'=>'purchase','controller'=>'purchasereceivelist','action'=>'add'));
+	$url_cancel = $this->url(array('module'=>'purchase','controller'=>'purchasereceivelist','action'=>'index'));
 ?>
 <title><?php echo $tr->translate("ADD_PURCAHSE_RECEIVE");?></title>
 <div class="row">
@@ -20,7 +20,7 @@
 			</div>
 			<div class="portlet-body form">
 				<!-- BEGIN FORM-->
-				<form id="frm" name="frm" class="form-horizontal" novalidate="novalidate" action="" enctype="multipart/form-data" method="post">
+				<form id="frm" class="form-horizontal" novalidate="novalidate" action="" enctype="multipart/form-data" method="post">
 					<div class="form-body">
 						<div class="form-group">
 							<label class="control-label col-md-2"><?php echo $tr->translate("VENDOR_NAME");?> <span class="required">
@@ -157,7 +157,7 @@
 								<!--<th><?php echo $tr->translate("BLOCK");?></th>-->
 							</tr>
 						 </table>
-						 <input type="hidden" id="identity" name="identity" />
+						 <input type="text" id="identity" name="identity" />
 								
 					</div>
 						
@@ -215,7 +215,7 @@
 									<th><?php echo $tr->translate("JOb");?></th>
 							</tr>
 						 </table>
-						 <input type="hidden" id="leave_stock_identity" name="leave_stock_identity" />
+						 <input type="text" id="leave_stock_identity" name="leave_stock_identity" />
 								
 					</div>
 					<!-- 
@@ -422,8 +422,7 @@
 							
 							<div class="col-md-4">
 								<div class="input-icon right">
-									<!--  <button type="button" name="btnsave_print" class="btn blue btn-block btn-lg" onClick="getPriceProduct();doPrint();printSubmit();" ><i class="fa fa-close"></i> <?php echo $tr->translate("SAVE_PRINT")?></button>-->
-								    <button type="submit" id="saveprint"   name="saveprint"   onClick="getPriceProduct();doPrint();  printSubmit();" class="btn blue btn-block btn-lg"><i class="fa fa-save"></i> <?php echo $tr->translate("SAVE_PRINT")?> </button>
+									<button type="submit" name="btnsave_print" class="btn blue btn-block btn-lg" ><i class="fa fa-close"></i> <?php echo $tr->translate("SAVE_PRINT")?></button>
 								</div>
 							</div>
 							
@@ -435,148 +434,7 @@
 		</div>
 	</div>
 </div>
-
- <!-- save print -->
- <div id="customer_receipt" class="modal fade" tabindex="-1" data-width="110px">
-      <div class="modal-dialog" style="width: 65%;">
-           <div class="modal-content" >
-               <div class="portlet box blue ">
-               		<div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                           
-                           <div class="portlet-body form">
-                   <form id="frmvendor" method="post" name="frmvendor">
-                    <div class="form-body"   >
-                      <div class="form-group"  >
-					     <div id="divPrint" style="width: 23cm !important; height: 14cm ; padding: 0px; margin: 0px;">  
-					           <style>
-										#tds{
-								           border:1px solid #000;
-								        }
-										.style{
-											line-height: 20px;font-size: 9px !important;
-											font-family: 'Khmer OS Battambang';
-										}
-										ul{margin: 0;padding:0;}
-										table tr td ul li{text-align: center;list-style: none;line-height: 25px; font-weight: bold;}
-										ul.pur_info li{line-height:18px; 
-												font-weight: normal !important;}
-										ul.pur_info li strong{font-weight: bold;}
-								       .hover:hover{background: #ccc;}
-										label {
-										    font-weight: bold;
-										    font-size: 11px;
-										}
-								</style>
-					           
-					       <table  class="table_reciept" style="border-collapse: collapse;font-family:'Khmer OS Battambang';font-size: 11px !important; " width="100%;"  >
-					             <tr >
-					               <td  valign="top" style="padding-top: 0px;"> <img style="width:140px; " alt="No Images " src="<?php echo $this->baseUrl();?>/images/logo.jpg"></td>
-				                   <td nowrap="nowrap" colspan="3" valign="bottom" ><h4 class="modal-title center" style="text-align:center; font-size:13px;font-weight:10px; font-size:13px;font-weight:bold; font-family:'Khmer MEF2'"><strong><?php echo $tr->translate("");?>
-				                                     <br/><u><b >ប័ណ្ណបញ្ជាទិញទំនិញ</b></u> 
-				                                </strong></h4>
-				                   </td>
-				                   <td nowrap valign="top" style="padding-left:100px;">  
-				                     <p class="modal-title center" ><strong></strong></p>
-				                     <span style="text-align:center; font-size:13px;font-weight:bold; font-family:'Khmer MEF2'">ការដ្ខាន :<label id="lb_site"></label></span>
-				                      
-				                     <br/> <span style="color:red;"><label id="lb_sal_no"></label></span>  <label id="lb_day"></label>&nbsp; &nbsp;<label id="lb_month"></label>&nbsp; &nbsp;<label id="lb_year"></label>
-				                   </td>
-				               </tr>
-				               <tr>
-				                   <td colspan="5">
-				                       <table  style="border-collapse: collapse;font-family:'Khmer OS Battambang';font-size: 11px !important;width:100%">
-										  <tr>
-										    <td width="20%"> </td>
-										    <td width="20%"> </td> 
-										    <td width="20%"> </td>
-										    <td width="40%" style="border:1px solid #000;">ថ្ងៃបញ្ជារទិញៈ  <label id="lb_order_date"></label> 
-										    ​​​​​​​​​ <br/> ថ្អៃទទួលទំនិញៈ   <label id="lb_in_date"></label> 
-										    <br/> គោលដៅទទួលទំនិញៈ ..........................   <label id="lb_go_site"></label> 
-										    </td>
-										  </tr>
-										</table> 		 
-				                   </td>
-				               </tr>
-				               <tr>
-				                  <td colspan="5">
-				                  	   <table id="table_product_price" class="table_reciept" style="border-collapse: collapse;font-family:'Khmer OS Battambang';font-size: 11px !important;" width="100%">
-				                  	           <tr align="center">
-								                   <td style=" border:1px solid #000;width:3px;" nowrap >ល.រ <br/>No.</td>
-								                   <td id="tds" nowrap>បរិយាយ <br/>Description</td>
-								                   <td id="tds" nowrap>ចំនួន <br/>Quantity</td>
-								                   <td id="tds" nowrap>តម្លៃរាយ <br/>Unit Price</td>
-								                   <td style=" border:1px solid #000;width:160px;" nowrap >តម្លៃសរុប <br/>Amount</td>
-								               </tr>
-								               
-				                  	   </table>
-				                  </td>
-				               </tr> 
-				               <tr>
-				                   <td colspan="5">
-				                       
-				                   </td>
-				               </tr>
-				               <tr>
-				                   <td colspan="5">
-				                       <table id="table_condition" class="table_reciept" style="border-collapse: collapse;font-family:'Khmer OS Battambang';font-size: 11px !important;" width="100%">
-				                  	          
-				                  	   </table>
-				                   </td>
-				               </tr>
-				               <tr>
-				                   <td colspan="4"></td>
-				                   <td style="font-size:13px;font-weight:bold;" nowrap style="padding-left: 60px;" >ភ្នំពេញ, ថ្ងៃ ទី............................................ <?php //echo 'កាលបរិច្ឆេទ Date:'.date("F j, Y, g:i a");?>
-				                   </td>
-				                </tr>
-				                <tr>
-				                   <td colspan="2" width="30%" style="font-size:13px;font-weight:bold;   " nowrap style="padding-left: 60px;" align="left">ស្នើរសុំដោយ </td>
-				                   <td colspan="2" style="font-size:13px;font-weight:bold;   " align="center" width="30%">​ បញ្ជាទិញដោយៈ</td>
-				                   <td  style="padding-right: 50px;font-size:13px;font-weight:bold;   " align="right" width="30%">អនុម័តដោយ</td>
-				                </tr>
-				                <tr><td style="height: 50px;"></td></tr>
-				                <tr>
-				                   <td colspan="2" width="30%" style=" " nowrap style="padding-left: 60px;" align="left">______________________</td>
-				                   <td colspan="2" style=" " align="center" width="30%">​ ______________________</td>
-				                   <td  style=" " align="right" width="30%">______________________</td>
-				                </tr>
-						       </table>
-					        </div>
-					        
-					</div>
-					<div class="form-group">
-								<label  class="col-md-12 col-md-offset-4 col-md-8">
-								   <button type="button" class="btn red" onclick="hideDialog();"><i class="fa fa-times"></i> បោះបង់/Cancel</button> 
-								<!--  <button type="button" name="btnsprint" onclick="doPrint();printSubmit();" class="btn blue"><i class="fa fa-save"></i>បោះពុម្ព/Print</button>-->  
-								</label>
-					</div>
-                                <!--     <label class="control-label"></label><input  id="btn_add" Onclick="addNewVendor()" type="button" class="btn default blue col-md-12" value="<?php echo $tr->translate("ADD_NEW");?>" />
-                             
-                                --> 
-                       </div>
-                     </form>
-                    </div>
-                 </div>
-           </div>
-        </div>
-    </div>
-   <input type="hidden" name="eee" value="3333" id="eee"/>
- </div>
- <!-- End Save Print -->
-  <label id='a'></label>
- <iframe name=print_frame width=0 height=0 frameborder=0 src=about:blank></iframe>
- 
- <script>
-$('#frm').submit(function() {
-//aa = $("#frm").validationEngine();
-//alert(JSON.stringify(aa));
-//return false;
- 
-});
-</script>
-
 <script>
-/*						       			
 $('#frm').submit(function() {
 //aa = $("#frm").validationEngine();
 //alert(JSON.stringify(aa));
@@ -587,171 +445,15 @@ $('#frm').submit(function() {
 		$('#v_name').select2('open');
 		return false;	
 	}
-	
+	/*
 	identity =$("#leave_stock_identity").val();
 	if(identity=='' || identity==-1){
 		alert("Please add product row");
 		$('#add_item').select2('open');
 		return false;
 	} 
-	
-});*/
-
-////function get table list product invoid
-function getPriceProductNoneStock(num_row){
-	var identity = $('#leave_stock_identity').val();
-	var arrays = identity.split(',');
-	var index=0;
-	var template = '';
-	var title=1;
-	//$('#table_product_price').html("");
-	///setvalue to tabel 
-	//setLabel();
-	for(var i=0;i<arrays.length;i++) {index++;num_row++;
-		// $('#a').text($("option:selected",$("#item_id_"+index)).text());
-	    if(title !=1){
-	    	template='<tr id="row_product_'+index+'" style="height:33px;border:1px solid #000;">';
-			template+='<th style="border:1px solid blue;" width="4%">ល.រ<br/>No.</th>';
-			template+='<th style="border:1px solid blue;" width="40%">បរិយាយ <br/>Description</th>';
-			template+='<th style="border:1px solid blue;">ចំនួន <br/>Quantity</th>';
-			template+='<th style="border:1px solid blue;">តម្លៃរាយ <br/>Unit Price</th>';
-			template+='<th style="border:1px solid blue;">តម្លៃសរុប <br/>Amount</th>';
-			template+="</tr>";
-		    title=1;
-		    $('#table_product_price').append(template);	
-		    
-	    }
-		item_name=($("option:selected",$("#item_leave_ids_"+index)).text());
-		qty=$("#qty_l_"+index).val();
-		price=$("#price_l_"+index).val();
-		total=$("#total_l_"+index).val();
-		pro_id=$("#pro_type_"+index).val();
-		    template='<tr id="row_product_'+index+'" style="height:33px;border:1px solid #000;">';
-			template+='<td style="border:1px solid #000;text-align:center;" width="2%">'+num_row+'</td>';
-			template+='<td style="border:1px solid #000;text-align:center;">'+item_name+'</td>';
-			template+='<td style="border:1px solid #000;text-align:center;">'+qty+'</td>';
-			template+='<td style="border:1px solid #000;text-align:center;">$&nbsp;&nbsp;'+price+'</td>';
-			template+='<td style="border:1px solid #000;text-align:center;">$&nbsp;&nbsp;'+total+'</td>';
-			template+='<td style="border:1px solid #000;text-align:center;">&nbsp;&nbsp;​</td>';
-			template+="</tr>";
-			//if(pro_id==1){
-			$('#table_product_price').append(template);	
-			//}
-	}
-}
-function getPriceProduct(){
-	setLabel();
-	var identity = $('#identity').val();
-	var arrays = identity.split(',');
-	var index=0;
-	var template = '';
-	var title=0;
-	$('#table_product_price').html("");
-	///setvalue to tabel 
-	//setLabel();
-	
-	for(var i=0;i<arrays.length;i++) {index++;
-		// $('#a').text($("option:selected",$("#item_id_"+index)).text());
-	    if(title !=1){
-	    	template='<tr id="row_product_'+index+'" style="height:33px;border:1px solid #000;">';
-			template+='<th style="border:1px solid #000;" width="4%">ល.រ</th>';
-			template+='<th style="border:1px solid #000;" width="40%">ឈ្មោះទំនិញ</th>';
-			template+='<th style="border:1px solid #000;">បរិនមាណ</th>';
-			template+='<th style="border:1px solid #000;" width="20%">ឯកតា ​</th>';
-			template+='<th style="border:1px solid #000;">តម្លៃសរុប​</th>';
-			template+='<th style="border:1px solid #000;" width="15%">ផ្សេងៗ ​</th>';
-			template+="</tr>";
-		    title=1;
-		    $('#table_product_price').append(template);	
-	    }
-		item_name=($("option:selected",$("#item_ids_"+index)).text());
-		qty=$("#qty"+index).val();
-		price=$("#price"+index).val();
-		total=$("#total"+index).val();
-		pro_id=$("#pro_type_"+index).val();
-		    template='<tr id="row_product_'+index+'" style="height:33px;border:1px solid #000;">';
-			template+='<td style="border:1px solid #000;text-align:center;" width="2%">'+index+'</td>';
-			template+='<td style="border:1px solid #000;text-align:center;">'+item_name+'</td>';
-			template+='<td style="border:1px solid #000;text-align:center;">'+qty+'</td>';
-			template+='<td style="border:1px solid #000;text-align:center;">$&nbsp;&nbsp;'+price+'</td>';
-			template+='<td style="border:1px solid #000;text-align:center;">$&nbsp;&nbsp;'+total+'</td>';
-			template+='<td style="border:1px solid #000;text-align:center;">&nbsp;&nbsp;​</td>';
-			template+="</tr>";
-			//if(pro_id==1){
-			$('#table_product_price').append(template);	
-			//}
-			var num=index;
-	}
-	getPriceProductNoneStock(num);
-	 
-	template='<tr id="row_product_'+index+'">';
-	template+='<td colspan="3"></td>';
-	template+='<td style="border:1px solid #000;text-align:right;">ទឹកប្រាក់សរុប /Subtotal</td>';
-	template+='<td  colspan="2"​ style="border:1px solid #000;text-align:center;">$&nbsp;&nbsp'+$("#totalAmoun").val()+'</td>';
-	template+="</tr>";
-	$('#table_product_price').append(template);
-	template='<tr id="row_product_'+index+'">';
-	template+='<td colspan="3"></td>';
-	template+='<td style="border:1px solid #000;text-align:right;">ទឹកប្រាក់បានទូទាត់ /Paid</td>';
-	template+='<td  colspan="2"​ style="border:1px solid #000;text-align:center;">$&nbsp;&nbsp;'+$("#paid").val()+'</td>';
-	template+="</tr>";
-	$('#table_product_price').append(template);
-	template='<tr id="row_product_'+index+'">';
-	template+='<td colspan="3"></td>';
-	template+='<td style="border:1px solid #000;text-align:right;">ទឹកប្រាក់នៅសល់ ​ /Balance</td>';
-	template+='<td colspan="2"​ style="border:1px solid #000;text-align:center;">$&nbsp;&nbsp;'+$("#remain").val()+'</td>';
-	template+="</tr>";
-	$('#table_product_price').append(template);
-	//getConditon();
-	
-}
-
-//function set lable 
-function setLabel(){
-	//date 
-	/*var date = new Date();
-	day =("0" + date.getDate()).slice(-2);
-	year = date.getFullYear();
-	month=("0" + (date.getMonth() + 1)).slice(-2);
-	$('#lb_day').text(day);
-	$('#lb_month').text(month);
-	$('#lb_year').text(year);
-	 
-	$('#lb_dat_start').text(getSetdate($("#order_date").val()));
-	$('#lb_dat_end').text(getSetdate($("#return_date").val()));
-	
-	 $('#lb_cus_name').text($("option:selected",$("#customer_id")).text());
-	 $('#lb_cus_id').text($('#txt_id').val());
-	 $('#lb_cus_sex').text($('#txt_sex').val());
-	 $('#lb_cus_dob').text(getSetdate($("#txt_dob").val()));
-	 
-	 $('#lb_imei').text($('#imei').val());
-	 $('#lb_sim').text($('#sim').val());
-	 $('#lb_on_wear').text($('#wear_on').val());
-	 $('#lb_loc_wear').text($('#location_wear').val());
-	 $('#lb_con').text($('#contact').val());
-	 */
-	 $('#lb_site').text($("option:selected",$("#LocationId")).text());
-	 $('#lb_order_date').text(getSetdate($("#order_date").val()));
-	 $('#lb_in_date').text(getSetdate($("#date_in").val()));
-}
-///fucntion date 
-function getSetdate(date){
-	var today = new Date(date);
-	var dd = today.getDate();
-	var mm = today.getMonth()+1; //January is 0!
-
-	var yyyy = today.getFullYear();
-	if(dd<10){
-	    dd='0'+dd;
-	} 
-	if(mm<10){
-	    mm='0'+mm;
-	} 
-	var today='';
-	return today = dd+'/'+mm+'/'+yyyy;
-}
-
+	*/
+});
 </script>
 <?php $frm_product= $this->form;?>
 <div id="productpopup" class="modal fade" tabindex="-1" data-width="1200">
@@ -1132,7 +834,7 @@ function addRow(item_id) {
 	if(index5 == 1) {
 		template+='<td >&nbsp;</td>';
 	} else {
-		template+='<td ><img onClick="deleteRecord('+index5+')" src=" </td>';
+		template+='<td ><img onClick="deleteRecord('+index5+')" src="<?php echo BASE_URL; ?>/images/icon/delete.gif" /></td>';
 	}
 	template+='<td  width="2%">'+index5+'</td>';
 	template+='<td width="30%"><select class="form-control select2me" Onchange="ShowPopupProduct('+ index5 + ');" id="item_id_'+index5+'" name="item_id_'+index5+'" >'+option5+'<option></option></select>'+inp+'</td>';
@@ -1194,10 +896,10 @@ function oldAddRow() {
 	if(index5 == 1) {
 		template+='<td >&nbsp;</td>';
 	} else {
-		template+='<td > </td>';
+		template+='<td ><img onClick="" src="<?php //echo BASE_URL; ?>/images/icon/delete.gif" /></td>';
 	}
 	template+='<td  width="2%">'+index5+'</td>';
-	template+='<td width="30%"> <input type="hidden" class="form-control "   id="item_id_'+index5+'" name="item_id_'+index5+'" > <select class="form-control select2me" Onchange="ShowPopupProduct('+ index5 + ');" id="item_ids_'+index5+'" name="item_ids_'+index5+'" >'+option5+'<option></option></select>'+inp+'</td>';
+	template+='<td width="30%"> <input type="text" class="form-control "   id="item_id_'+index5+'" name="item_id_'+index5+'" > <select class="form-control select2me" Onchange="ShowPopupProduct('+ index5 + ');" id="item_ids_'+index5+'" name="item_ids_'+index5+'" >'+option5+'<option></option></select>'+inp+'</td>';
 	template+='<input type="hidden" onkeyup="getPriceFree('+index5+')" id="pricefree_'+index5+'" name="pricefree_'+index5+'"/>';
 	template+='<td ><input type="text" onkeyup="totalQty('+index5+')" class="validate[required,custom[number]] input form-control" required="1" value="1" id="qty_unit_'+index5+'" name="qty_unit_'+index5+'" /></td>';
 	template+='<td ><input type="text" onkeyup="totalQty('+index5+')" class="validate[required,custom[number]] input form-control" value="0" id="qty_per_unit_'+index5+'" name="qty_per_unit_'+index5+'" /></td>';
@@ -1253,7 +955,7 @@ function addRowLeave(item_id) {
 	if(index == 1) {
 		template+='<td >&nbsp;</td>';
 	} else {
-		template+='<td > </td>';
+		template+='<td ><img onClick="deleteRecordLeave('+index+')" src="<?php echo BASE_URL; ?>/images/icon/delete.gif" /></td>';
 	}
 	template+='<td  width="2%">'+index+'</td>';
 	template+='<td width="30%"><select class="form-control select2me" Onchange="ShowPopupProduct('+ index + ');" id="item_leave_id_'+index+'" name="item_leave_id_'+index+'" ><option>'+option6+'</option></select>'+inp+'</td>';
@@ -1318,11 +1020,11 @@ function oldAddRowLeave(item_id){
 		if(index == 1) {
 			template+='<td >&nbsp;</td>';
 		} else {
-			template+='<td > </td>';
+			template+='<td ><img  src="<?php //echo BASE_URL; ?>/images/icon/delete.gif" /></td>';
 		}
 	
 	template+='<td  width="2%">'+index+'</td>';
-	template+='<td width="25%">  <input type="hidden" class="form-control "   id="item_leave_id_'+index+'" name="item_leave_id_'+index+'" > <select class="form-control select2me" Onchange="ShowPopupProduct('+ index + ');" id="item_leave_ids_'+index+'" name="item_leave_ids_'+index+'" ><option>'+option6+'</option></select>'+inp+'</td>';
+	template+='<td width="25%">  <input type="text" class="form-control "   id="item_leave_id_'+index+'" name="item_leave_id_'+index+'" > <select class="form-control select2me" Onchange="ShowPopupProduct('+ index + ');" id="item_leave_ids_'+index+'" name="item_leave_ids_'+index+'" ><option>'+option6+'</option></select>'+inp+'</td>';
 	template+='<input type="hidden" onkeyup="getPriceFree('+index+')" id="pricefree_l_'+index+'" name="pricefree_l_'+index+'"/>';
 	template+='<td ><input type="text" onkeyup="totalQtys('+index+')" class="validate[required,custom[number]] input form-control" required="1" value="1" id="qty_unit_l_'+index+'" name="qty_unit_l_'+index+'" /></td>';
 	template+='<td ><input type="text" onkeyup="totalQtys('+index+')" class="validate[required,custom[number]] input form-control" value="0" id="qty_per_unit_l_'+index+'" name="qty_per_unit_l_'+index+'" /></td>';
@@ -1334,7 +1036,7 @@ function oldAddRowLeave(item_id){
 	template+='<td  width="5%"><input type="text" onkeyup="calculatePriceLeave('+index+')" value="0" id="dis_value_l_'+index+'" name="dis_value_l_'+index+'" class="form-control" /><input type="hidden" id="olddis_value_'+index+'" name="olddis_value_'+index+'"/><input type="hidden" readonly="readonly" class="input70px" id="real-value'+index+'" name="real-value'+index+'" /></td>';
 	template+='<td ><input type="text" class="form-control" readonly="readonly" id="total_l_'+index+'" name="total_l_'+index+'" /></span></td>';
 //	template+='<td width="10%"><select class="form-control select2me"  id="block_id_l_'+index+'" name="block_id_l_'+index+'" ><option>'+getBlockBysite()+'</option></select>'+inp+'</td>';
-	template+='<td width="6%"> <input type="hidden" class="form-control "   id="job_id_'+index+'" name="job_id_'+index+'" > <select class="form-control select2me"   id="job_ids_'+index+'" name="job_ids_'+index+'" ><option>'+job+'</option></select>'+inp+'</td>';
+	template+='<td width="6%"> <input type="text" class="form-control "   id="job_id_'+index+'" name="job_id_'+index+'" > <select class="form-control select2me"   id="job_ids_'+index+'" name="job_ids_'+index+'" ><option>'+job+'</option></select>'+inp+'</td>';
 	
 	template+="</tr>";
 	$('#table_leave_product').append(template);
@@ -1763,28 +1465,5 @@ function CheckPOInvoice(){
 						}
 					});
 				}	
-}
-
-function printSubmit(){
-	var identity = $('#identity').val();
-	var arrays = identity.split(',');
-	for(var i=0;i<arrays.length;i++) {
-		price =$("#price"+1).val();
-		if(price==''){
-			alert("Please input  price");
-			//$('#price1').text('open');
-			return false;
-		}else{
-			 document.getElementById('frm').submit();
-		}
-	}
-}
-
-function doPrint() {
-	window.frames["print_frame"].document.body.innerHTML=document.getElementById('divPrint').innerHTML;
-    window.frames["print_frame"].window.focus();
-    window.frames["print_frame"].window.print();
-    //hideDialog();
-  
 }
 </script>	

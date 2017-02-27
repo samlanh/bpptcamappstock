@@ -1,8 +1,8 @@
 <?php 
 	$tr = Application_Form_FrmLanguages::getCurrentlanguage();
 	$form=$this->form_purchase;
-	$url_submit = $this->url(array('module'=>'purchase','controller'=>'purchasereceive','action'=>'add'));
-	$url_cancel = $this->url(array('module'=>'purchase','controller'=>'purchasereceive','action'=>'index'));
+	$url_submit = $this->url(array('module'=>'purchase','controller'=>'purchasereceivelist','action'=>'add'));
+	$url_cancel = $this->url(array('module'=>'purchase','controller'=>'purchasereceivelist','action'=>'index'));
 ?>
 <title><?php echo $tr->translate("ADD_PURCAHSE_RECEIVE");?></title>
 <div class="row">
@@ -68,6 +68,7 @@
 							<div class="col-md-4">
 								<div class="input-icon right">
 									<?php echo $form->getElement("purchase_status");?>
+									<?php echo $form->getElement("receive_status");?>
 								</div>
 							</div>
 							<label class="control-label col-md-2"><?php echo $tr->translate("PO_NUM");?><span class="required">
