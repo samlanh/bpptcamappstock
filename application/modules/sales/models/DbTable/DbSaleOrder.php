@@ -221,10 +221,33 @@ class Sales_Model_DbTable_DbSaleOrder extends Zend_Db_Table_Abstract
 	} 
 	public function getBlock($id){
 		$db=$this->getAdapter();
-		$sql=" SELECT id,block_name as name FROM tb_block WHERE AND branch_id=$id";
+		$sql=" SELECT id,block_name as name FROM tb_block WHERE  branch_id=$id";
 		$rows=$db->fetchAll($sql);
+		return $rows;
 		if(empty($rows)){
 		}
 		return $rows;
 	}
+	
+	public function getProductInstock($locationid){
+		
+		$db=$this->getAdapter();
+		$sql=" SELECT p.id,p.item_name,pl.location_id
+		       FROM tb_product AS p,tb_prolocation AS pl
+		       WHERE p.id=pl.pro_id   
+		       AND   p.product_type=1
+		       AND   pl.location_id=$locationid";
+		return  $db->fetchAll($sql);
+	}
+	
+	public function getProductNonestock($locationid){
+		$db=$this->getAdapter();
+		$sql=" SELECT p.id,p.item_name,pl.location_id
+		FROM tb_product AS p,tb_prolocation AS pl
+		WHERE p.id=pl.pro_id
+		AND   p.product_type=2
+		AND   pl.location_id=$locationid";
+		return  $db->fetchAll($sql);
+	}
+	
 }

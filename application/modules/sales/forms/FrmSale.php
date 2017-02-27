@@ -41,7 +41,7 @@ class Sales_Form_FrmSale extends Zend_Form
 		$options = $db->getAllLocation(1);
     	$locationID->setMultiOptions($options);
     	$locationID->setattribs(array(
-    			'Onchange'=>'getBlockBysites();'));
+    			'Onchange'=>'getBlockBysites();getProuductInstock();getNoneProuduct();'));
     	$this->addElement($locationID);
     	    	
     	$rowspayment= $db->getGlobalDb('SELECT * FROM tb_paymentmethod');
@@ -52,7 +52,7 @@ class Sales_Form_FrmSale extends Zend_Form
     	$paymentmethodElement->setMultiOptions($options_cg);
     	$this->addElement($paymentmethodElement);
     	$paymentmethodElement->setAttribs(array("class"=>"form-control select2me"));
-    	$rowsPayment = $db->getGlobalDb('SELECT id, description,symbal FROM tb_currency WHERE status = 1 ');
+    	$rowsPayment = $db->getGlobalDb('SELECT id, description,symbal FROM tb_currency WHERE status = 1  AND id=1');
     	if($rowsPayment) {
     		foreach($rowsPayment as $readPayment) $options_cur[$readPayment['id']]=$readPayment['description'].$readPayment['symbal'];
     	}	 

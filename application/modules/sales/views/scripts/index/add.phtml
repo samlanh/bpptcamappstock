@@ -109,8 +109,10 @@
 												</button>
 											</label>
 											<label class="control-label col-sm-10">
-												<select data-placeholder="Select..." class="form-control select2me " style="text-align: left;" id="add_item" name="add_item" Onchange="getItemOrder();" >
-												<?php echo $this->items; ?>
+												<select data-placeholder="Select..." class="form-control select2me " style="text-align: left;" id="add_item" name="add_item" Onchange="getItemOrder();getProuductInstock();" >
+												   <option value="0">eeeee</option>
+												<?php //echo $this->items; ?>
+												 
 												</select>
 											</label>
 										</div>
@@ -148,7 +150,7 @@
 												</button>
 											</label>
 											<label class="control-label col-sm-10">
-												<select data-placeholder="Select..." class="form-control select2me " style="text-align: left;" id="add_item_leave" name="add_item_leave" Onchange="getItemOrderLeaveProduct();getBlockBysite();" >
+												<select data-placeholder="Select..." class="form-control select2me " style="text-align: left;" id="add_item_leave" name="add_item_leave" Onchange="getItemOrderLeaveProduct();getBlockBysite();getNoneProuduct();" >
 												<?php echo $this->items_leave; ?>
 												</select>
 											</label>
@@ -263,6 +265,10 @@
 	</div>
 </div>
 <script>
+$(document).ready(function() {
+	getProuductInstock();
+	getNoneProuduct();
+});
 function popupProduct(){
 	$('#productpopup').modal('show');
 }
@@ -305,7 +311,7 @@ function getBlockBysites(){
 	        type: "post",
 	        data:{'branch_id':branch_id},
 	        success: function(data){
-		     so = $.parseJSON(data);
+		    so = $.parseJSON(data);
 			        var identity = $('#identity').val();
 				 	var arrays = identity.split(',');
 				 	for(var k=1;k<=arrays.length;k++){
@@ -327,7 +333,7 @@ function getBlockBysites(){
 	    });	
 }
 var index5 = 0;num=0;
-var option5 = '<?php echo $this->items; ?>';
+var option5 = '<?php //echo $this->items; ?>';
 var baseUrl = '<?php echo BASE_URL; ?>';
 var template = '';
 var value = '';
@@ -348,7 +354,7 @@ function addRow(item_id) {
 		template+='<td ><img onClick="deleteRecord('+index5+')" src="<?php echo BASE_URL; ?>/images/icon/delete.gif" /></td>';
 	}
 	template+='<td  width="2%">'+index5+'</td>';
-	template+='<td width="20%"><select class="form-control select2me" Onchange="ShowPopupProduct('+ index5 + ');" id="item_id_'+index5+'" name="item_id_'+index5+'" >'+option5+'<option></option></select>'+inp+'</td>';
+	template+='<td width="20%"><select class="form-control select2me" Onchange="ShowPopupProduct('+ index5 + ');" id="item_id_'+index5+'" name="item_id_'+index5+'" > <option></option></select>'+inp+'</td>';
 	template+='<td><input style="background:#f5e1e1;" readonly type="text" class="form-control" id="current_qty'+index5+'" name="current_qty'+index5+'" /></td>';
 	template+='<td ><input type="text" onkeyup="totalQty('+index5+')" class="validate[required,custom[number]] input form-control" required="1" value="1" id="qty_unit_'+index5+'" name="qty_unit_'+index5+'" /></td>';
 	template+='<td ><input type="text" onkeyup="totalQty('+index5+')" class="validate[required,custom[number]] input form-control" value="0" id="qty_per_unit_'+index5+'" name="qty_per_unit_'+index5+'" /></td>';
@@ -396,7 +402,7 @@ function addRowLeave(item_id) {
 		template+='<td ><img onClick="deleteRecordLeave('+index+')" src="<?php echo BASE_URL; ?>/images/icon/delete.gif" /></td>';
 	}
 	template+='<td  width="2%">'+index+'</td>';
-	template+='<td width="20%"><select class="form-control select2me" Onchange="ShowPopupProduct('+ index + ');" id="item_leave_id_'+index+'" name="item_leave_id_'+index+'" ><option>'+option6+'</option></select>'+inp+'</td>';
+	template+='<td width="20%"><select class="form-control select2me" Onchange="ShowPopupProduct('+ index + ');" id="item_leave_id_'+index+'" name="item_leave_id_'+index+'" ><option> </option></select>'+inp+'</td>';
 	template+='<td ><input type="text" onkeyup="totalQtys('+index+')" class="validate[required,custom[number]] input form-control" required="1" value="1" id="qty_unit_l_'+index+'" name="qty_unit_l_'+index+'" /></td>';
 	template+='<td ><input type="text" onkeyup="totalQtys('+index+')" class="validate[required,custom[number]] input form-control" value="0" id="qty_per_unit_l_'+index+'" name="qty_per_unit_l_'+index+'" /></td>';
 	template+='<td ><input type="text" readonly onkeyup="calculatePriceLeave('+index+')" class="form-control" required="1" id="qty_l_'+index+'" name="qty_l_'+index+'"/></td>';
@@ -809,5 +815,80 @@ function deleteTermRecord(termid){
 	var strings = arrays.join(',');
 	$('#identity_term').val(strings);
 	$("#row_term_"+termid).remove();
+}
+///ajax select product by location   
+<?php $url_product =  $this->url(array('module'=>'sales','controller'=>'index','action'=>'get-product-instock')); ?>
+ 
+function getProuductInstock(){
+	   //alert(type);
+	    branch_id = $("#branch_id").val();
+		$.ajax({
+	        url: "<?php echo $url_product;?>",
+	        type: "post",
+	        data:{'branch_id':branch_id},
+	        success: function(data){
+		     so = $.parseJSON(data);
+				 	$('option', '#add_item').remove();
+				 	$("#add_item").select2();
+				 	for(i=0;i<so.length;i++){  
+				  		 $('#add_item').append($("<option></option>").attr("value",so[i].id).attr("selected",true).text(so[i].item_name));
+					  	 $("#add_item").select2();
+				   }
+					$("#add_item").val(0);
+				 	var identity = $('#identity').val();
+					var arrays = identity.split(',');
+				 	for(var k=1;k<=arrays.length;k++){
+				 		$('option', '#item_id_'+k).remove();
+				 		 $("#item_id_"+k).select2();
+				 		 if(so !=""){
+					 	  for(i=0;i<so.length;i++){  
+						  		 $('#item_id_'+k).append($("<option></option>").attr("value",so[i].id).attr("selected",true).text(so[i].item_name));                   
+							  	 $("#item_id_"+k).select2();
+						  }
+				 		}
+				 	}
+	        },
+	        error:function(){
+	        }
+	    });	
+		//getBlockBysite();
+}
+
+///ajax select none product by location   
+<?php $url_product =  $this->url(array('module'=>'sales','controller'=>'index','action'=>'get-product-nonestock')); ?>
+ 
+function getNoneProuduct(){
+	   //alert(type);
+	    branch_id = $("#branch_id").val();
+		$.ajax({
+	        url: "<?php echo $url_product;?>",
+	        type: "post",
+	        data:{'branch_id':branch_id},
+	        success: function(data){
+		     so = $.parseJSON(data);
+				 	$('option', '#add_item_leave').remove();
+				 	$("#add_item_leave").select2();
+				 	for(i=0;i<so.length;i++){  
+				  		 $('#add_item_leave').append($("<option></option>").attr("value",so[i].id).attr("selected",true).text(so[i].item_name));
+					  	 $("#add_item_leave").select2();
+				   }
+					 
+				 	var identity = $('#leave_stock_identity').val();
+					var arrays = identity.split(',');
+				 	for(var k=1;k<=arrays.length;k++){
+				 		$('option', '#item_leave_id_'+k).remove();
+				 		 $("#item_leave_id_"+k).select2();
+				 		 if(so !=""){
+					 	  for(i=0;i<so.length;i++){  
+						  		 $('#item_leave_id_'+k).append($("<option></option>").attr("value",so[i].id).attr("selected",true).text(so[i].item_name));                   
+							  	 $("#item_leave_id_"+k).select2();
+						  }
+				 		}
+				 	}
+	        },
+	        error:function(){
+	        }
+	    });	
+		//getBlockBysite();
 }
 </script>	

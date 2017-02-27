@@ -164,10 +164,33 @@ class Sales_IndexController extends Zend_Controller_Action{
   		exit();
 	}
 	public function getblockAction(){	
+		if($this->getRequest()->isPost()){
 			$post=$this->getRequest()->getPost();
-			$db = new Sales_Model_DbTable_DbSaleOrder();			
+			$db = new Sales_Model_DbTable_DbSaleOrder();
 			$qo = $db->getBlock($post['branch_id']);
 			echo Zend_Json::encode($qo);
 			exit();
-	}		
+		}
+	}	
+	public function getProductInstockAction(){
+		if($this->getRequest()->isPost()){
+			$post=$this->getRequest()->getPost();
+			$db = new Sales_Model_DbTable_DbSaleOrder();
+			$qo = $db->getProductInstock($post['branch_id']);
+			array_unshift($qo, array ( 'id' => 0,'item_name' => 'Select Product'));
+			echo Zend_Json::encode($qo);
+			exit();
+		}
+	}	
+	
+	public function getProductNonestockAction(){
+		if($this->getRequest()->isPost()){
+			$post=$this->getRequest()->getPost();
+			$db = new Sales_Model_DbTable_DbSaleOrder();
+			$qo = $db->getProductNonestock($post['branch_id']);
+			array_unshift($qo, array ( 'id' => 0,'item_name' => 'Select Product'));
+			echo Zend_Json::encode($qo);
+			exit();
+		}
+	}
 }
