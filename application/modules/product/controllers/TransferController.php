@@ -21,15 +21,14 @@ public function init()
     			'tran_num'	=>	'',
     			'tran_date'	=>	1,
     			'type'		=>	'',
-    			'status'	=>	1,
+    			'status'	=>	'',
     			'to_loc'	=>	'',
     		);
     	}
     	$this->view->product = $db->getTransfer($data);
     	$formFilter = new Product_Form_FrmTransfer();
     	$this->view->formFilter = $formFilter->frmFilter();
-    	Application_Model_Decorator::removeAllDecorator($formFilter);
-        
+    	Application_Model_Decorator::removeAllDecorator($formFilter);  
 	}
 	public function addAction()
 	{
@@ -59,7 +58,7 @@ public function init()
 			if($this->getRequest()->isPost()){ 
 				try{
 					$post = $this->getRequest()->getPost();
-					$db->add($post);
+					$db->edit($post,$id);
 					if(isset($post["save_close"]))
 					{
 						Application_Form_FrmMessage::message("INSERT_SUCCESS");
@@ -118,19 +117,12 @@ public function init()
 			Application_Model_Decorator::removeAllDecorator($formStockAdd);
 			$this->view->formFilter = $formStockAdd;
 	}
-	
-	function editrequestAction(){
+	public function viewAction(){
+		$db = new Product_Model_DbTable_DbTransfer();
+		$id = $this->getRequest()->getParam("id");
+		$this->view-> vt = $db->getview($id);
+		$this ->view -> vi = $db->getitemview($id);
 		
-	}
-	
-	function recieverequest(){
-		
-	}
-	function editrecieve(){
-		
-	}
-	
-		
-	
+	}	
 }
 
