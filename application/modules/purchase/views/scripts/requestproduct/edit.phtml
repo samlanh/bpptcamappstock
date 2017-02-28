@@ -87,12 +87,12 @@
 									<?php echo $form->getElement("remark");?>
 								</div>
 							</div>
-							<label class="control-label col-md-2"><?php echo $tr->translate("INVOICE_NO");?><span class="required">
+							<label class="control-label col-md-2"><?php //echo $tr->translate("INVOICE_NO");?><span class="required">
 							</span>
 							</label>
 							<div class="col-md-4">
 								<div class="input-icon right">
-									<?php echo $form->getElement("invoice_no"); ?></div>
+									<?php //echo $form->getElement("invoice_no"); ?></div>
 							</div>
 						</div>
 			
@@ -153,7 +153,7 @@
 									<th><?php echo $tr->translate("UNIT_PRICE_CAP");?></th>
 									<th style="white-space:nowrap;"><?php echo $tr->translate("DISCOUNT");?></th>
 									<th><?php echo $tr->translate("SUB_TOTAL_CAP");?></th>
-									<th><?php echo $tr->translate("BLOCK");?></th>
+								<!--<th><?php echo $tr->translate("BLOCK");?></th> -->
 							</tr>
 						 </table>
 						 <input type="hidden" id="identity" name="identity" />
@@ -209,7 +209,7 @@
 									<th><?php echo $tr->translate("UNIT_PRICE_CAP");?></th>
 									<th style="white-space:nowrap;"><?php echo $tr->translate("DISCOUNT");?></th>
 									<th><?php echo $tr->translate("SUB_TOTAL_CAP");?></th>
-									<th><?php echo $tr->translate("BLOCK");?></th>
+							  <!--  <th><?php echo $tr->translate("BLOCK");?></th>-->
 									<th><?php echo $tr->translate("JOb");?></th>
 							</tr>
 						 </table>
@@ -435,7 +435,7 @@ $('#frm').submit(function() {
 //alert(JSON.stringify(aa));
 //return false;
 	customer_id=$("#v_name").val();
-	if(customer_id=='' || customer_id==-1){
+	if(customer_id=='' || customer_id==-1 || customer_id==0){
 		alert("Please select vendor name");
 		$('#v_name').select2('open');
 		return false;	
@@ -835,7 +835,7 @@ function addRow(item_id) {
 	template+='<td ><input type="text" onkeyup="calculatePrice('+index5+')" required="1" class="validate[required,custom[number]] input form-control" id="price'+index5+'" name="price'+index5+'" /><input type="hidden" id="oldprice_'+index5+'" name="oldprice_'+index5+'"/></td>';
 	template+='<td  width="5%"><input type="text" onkeyup="calculatePrice('+index5+')" value="0" id="dis_value'+index5+'" name="dis_value'+index5+'" class="form-control" /><input type="hidden" id="olddis_value_'+index5+'" name="olddis_value_'+index5+'"/><input type="hidden" readonly="readonly" class="input70px" id="real-value'+index5+'" name="real-value'+index5+'" /></td>';
 	template+='<td ><input type="text" class="form-control" readonly="readonly" id="total'+index5+'" name="total'+index5+'" /></span></td>';
-	template+='<td width="10%"><select class="form-control select2me"  id="block_id_'+index5+'" name="block_id_'+index5+'" ><option>'+getBlockBysites()+'</option></select>'+inp+'</td>';
+	//template+='<td width="10%"><select class="form-control select2me"  id="block_id_'+index5+'" name="block_id_'+index5+'" ><option>'+getBlockBysites()+'</option></select>'+inp+'</td>';
 	
 	template+="</tr>";
 	$('#table_order').append(template);
@@ -896,7 +896,7 @@ function oldAddRow() {
 	template+='<td ><input type="text" onkeyup="calculatePrice('+index5+')" required="1" class="validate[required,custom[number]] input form-control" id="price'+index5+'" name="price'+index5+'" /><input type="hidden" id="oldprice_'+index5+'" name="oldprice_'+index5+'"/></td>';
 	template+='<td  width="5%"><input type="text" onkeyup="calculatePrice('+index5+')" value="0" id="dis_value'+index5+'" name="dis_value'+index5+'" class="form-control" /><input type="hidden" id="olddis_value_'+index5+'" name="olddis_value_'+index5+'"/><input type="hidden" readonly="readonly" class="input70px" id="real-value'+index5+'" name="real-value'+index5+'" /></td>';
 	template+='<td ><input type="text" class="form-control" readonly="readonly" id="total'+index5+'" name="total'+index5+'" /></span></td>';
-	template+='<td width="10%"><select class="form-control select2me"  id="block_id_'+index5+'" name="block_id_'+index5+'" ><option>'+getBlockBysites()+'</option></select>'+inp+'</td>';
+	//template+='<td width="10%"><select class="form-control select2me"  id="block_id_'+index5+'" name="block_id_'+index5+'" ><option>'+getBlockBysites()+'</option></select>'+inp+'</td>';
 	template+="</tr>";
 	$('#table_order').append(template);
 	
@@ -951,7 +951,7 @@ function addRowLeave(item_id) {
 	template+='<td ><input type="text" onkeyup="calculatePriceLeave('+index+')" required="1" class="validate[required,custom[number]] input form-control" id="price_l_'+index+'" name="price_l_'+index+'" /><input type="hidden" id="oldprice_'+index+'" name="oldprice_'+index+'"/></td>';
 	template+='<td  width="5%"><input type="text" onkeyup="calculatePriceLeave('+index+')" value="0" id="dis_value_l_'+index+'" name="dis_value_l_'+index+'" class="form-control" /><input type="hidden" id="olddis_value_'+index+'" name="olddis_value_'+index+'"/><input type="hidden" readonly="readonly" class="input70px" id="real-value'+index+'" name="real-value'+index+'" /></td>';
 	template+='<td ><input type="text" class="form-control" readonly="readonly" id="total_l_'+index+'" name="total_l_'+index+'" /></span></td>';
-	template+='<td width="10%"><select class="form-control select2me"  id="block_id_l_'+index+'" name="block_id_l_'+index+'" ><option>'+getBlockBysite()+'</option></select>'+inp+'</td>';
+	//template+='<td width="10%"><select class="form-control select2me"  id="block_id_l_'+index+'" name="block_id_l_'+index+'" ><option>'+getBlockBysite()+'</option></select>'+inp+'</td>';
 	template+='<td width="6%"><select class="form-control select2me"   id="job_id_'+index+'" name="job_id_'+index+'" ><option>'+job+'</option></select>'+inp+'</td>';
 	
 	template+="</tr>";
@@ -1018,7 +1018,7 @@ function oldAddRowLeave(item_id){
 
 	template+='<td  width="5%"><input type="text" onkeyup="calculatePriceLeave('+index+')" value="0" id="dis_value_l_'+index+'" name="dis_value_l_'+index+'" class="form-control" /><input type="hidden" id="olddis_value_'+index+'" name="olddis_value_'+index+'"/><input type="hidden" readonly="readonly" class="input70px" id="real-value'+index+'" name="real-value'+index+'" /></td>';
 	template+='<td ><input type="text" class="form-control" readonly="readonly" id="total_l_'+index+'" name="total_l_'+index+'" /></span></td>';
-	template+='<td width="10%"><select class="form-control select2me"  id="block_id_l_'+index+'" name="block_id_l_'+index+'" ><option>'+getBlockBysite()+'</option></select>'+inp+'</td>';
+	//template+='<td width="10%"><select class="form-control select2me"  id="block_id_l_'+index+'" name="block_id_l_'+index+'" ><option>'+getBlockBysite()+'</option></select>'+inp+'</td>';
 	template+='<td width="6%"><select class="form-control select2me"   id="job_id_'+index+'" name="job_id_'+index+'" ><option>'+job+'</option></select>'+inp+'</td>';
 	
 	template+="</tr>";

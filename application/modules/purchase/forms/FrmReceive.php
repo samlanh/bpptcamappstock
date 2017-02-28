@@ -42,12 +42,12 @@ class Purchase_Form_FrmReceive extends Zend_Form
     	$this->addElement($vendor_id);
     	
     	$po_number= new Zend_Form_Element_Text("txt_order");
-    	$po_number->setAttribs(array('placeholder' => 'Optional','class'=>'form-control name',
+    	$po_number->setAttribs(array('placeholder' => 'Optional','class'=>'form-control name','readonly'=>true,
     			));
     	$this->addElement($po_number);
     	
     	$roder_element= new Zend_Form_Element_Text("invoice_no");
-    	$roder_element->setAttribs(array('placeholder' => 'Optional','class'=>'validate[required] form-control',
+    	$roder_element->setAttribs(array('placeholder' => 'Optional','class'=>'validate[required] form-control','readonly'=>true,
     	));
     	$this->addElement($roder_element);
     	
@@ -244,7 +244,7 @@ class Purchase_Form_FrmReceive extends Zend_Form
     			$statusElement->setValue($data["purchase_status"]);
 				//$date_issuecheque->setValue(date("m/d/Y",strtotime($data["date_issuecheque"])));
     			//$roder_element->setAttribs(array('readonly'=>'readonly'));
-    			//$roder_element->setValue($data["invoice_no"]);
+    			$roder_element->setValue($data["invoice_no"]);
     			$po_number->setValue($data["order_number"]);
     			
     			$descriptionElement->setValue($data["remark"]);

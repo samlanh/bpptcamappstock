@@ -47,8 +47,6 @@ class Purchase_Model_DbTable_DbPurchaseReceive extends Zend_Db_Table_Abstract
 	}
 	public function addPurchaseOrder($data)
 	{
-		//print_r($data);exit();
-		//$data["status"]=5;
 		$data['currency']=1;
 		$db = $this->getAdapter();
 		$db->beginTransaction();
@@ -70,29 +68,12 @@ class Purchase_Model_DbTable_DbPurchaseReceive extends Zend_Db_Table_Abstract
 				$order_add=$data['txt_order'];
 			}
 			$info_purchase_order=array(
-					"vendor_id"      => 	$data['v_name'],
-					"branch_id"      => 	$data["LocationId"],
-					"order_number"   => 	$order_add,
-					"date_order"     => 	date("Y-m-d",strtotime($data['order_date'])),
-					"date_in"     	 => 	date("Y-m-d",strtotime($data['date_in'])),
+					 
 					"purchase_status"=> 	1,// approve 
 					"recieve_status" =>		1,//receive add product to stock 
 					"currency_id"    => 1,
 					"remark"         => 	$data['remark'],
-// 					"all_total"      => 	$data['totalAmoun'],
-// 					"discount_value" => 	$data['dis_value'],
-// 					"discount_real"  => 	$data['global_disc'],
-// 					"net_total"      => 	$data['all_total'],
-// 					"paid"           => 	$data['paid'],
-// 					"balance"        => 	$data['remain'],
-					//"payment_number" => 	$data['payment_number'],
-					//'date_issuecheque'=>date("Y-m-d",strtotime($data['date_issuecheque'])),
-					//"payment_method" => $data['payment_name'],
-					//"discount_type"	 => $data['discount_type'],
-// 					"sub_total_pro"  => 	$data['price_product'],
-// 					"sub_total_jobtype" => 	$data['price_jobtype'],
-					
-// 					'invoice_no' => 	$data['invoice_no'],
+					"invoice_no"     => 	$data['invoice_no'],
 // 					"user_mod"       => 	$GetUserId,
 // 					"date"      => 	new Zend_Date(),
 			);
@@ -112,6 +93,8 @@ class Purchase_Model_DbTable_DbPurchaseReceive extends Zend_Db_Table_Abstract
 						'purchase_id'=>   $data['id'],
 						"vendor_id"      => 	$data['v_name'],
 						"LocationId"     => 	$data["LocationId"],
+						"invoice_no"     => 	$data['invoice_no'],
+						"order_number"   =>		$data["txt_order"],
 						"recieve_number" => 	$recieve_no,
 						"date_order"     => 	$data['order_date'],
 						"date_in"     	 => 	$data['date_in'],
@@ -134,7 +117,6 @@ class Purchase_Model_DbTable_DbPurchaseReceive extends Zend_Db_Table_Abstract
 						"receive_status" =>		1,//receive add product to stock
 						"sub_total_product"  => 	$data['price_product'],
 						"sub_total_jobtype" => 	$data['price_jobtype'],
-						
 						"user_mod"       	=> 	$GetUserId,
 						"date"      		=> 	new Zend_Date(),
 				);

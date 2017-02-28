@@ -42,7 +42,7 @@ class Purchase_Form_purchase extends Zend_Form
     	$this->addElement($vendor_id);
     	
     	$po_number= new Zend_Form_Element_Text("txt_order");
-    	$po_number->setAttribs(array('placeholder' => 'Optional','class'=>'form-control name',
+    	$po_number->setAttribs(array('placeholder' => 'Optional','class'=>'form-control name','readonly'=>true,
     			));
     	$this->addElement($po_number);
     	

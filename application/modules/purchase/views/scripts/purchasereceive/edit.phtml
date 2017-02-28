@@ -480,7 +480,7 @@
 				                     <p class="modal-title center" ><strong></strong></p>
 				                     <span style="text-align:center; font-size:13px;font-weight:bold; font-family:'Khmer MEF2'">ការដ្ខាន :<label id="lb_site"></label></span>
 				                      
-				                     <br/> <span style="color:red;"><label id="lb_sal_no"></label></span>  <label id="lb_day"></label>&nbsp; &nbsp;<label id="lb_month"></label>&nbsp; &nbsp;<label id="lb_year"></label>
+				                     <br/> <span style="color:red;"><label id="lb_sal_no"></label></span> 
 				                   </td>
 				               </tr>
 				               <tr>
@@ -492,7 +492,7 @@
 										    <td width="20%"> </td>
 										    <td width="40%" style="border:1px solid #000;">ថ្ងៃបញ្ជារទិញៈ  <label id="lb_order_date"></label> 
 										    ​​​​​​​​​ <br/> ថ្អៃទទួលទំនិញៈ   <label id="lb_in_date"></label> 
-										    <br/> គោលដៅទទួលទំនិញៈ ..........................   <label id="lb_go_site"></label> 
+										    <br/> គោលដៅទទួលទំនិញៈ  <label id="lb_go_site"></label> 
 										    </td>
 										  </tr>
 										</table> 		 
@@ -526,7 +526,7 @@
 				               </tr>
 				               <tr>
 				                   <td colspan="4"></td>
-				                   <td style="font-size:13px;font-weight:bold;" nowrap style="padding-left: 60px;" >ភ្នំពេញ, ថ្ងៃ ទី............................................ <?php //echo 'កាលបរិច្ឆេទ Date:'.date("F j, Y, g:i a");?>
+				                   <td style="font-size:13px;font-weight:bold;text-align: right;" nowrap="nowrap" >ភ្នំពេញ, ថ្ងៃ ទី    <label id="lb_day"></label>&nbsp; ខែ &nbsp;<label id="lb_month"></label>&nbsp;​ ឆ្នាំ &nbsp;<label id="lb_year"></label> <?php //echo 'កាលបរិច្ឆេទ Date:'.date("F j, Y, g:i a");?>
 				                   </td>
 				                </tr>
 				                <tr>
@@ -626,10 +626,12 @@ function getPriceProductNoneStock(num_row){
 		price=$("#price_l_"+index).val();
 		total=$("#total_l_"+index).val();
 		pro_id=$("#pro_type_"+index).val();
+		label_l=$("#label_l_"+index).val();
 		    template='<tr id="row_product_'+index+'" style="height:33px;border:1px solid #000;">';
 			template+='<td style="border:1px solid #000;text-align:center;" width="2%">'+num_row+'</td>';
 			template+='<td style="border:1px solid #000;text-align:center;">'+item_name+'</td>';
 			template+='<td style="border:1px solid #000;text-align:center;">'+qty+'</td>';
+			template+='<td style="border:1px solid #000;text-align:center;"> &nbsp;&nbsp;m<sup>3</sup>'+label_l+'</td>';
 			template+='<td style="border:1px solid #000;text-align:center;">$&nbsp;&nbsp;'+price+'</td>';
 			template+='<td style="border:1px solid #000;text-align:center;">$&nbsp;&nbsp;'+total+'</td>';
 			template+='<td style="border:1px solid #000;text-align:center;">&nbsp;&nbsp;​</td>';
@@ -657,8 +659,9 @@ function getPriceProduct(){
 			template+='<th style="border:1px solid #000;" width="4%">ល.រ</th>';
 			template+='<th style="border:1px solid #000;" width="40%">ឈ្មោះទំនិញ</th>';
 			template+='<th style="border:1px solid #000;">បរិនមាណ</th>';
-			template+='<th style="border:1px solid #000;" width="20%">ឯកតា ​</th>';
-			template+='<th style="border:1px solid #000;">តម្លៃសរុប​</th>';
+			template+='<th style="border:1px solid #000;" width="5%">ឯកតា ​</th>';
+			template+='<th style="border:1px solid #000;" width="20%">តម្លៃដើម ​</th>';
+			template+='<th style="border:1px solid #000;" width="15%">តម្លៃសរុប​</th>';
 			template+='<th style="border:1px solid #000;" width="15%">ផ្សេងៗ ​</th>';
 			template+="</tr>";
 		    title=1;
@@ -673,6 +676,7 @@ function getPriceProduct(){
 			template+='<td style="border:1px solid #000;text-align:center;" width="2%">'+index+'</td>';
 			template+='<td style="border:1px solid #000;text-align:center;">'+item_name+'</td>';
 			template+='<td style="border:1px solid #000;text-align:center;">'+qty+'</td>';
+			template+='<td style="border:1px solid #000;text-align:center;">&nbsp;&nbsp;</td>';
 			template+='<td style="border:1px solid #000;text-align:center;">$&nbsp;&nbsp;'+price+'</td>';
 			template+='<td style="border:1px solid #000;text-align:center;">$&nbsp;&nbsp;'+total+'</td>';
 			template+='<td style="border:1px solid #000;text-align:center;">&nbsp;&nbsp;​</td>';
@@ -685,21 +689,21 @@ function getPriceProduct(){
 	getPriceProductNoneStock(num);
 	 
 	template='<tr id="row_product_'+index+'">';
-	template+='<td colspan="3"></td>';
+	template+='<td colspan="4"></td>';
 	template+='<td style="border:1px solid #000;text-align:right;">ទឹកប្រាក់សរុប /Subtotal</td>';
-	template+='<td  colspan="2"​ style="border:1px solid #000;text-align:center;">$&nbsp;&nbsp'+$("#totalAmoun").val()+'</td>';
+	template+='<td  colspan="2"​ style="border:1px solid #000;">&nbsp;&nbsp;$&nbsp;&nbsp'+$("#totalAmoun").val()+'</td>';
 	template+="</tr>";
 	$('#table_product_price').append(template);
 	template='<tr id="row_product_'+index+'">';
-	template+='<td colspan="3"></td>';
+	template+='<td colspan="4"></td>';
 	template+='<td style="border:1px solid #000;text-align:right;">ទឹកប្រាក់បានទូទាត់ /Paid</td>';
-	template+='<td  colspan="2"​ style="border:1px solid #000;text-align:center;">$&nbsp;&nbsp;'+$("#paid").val()+'</td>';
+	template+='<td  colspan="2"​ style="border:1px solid #000; ">&nbsp;&nbsp;$&nbsp;&nbsp;'+$("#paid").val()+'</td>';
 	template+="</tr>";
 	$('#table_product_price').append(template);
 	template='<tr id="row_product_'+index+'">';
-	template+='<td colspan="3"></td>';
+	template+='<td colspan="4"></td>';
 	template+='<td style="border:1px solid #000;text-align:right;">ទឹកប្រាក់នៅសល់ ​ /Balance</td>';
-	template+='<td colspan="2"​ style="border:1px solid #000;text-align:center;">$&nbsp;&nbsp;'+$("#remain").val()+'</td>';
+	template+='<td colspan="2"​ style="border:1px solid #000; ">&nbsp;&nbsp;$&nbsp;&nbsp;'+$("#remain").val()+'</td>';
 	template+="</tr>";
 	$('#table_product_price').append(template);
 	//getConditon();
@@ -709,14 +713,14 @@ function getPriceProduct(){
 //function set lable 
 function setLabel(){
 	//date 
-	/*var date = new Date();
+	var date = new Date();
 	day =("0" + date.getDate()).slice(-2);
 	year = date.getFullYear();
 	month=("0" + (date.getMonth() + 1)).slice(-2);
 	$('#lb_day').text(day);
 	$('#lb_month').text(month);
 	$('#lb_year').text(year);
-	 
+	/*	 
 	$('#lb_dat_start').text(getSetdate($("#order_date").val()));
 	$('#lb_dat_end').text(getSetdate($("#return_date").val()));
 	
@@ -729,11 +733,13 @@ function setLabel(){
 	 $('#lb_sim').text($('#sim').val());
 	 $('#lb_on_wear').text($('#wear_on').val());
 	 $('#lb_loc_wear').text($('#location_wear').val());
-	 $('#lb_con').text($('#contact').val());
+	 $('#lb_con').text($('#contact').val());lb_go_site
 	 */
 	 $('#lb_site').text($("option:selected",$("#LocationId")).text());
 	 $('#lb_order_date').text(getSetdate($("#order_date").val()));
 	 $('#lb_in_date').text(getSetdate($("#date_in").val()));
+	 $('#lb_go_site').text($("option:selected",$("#LocationId")).text());
+	 $('#lb_date_now').text(getSetdate(date));
 }
 ///fucntion date 
 function getSetdate(date){
@@ -1611,9 +1617,29 @@ function doRemains() {
 function totalQty(index){
 	calculatePrice(index);
 	getQtyById(index);
-
 	$("#price"+index).val('');
+	//doOrderQty(index);
 }
+///function get qty can not bigger request approve 
+function doOrderQty(index) {
+	var qty_l = parseFloat($('#qty_l_'+index).val());
+	var qty = parseFloat($('#qty'+index).val());
+
+	var qty_unit = parseFloat($('#qty_unit_'+index).val());
+	var qty_per_unit = parseFloat($('#qty_per_unit_'+index).val());
+	var qty_order=qty_unit+qty_per_unit;
+	
+	if( qty_order>qty ){
+		 
+		alert(" Value can not biger then total qty order !");
+		 $('#qty'+index).val(qty.toFixed(2));
+   }else{
+	   $('#qty'+index).val(qty_order.toFixed(2));
+	  // getQtyById(index);
+	}
+	
+}
+
 ///qty leave product 
 function totalQtys(index){
 	calculatePriceLeave(index);
