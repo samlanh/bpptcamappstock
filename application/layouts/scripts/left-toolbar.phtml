@@ -14,6 +14,9 @@
 	$url_adj =  array($this->url(array('module'=>'product','controller'=>'adjust','action'=>'add'),null, true), "MENU_PRODUCT_ADJUST_STOCK_ADJUST");
 	//$url_adj_price =  array($this->url(array('module'=>'product','controller'=>'adjust-stock','action'=>'price')), "MENU_PRODUCT_ADJUST_STOCK_ADJUST_PRICE");
 	$url_transfer = array($this->url(array('module'=>'product','controller'=>'transfer','action'=>'index'),null, true), "MENU_PRODUCT_ADJUST_STOCK_TRANSFER_STOCK");
+	
+	$url_transfer_check = array($this->url(array('module'=>'product','controller'=>'checktransfer','action'=>'index'),null, true), "MENU_PRODUCT_ADJUST_STOCK_TRANSFER_STOCK_CHECK");
+	
 	$url_location = array($this->url(array('module'=>'product','controller'=>'branch','action'=>'index'),null, true), "MENU_PRODUCT_INDEX_INDEX_LOCATION");
 	$url_other = array($this->url(array('module'=>'product','controller'=>'other','action'=>'index')), "MENU_OTHER");
 	//$url_alert = array($this->url(array('module'=>'product','controller'=>'index','action'=>'itemalert')), "MENU_PRODUCT_INDEX_ITEMALERT");
@@ -122,6 +125,11 @@
 	            		<li>
 	            			<a href="<?php echo $url_transfer[0]; ?>">
 							      <i class="icon-bulb"></i><?php echo $tr->translate($url_transfer[1])?>
+		            		</a>
+	            		</li>
+						<li>
+	            			<a href="<?php echo $url_transfer_check[0]; ?>">
+							      <i class="icon-bulb"></i><?php echo $tr->translate($url_transfer_check[1])?>
 		            		</a>
 	            		</li>
 	            		<?php //if($result["level"]==1 OR $result["level"]==2 ){ ?>
