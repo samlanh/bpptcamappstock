@@ -26,7 +26,7 @@ class Purchase_Model_DbTable_DbPurchaseReceivelist extends Zend_Db_Table_Abstrac
 			$s_where[] = " order_number LIKE '%{$s_search}%'";
 			$s_where[] = " invoice_no LIKE '%{$s_search}%'";
 			
-			$s_where[] = " sub_total_pro LIKE '%{$s_search}%'";
+			$s_where[] = " sub_total_product LIKE '%{$s_search}%'";
 			$s_where[] = " sub_total_jobtype LIKE '%{$s_search}%'";
 			
 			$s_where[] = " net_total LIKE '%{$s_search}%'";
@@ -315,15 +315,10 @@ class Purchase_Model_DbTable_DbPurchaseReceivelist extends Zend_Db_Table_Abstrac
 				$order_add=$data['txt_order'];
 			}
 			$info_purchase_order=array(
-					"vendor_id"      => 	$data['v_name'],
-					"branch_id"      => 	$data["LocationId"],
-					"order_number"   => 	$order_add,
-					"date_order"     => 	date("Y-m-d",strtotime($data['order_date'])),
-					"date_in"     	 => 	date("Y-m-d",strtotime($data['date_in'])),
+ 
 					"purchase_status"=> 	1,// approve 
 					"recieve_status" =>		1,//receive add product to stock 
-					"currency_id"    => 1,
-					"remark"         => 	$data['remark'],
+					"currency_id"    => 	1,
   				 
 			);
 			$this->_name="tb_purchase_order";
@@ -345,21 +340,17 @@ class Purchase_Model_DbTable_DbPurchaseReceivelist extends Zend_Db_Table_Abstrac
 						"date_order"     => 	$data['order_date'],
 						"date_in"     	 => 	$data['date_in'],
 						"purchase_status"=> 	$data['purchase_status'],
-						//"payment_method" => $data['payment_name'],
+						 
 						"currency_id"    => $data['currency'],
 						"remark"         => 	$data['remark'],
 						"all_total"      => 	$data['totalAmoun'],
-						//"tax"=>$data["total_tax"],
+						 
 						"discount_value" => 	$data['dis_value'],
 						"discount_real"  => 	$data['global_disc'],
 						"net_total"      => 	$data['all_total'],
 						"paid"           => 	$data['paid'],
 						"balance"        => 	$data['remain'],
-						
-						//"payment_method"   => $data['payment_name'],
-						//"discount_type"	 => $data['discount_type'],
-						//"sub_total_pro"    => 	$data['price_product'],
-						//"sub_total_jobtype" => 	$data['price_jobtype'],
+						 
 						"receive_status" =>		1,//receive add product to stock
 						"sub_total_product"  => 	$data['price_product'],
 						"sub_total_jobtype" => 	$data['price_jobtype'],
@@ -372,6 +363,7 @@ class Purchase_Model_DbTable_DbPurchaseReceivelist extends Zend_Db_Table_Abstrac
 				$recieved_order = $this->update($orderdata, $where);
 				unset($orderdata);
 			}
+			
 		//insert tb_purchase_order_item	 if is product 	
 		if($data['identity']!=""){
 			$ids=explode(',',$data['identity']);

@@ -413,7 +413,7 @@
 						<div class="form-group">
 						
 						    <div class="col-md-4">
-								<a href="<?php echo $this->baseUrl();?>/purchase/index/"><button type="button" class="btn red btn-block btn-lg"><i class="fa fa-times"></i> <?php echo $tr->translate("GO_BACK")?></button></a>
+								<a href="<?php echo $this->baseUrl();?>/purchase/purchasereceive/"><button type="button" class="btn red btn-block btn-lg"><i class="fa fa-times"></i> <?php echo $tr->translate("GO_BACK")?></button></a>
 							</div>
 							
 							<div class="col-md-4">
@@ -1207,7 +1207,7 @@ function oldAddRow() {
 	template+='<input type="hidden" onkeyup="getPriceFree('+index5+')" id="pricefree_'+index5+'" name="pricefree_'+index5+'"/>';
 	template+='<td ><input type="text" onkeyup="totalQty('+index5+')" class="validate[required,custom[number]] input form-control" required="1" value="1" id="qty_unit_'+index5+'" name="qty_unit_'+index5+'" /></td>';
 	template+='<td ><input type="text" onkeyup="totalQty('+index5+')" class="validate[required,custom[number]] input form-control" value="0" id="qty_per_unit_'+index5+'" name="qty_per_unit_'+index5+'" /></td>';
-	template+='<td ><input type="text" readonly onkeyup="calculatePrice('+index5+')" class="form-control" required="1" id="qty'+index5+'" name="qty'+index5+'"/></td>';
+	template+='<td ><input type="text" readonly onkeyup="calculatePrice('+index5+')" class="form-control" required="1" id="qty'+index5+'" name="qty'+index5+'"/><input type="hidden" readonly  class="form-control" required="1" id="old_qty'+index5+'" name="old_qty'+index5+'"/></td>';
 	template+='<td ><input type="text" onkeyup="calculatePrice('+index5+')" required="1" class="validate[required,custom[number]] input form-control" id="price'+index5+'" name="price'+index5+'" /><input type="hidden" id="oldprice_'+index5+'" name="oldprice_'+index5+'"/></td>';
 	template+='<td  width="5%"><input type="text" onkeyup="calculatePrice('+index5+')" value="0" id="dis_value'+index5+'" name="dis_value'+index5+'" class="form-control" /><input type="hidden" id="olddis_value_'+index5+'" name="olddis_value_'+index5+'"/><input type="hidden" readonly="readonly" class="input70px" id="real-value'+index5+'" name="real-value'+index5+'" /></td>';
 	template+='<td ><input type="text" class="form-control" readonly="readonly" id="total'+index5+'" name="total'+index5+'" /></span></td>';
@@ -1220,6 +1220,8 @@ function oldAddRow() {
 	$('#item_ids_'+index5).attr('disabled',true);
 	
 	$("#qty"+index5).val("<?php echo $r['qty_order'];?>");
+	$("#old_qty"+index5).val("<?php echo $r['qty_order'];?>");
+	
 	$("#qty_unit_"+index5).val("<?php echo $r['qty_unit'];?>");
 	$("#qty_per_unit_"+index5).val("<?php echo $r['qty_detail'];?>");
 	$("#price"+index5).val("<?php echo $r['price'];?>");
@@ -1332,7 +1334,7 @@ function oldAddRowLeave(item_id){
 	template+='<input type="hidden" onkeyup="getPriceFree('+index+')" id="pricefree_l_'+index+'" name="pricefree_l_'+index+'"/>';
 	template+='<td ><input type="text" onkeyup="totalQtys('+index+')" class="validate[required,custom[number]] input form-control" required="1" value="1" id="qty_unit_l_'+index+'" name="qty_unit_l_'+index+'" /></td>';
 	template+='<td ><input type="text" onkeyup="totalQtys('+index+')" class="validate[required,custom[number]] input form-control" value="0" id="qty_per_unit_l_'+index+'" name="qty_per_unit_l_'+index+'" /></td>';
-	template+='<td ><input type="text" readonly onkeyup="calculatePriceLeave('+index+')" class="form-control" required="1" id="qty_l_'+index+'" name="qty_l_'+index+'"/></td>';
+	template+='<td ><input type="text" readonly onkeyup="calculatePriceLeave('+index+')" class="form-control" required="1" id="qty_l_'+index+'" name="qty_l_'+index+'"/> <input type="hidden" readonly  class="form-control"   id="old_qty_l_'+index+'" name="old_qty_l_'+index+'"/></td>';
 	template+='<td ><input type="text"   class="form-control" required="1" id="label_l_'+index+'" name="label_l_'+index+'"/></td>';
     
 	template+='<td ><input type="text" onkeyup="calculatePriceLeave('+index+')" required="1" class="validate[required,custom[number]] input form-control" id="price_l_'+index+'" name="price_l_'+index+'" /><input type="hidden" id="oldprice_'+index+'" name="oldprice_'+index+'"/></td>';
@@ -1350,6 +1352,7 @@ function oldAddRowLeave(item_id){
 	$('#item_leave_ids_'+index).attr('disabled',true);
 	
 	$("#qty_l_"+index).val("<?php echo $r['qty_order'];?>");
+	$("#old_qty_l_"+index).val("<?php echo $r['qty_order'];?>");
 	//$("#label_l_"+index).val("<?php //echo $r['unit_label'];?>");
 	$("#qty_unit_"+index).val("<?php echo $r['qty_unit'];?>");
 	$("#qty_per_unit_"+index).val("<?php echo $r['qty_detail'];?>");
@@ -1369,7 +1372,7 @@ function oldAddRowLeave(item_id){
 	//$("#item_leave_id_"+index).val(item_id);
 	 
  
-	getQtyByIds(index);
+	//getQtyByIds(index);
 	
 	$("#row_order_0").remove();
 		<?php } }?>
@@ -1407,6 +1410,7 @@ function getQtyById(index){//use
 							//alert(e);
 						}
 				});
+					
 			}
 }
 
@@ -1616,37 +1620,54 @@ function doRemains() {
 
 function totalQty(index){
 	calculatePrice(index);
-	getQtyById(index);
+	//getQtyById(index);
+	doOrderQty(index);
 	$("#price"+index).val('');
-	//doOrderQty(index);
+	
+	
 }
 ///function get qty can not bigger request approve 
 function doOrderQty(index) {
-	var qty_l = parseFloat($('#qty_l_'+index).val());
-	var qty = parseFloat($('#qty'+index).val());
-
+	var qty = parseFloat($('#old_qty'+index).val());
 	var qty_unit = parseFloat($('#qty_unit_'+index).val());
 	var qty_per_unit = parseFloat($('#qty_per_unit_'+index).val());
-	var qty_order=qty_unit+qty_per_unit;
+	var qty_total=qty_unit+qty_per_unit;
 	
-	if( qty_order>qty ){
-		 
-		alert(" Value can not biger then total qty order !");
+	if( qty_total>qty ){
+		 alert(" Value can not biger then total qty order !");
 		 $('#qty'+index).val(qty.toFixed(2));
+		 $('#qty_per_unit_'+index).val('0.00');
+		 $('#qty_unit_'+index).val('0.00');
    }else{
-	   $('#qty'+index).val(qty_order.toFixed(2));
-	  // getQtyById(index);
+	   getQtyById(index);
 	}
+}
+ 
+function doOrderQtyLeave(index) {
+	var qty = parseFloat($('#old_qty_l_'+index).val());
+	var qty_unit = parseFloat($('#qty_unit_l_'+index).val());
+	var qty_per_unit = parseFloat($('#qty_per_unit_l_'+index).val());
+	var qty_total=qty_unit+qty_per_unit;
 	
+	if( qty_total>qty ){
+		 alert(" Value can not biger then total qty order !");
+		 $('#qty_l_'+index).val(qty.toFixed(2));
+		 $('#qty_unit_l_'+index).val('0.00');
+		 $('#qty_per_unit_l_'+index).val('0.00');
+   }else{
+	   getQtyByIds(index);
+	}
 }
 
 ///qty leave product 
 function totalQtys(index){
 	calculatePriceLeave(index);
-	getQtyByIds(index);
-
+	//getQtyByIds(index);
+	doOrderQtyLeave(index);
 	$("#price_l_"+index).val('');
 }
+
+
 
 function calculatePrice(index) {
 	var qty = $('#qty'+index).val();
