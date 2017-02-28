@@ -1,0 +1,107 @@
+<?php 
+$tr=Application_Form_FrmLanguages::getCurrentlanguage();
+$url_cancel =  $this->url(array('module'=>'product','controller'=>'transfer','action'=>'index'),null,true);
+ $formFilter = $this->form_purchase;
+?>
+<title>Purchase Report</title>
+<div class="row">
+	<div class="col-md-12">
+		<div class="portlet box blue">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-globe"></i><?php echo $tr->translate("Transfer View");?>
+				</div>
+				<div class="btn-group pull-right">
+					 <div class="tools">
+						<a href="<?php echo $url_cancel; ?>"><button type="button" name="calcel" class="btn red"><?php echo $tr->translate("GO_BACK");?></button></a>
+					</div>
+				</div>
+			</div>
+            <div class="portlet-body form frmfilter">
+					<div style="clear:both;"></div>	
+	<div style="margin:0 auto; border: 1px dotted #ccc; padding:20px 0.2cm">
+	<div id="divPrint" style="width: 100%;">
+	<style>
+		.style{
+			line-height: 20px;font-size: 9px !important;
+			font-family: 'Khmer OS Battambang';
+		}
+		ul{margin: 0;padding:0;}
+		table tr td ul li{text-align: center;list-style: none;line-height: 25px; font-weight: bold;}
+		th{padding: 5px;}
+		ul.pur_info li{line-height:18px; 
+				font-weight: normal !important;}
+		ul.pur_info li strong{font-weight: bold;}
+       .hover:hover{background: #ccc;}
+	</style>
+		<table style="font-family: 'Khmer OS Content'; width:100%;">
+			<tbody>
+			<tr>
+		    	<td align="center">
+		        	<table width="100%" style="font-family: 'Khmer OS Battambang';" cellpadding="0" cellpadding="0">
+		            	<tbody><tr>
+		                	<td width="20%" valign="top"><img src="<?php echo $this->baseUrl();?>/images/logo.jpg" height="55px"></td>
+		                	<td width="60%" valign="top">
+		                		<ul>
+		                			<li style="text-align:center; font-size:16px; font-family:'Khmer MEF2'"><?php echo $tr->translate("BORY_PHNOM_PENH_THMEY");?></li>
+		                			<li style="text-align:center; font-size:13px; font-family:'Khmer MEF2'"><?php echo $tr->translate("PURCHASE_APPROVE");?></li>
+		                		</ul>
+		                	</td>
+		                    <td width="20%"></td>
+		                </tr> 
+		                <tr>
+		                	<td colspan="3" valign="top">
+		                		<table width="100%" cellpadding="0" cellspacing="0" >
+		                			<tbody>
+		                			<tr>
+		                				<td style="font-size: 11px;" width="25%">
+		                				    <span style="white-space: nowrap;"><?php //echo $tr->translate("ADDRESS_COMPANY");?></span>
+		                					<br><?php //echo $tr->translate("TEL_COMPANY");?> 
+		                				</td>
+		                				<td ></td>
+		                				<td width="65%"></td>
+		                			</tr>
+		                			<tr>
+		                				<td style="font-size: 11px;" valign="top">
+		                				<div style="width:100%;font-size:13px; background: #244456;text-align:center;display: block;color:#fff;margin-top: 10px;">Transfer Info</div>
+		                				   <ul class='pur_info'>
+			                					<li style="text-align: left; font-size:13px;line-height: 20px;"><strong>Transfer No : </strong><?php echo $this->vt['tran_no'];?></li>
+			                					<li style="text-align: left; font-size:13px;line-height: 20px;"><strong>Transfer Date : </strong><?php echo $this->vt['date_mod'];?></li>
+			                					<li style="text-align: left; font-size:13px;line-height: 20px;"><strong>Transfer : </strong><?php echo $this->vt['cur_location'];?> <?php echo $this->vt['type'];?> <?php echo $this->vt['tran_location'];?></li>
+			                					<li style="text-align: left; font-size:13px;line-height: 20px;"><strong>Remark : </strong><?php echo $this->vt['remark'];?></li>
+												<li style="text-align: left; font-size:13px;line-height: 20px;"><strong>Status : </strong><?php echo $this->vt['status'];?></li>
+		                					</ul>
+		                				</td>
+		                				<td width="75%"></td>
+		                			</tr>
+				                </tbody></table>
+				              </td>
+				           </tr>   
+		            </tbody></table>
+		        </td>
+		    </tr>
+		    <tr>
+				<table border="1" style="border-collapse:collapse;border:1px solid #2a588a; font-size:12px;" width="100%" cellspacing="0">
+					<tbody>
+						<tr bgcolor="#ccc" class="style" align="center" style="font-weight: bold;font-size: 12px !important;line-height: 30px;color: #000000;padding: 1px 0px;white-space: nowrap; ">
+							<td>&nbsp;<?php echo $tr->translate("NUM");?></td>
+							<td><?php echo $tr->translate("PRODUCT_NAME");?></td>
+							<td>&nbsp;<?php echo $tr->translate("QTY_TRANSFER");?></td>
+							<td width="10%">&nbsp;<?php echo $tr->translate("REMARK");?></td>
+						</tr>
+						<?php if(!empty($this->vi)) foreach($this->vi as $key=> $rs){  ?>
+							<tr  class="style" align="center" style="color: #000;line-height: 25px;font-size: 12px !important;padding: 1px 0px;white-space: nowrap; ">
+								<td><?php echo $key+1; ?></td>
+								<td><?php echo $rs['item_name'];?></td>
+								<td><?php echo $rs['qty'];?></td>
+								<td width="10%"><?php echo $rs['remark'];?></td>
+							</tr>
+						<?php } ?>	
+					</tbody>
+				</table>	
+			</tr>
+			<tr>
+	</div>
+	 </div>
+   </div>
+</div>

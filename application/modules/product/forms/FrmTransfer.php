@@ -150,7 +150,7 @@ class Product_Form_FrmTransfer extends Zend_Form
     	$status->setAttribs(array(
     			'class'=>'form-control select2me',
     	));
-    	$opt= array(''=>$tr->translate("SELECT_STATUS"),1=>$tr->translate("ACTIVE"),0=>$tr->translate("DEACTIVE"));
+    	$opt= array(''=>$tr->translate("SELECT_STATUS"),1=>$tr->translate("ACTIVE"),2=>$tr->translate("DEACTIVE"));
     	$status->setMultiOptions($opt);
     	//set value when edit
     	if($data != null) {

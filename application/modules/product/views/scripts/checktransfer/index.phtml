@@ -1,0 +1,103 @@
+<?php 
+	$url_new = $this->url(array('module'=>'product','controller'=>'transfer','action'=>'add',));
+	$url_edit = $this->url(array('module'=>'product','controller'=>'transfer','action'=>'edit',),null,true);
+	$url_check = $this->url(array('module'=>'product','controller'=>'checktransfer','action'=>'check',),null,true);
+	$url_delete = $this->url(array('module'=>'product','controller'=>'transfer','action'=>'delete',));
+	$tr = Application_Form_FrmLanguages::getCurrentlanguage();
+	$formFilter = $this->formFilter;
+	
+	$rs = $this->product;
+?>
+<style>
+td{
+	padding: 0px !important;
+    vertical-align: middle !important;
+	    line-height: 15px !important;
+}
+
+</style>
+<title><?php echo $tr->translate("TRANSFER_LIST");?></title>
+
+	<div class="portlet box blue">
+		<div class="portlet-title">
+			<div class="caption col-md-10">
+				<i class="fa fa-gift"></i><?php echo $tr->translate("TRANSFER_LIST");?>
+			</div>
+		</div>
+		<div class="portlet-body form">
+			<form class="form-horizontal" method="post" action="" >
+				<div class="form-body">
+							<div class="
+							">
+								<div class="col-md-2">
+									<?php echo $formFilter->getElement('tran_num');?>
+								</div>
+								<div class="col-md-2">
+									<?php echo $formFilter->getElement('to_loc');?>
+								</div>
+								<div class="col-md-2">
+									<?php echo $formFilter->getElement('tran_date');?>
+								</div>
+								<div class="col-md-2">
+									<?php echo $formFilter->getElement('type');?>
+								</div>
+								<div class="col-md-2">
+									<?php echo $formFilter->getElement('status');?>
+								</div>
+								<div class="col-md-2">
+									<button type="submit" class="btn green"><?php echo $tr->translate("SEARCH");?></button>
+								</div>
+							</div>
+							
+				</div>
+			</form>
+			
+		</div>
+		
+		<!-- Result List -->
+					<!-- BEGIN EXAMPLE TABLE PORTLET-->
+						
+						<div class="portlet-body">
+							<table class="table table-striped table-bordered table-hover"  style="font-size:11px">
+							<thead style="font-size:11px">
+								<tr>
+									<th><?php echo $tr->translate("NUM");?></th>
+									<th><?php echo $tr->translate("TRANSFER_NO");?></th>
+									<th><?php echo $tr->translate("LOCATION");?></th>
+									<th><?php echo $tr->translate("TRANSFER_LOCATION");?></th>
+									<th><?php echo $tr->translate("DATE_TRANSFER");?></th>
+									<th><?php echo $tr->translate("GET_IN_DATE");?></th>
+									<th><?php echo $tr->translate("TRANSFER_BY");?></th>
+									<th><?php echo $tr->translate("STATUS");?></th>
+									<th><?php echo $tr->translate("ACTION");?></th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php if(!empty($rs)){ foreach ($rs as $key => $row){?>
+								<tr class="odd gradeX">
+									<td class="center"><?php echo $key+1;?></td>
+									<td><?php echo $row["tran_no"]?></td>
+									<td><?php echo $row["cur_location"]?></td>
+									<td><?php echo $row["tran_location"]?></td>
+									<td align="center"><?php echo $row["date"]?></td>
+									<td align="center"><?php echo $row["date_mod"]?></td>
+									<td align="center"><?php echo $row["user_tran"]?> </td>
+									<?php if($row["status"] == 1){?>
+										<td style="background:#d9edf7;text-align:center;"><p style="text-align:center;margin-top:5px;"><?php echo $tr->translate("APPROVE");?> </p></td>
+									<?php }else if($row["status"] == 2){?>
+										<td style="background:#f2dede;text-align:center;"><p style="text-align:center;margin-top:5px;" ><?php echo $tr->translate("PENDING APPROVE");?> </p></td>
+									<?php }else if($row["status"] == 3){?>
+										<td style="background: rgba(2, 118, 220, 0.92);text-align: center;color: #fff;"><p style="text-align:center;margin-top:5px;" ><?php echo $tr->translate("REJECH");?> </p></td>
+									<?php } ?>
+									<td width="8%" align="center"> 
+									   <a href="<?php echo $url_check;?>/id/<?php echo $row["id"]?>"><?php echo $tr->translate("CHECK");?></a>
+									</td>
+								</tr>
+								<?php }}?>
+							</tbody>
+							</table>
+						</div>
+					<!-- END EXAMPLE TABLE PORTLET-->
+			<!-- End Result list -->
+
+</div>
