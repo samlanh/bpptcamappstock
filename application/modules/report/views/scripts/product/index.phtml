@@ -3,7 +3,7 @@
   $rpt_current=$this->url(array('module'=>'report','controller'=>'product','action'=>'rptcurrentstock'), null, true);
   $rpt_ajust=$this->url(array('module'=>'report','controller'=>'product','action'=>'rptadjuststock'), null, true);
   $rpt_transfer=$this->url(array('module'=>'report','controller'=>'product','action'=>'rpttransfer'), null, true);
-  
+  $invoice_and_delivery=$this->url(array('module'=>'report','controller'=>'index','action'=>'rpt-delivery'), null, true);
   
   $user_info = new Application_Model_DbTable_DbGetUserInfo();
 	$result = $user_info->getUserInfo();
@@ -28,8 +28,8 @@
 							</div>
 						</div>
 						</a>
-						<a class="more" href="javascript:;">
-						View more <i class="m-icon-swapright m-icon-white"></i>
+						<a class="more" href="<?php echo $rpt_product_list;?>">
+						<?php echo $tr->translate("VIEW_MORE");?><i class="m-icon-swapright m-icon-white"></i>
 						</a>
 					</div>
 				</div>
@@ -44,12 +44,12 @@
 								 
 							</div>
 							<div class="desc">
-								 Current Stock
+								 <?php echo $tr->translate("REPORT_CURRENT_STOCK");?>
 							</div>
 						</div>
 						</a>
-						<a class="more" href="javascript:;">
-						View more <i class="m-icon-swapright m-icon-white"></i>
+						<a class="more" href="<?php echo $rpt_current;?>">
+						<?php echo $tr->translate("VIEW_MORE");?><i class="m-icon-swapright m-icon-white"></i>
 						</a>
 					</div>
 				</div>
@@ -64,12 +64,12 @@
 							<div class="number">
 							</div>
 							<div class="desc">
-								 Adjust Stock Report
+								 <?php echo $tr->translate("ADJUST_STOCK_REPORT");?>
 							</div>
 						</div>
 						</a>
-						<a class="more" href="javascript:;">
-						View more <i class="m-icon-swapright m-icon-white"></i>
+						<a class="more" href="<?php echo $rpt_ajust;?>">
+						<?php echo $tr->translate("VIEW_MORE");?><i class="m-icon-swapright m-icon-white"></i>
 						</a>
 					</div>
 				</div>
@@ -84,18 +84,18 @@
 								 
 							</div>
 							<div class="desc">
-								 Transfer Product Report
+								 <?php echo $tr->translate("REPORT_LIST_TRANSFER_PRODUCT");?>
 							</div>
 						</div>
 						</a>
-						<a class="more" href="javascript:;">
-						View more <i class="m-icon-swapright m-icon-white"></i>
+						<a class="more" href="<?php echo $rpt_transfer;?>">
+						<?php echo $tr->translate("VIEW_MORE");?><i class="m-icon-swapright m-icon-white"></i>
 						</a>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 					<div class="dashboard-stat green-haze">
-						<a class="more" href="<?php echo $this->url(array('module'=>'report','controller'=>'index','action'=>'rpt-delivery'), null, true);;?>">
+						<a class="more" href="<?php echo $invoice_and_delivery;?>">
 						<div class="visual">
 							<i class="fa fa-shopping-cart"></i>
 						</div>
@@ -103,12 +103,12 @@
 							<div class="number">
 							</div>
 							<div class="desc">
-								 Invoice/Delivery
+								 <?php echo $tr->translate("INVOICE_DELIVERY");?>
 							</div>
 						</div>
 						</a>
-						<a class="more" href="javascript:;">
-						View more <i class="m-icon-swapright m-icon-white"></i>
+						<a class="more" href="<?php echo $invoice_and_delivery;?>">
+						<?php echo $tr->translate("VIEW_MORE");?><i class="m-icon-swapright m-icon-white"></i>
 						</a>
 					</div>
 				</div>

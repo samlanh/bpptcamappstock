@@ -8,7 +8,11 @@
    $rpt_expense = $this->url(array('module'=>'report','controller'=>'index','action'=>'rpt-expense'), null, true);
    $rpt_income = $this->url(array('module'=>'report','controller'=>'index','action'=>'rpt-income'), null, true);
    $rpt_grand=$this->url(array('module'=>'report','controller'=>'index','action'=>'rpt-grand'), null, true);
-   
+   $sale_quotation_report=$this->url(array('module'=>'report','controller'=>'index','action'=>'rpt-quotationissue'), null, true);
+   $invoice_and_delivery=$this->url(array('module'=>'report','controller'=>'index','action'=>'rpt-delivery'), null, true);
+   $income_expense=$this->url(array('module'=>'report','controller'=>'index','action'=>'rpt-typeexpense'), null, true);
+   $vandor_balance=$this->url(array('module'=>'report','controller'=>'index','action'=>'rpt-vandorbalance'), null, true);
+   $chque_withdrawal=$this->url(array('module'=>'report','controller'=>'index','action'=>'rpt-chequewithdrawal'), null, true);
    $user_info = new Application_Model_DbTable_DbGetUserInfo();
 	$result = $user_info->getUserInfo();
 	$tr = Application_Form_FrmLanguages::getCurrentlanguage(); 
@@ -30,12 +34,12 @@
 							<div class="number">
 							</div>
 							<div class="desc">
-								 Purchase Report
+								 <?php echo $tr->translate("PURCHASE_REPORT");?>
 							</div>
 						</div>
 						</a>
-						<a class="more" href="javascript:;">
-						View more <i class="m-icon-swapright m-icon-white"></i>
+						<a class="more" href="<?php echo $rpt_purchase;?>">
+						<?php echo $tr->translate("VIEW_MORE");?><i class="m-icon-swapright m-icon-white"></i>
 						</a>
 					</div>
 				</div>
@@ -49,18 +53,18 @@
 							<div class="number">
 							</div>
 							<div class="desc">
-								 Purchase Product Detail
+								 <?php echo $tr->translate("REPORT_LIST_PURCHASE_DETAIL");?>
 							</div>
 						</div>
 						</a>
-						<a class="more" href="javascript:;">
-						View more <i class="m-icon-swapright m-icon-white"></i>
+						<a class="more" href="<?php echo $rpt_purcahsedetail;?>">
+						<?php echo $tr->translate("VIEW_MORE");?><i class="m-icon-swapright m-icon-white"></i>
 						</a>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 					<div class="dashboard-stat purple-plum">
-						<a class="more" href="<?php echo $rpt_saledetail;?>">
+						<a class="more" href="<?php echo $rpt_sale;?>">
 						<div class="visual">
 							<i class="fa fa-globe"></i>
 						</div>
@@ -69,12 +73,12 @@
 								 
 							</div>
 							<div class="desc">
-								 suppliyer Report
+								 <?php echo $tr->translate("SALE_REPORT");?>
 							</div>
 						</div>
 						</a>
-						<a class="more" href="javascript:;">
-						View more <i class="m-icon-swapright m-icon-white"></i>
+						<a class="more" href="<?php echo $rpt_sale;?>">
+						<?php echo $tr->translate("VIEW_MORE");?><i class="m-icon-swapright m-icon-white"></i>
 						</a>
 					</div>
 				</div>
@@ -82,7 +86,7 @@
 	<?php if($level==1 OR $level==2 OR  $level==3 OR $level==5 OR $level==6 OR $level==10){?>
 			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 					<div class="dashboard-stat green-haze">
-						<a class="more" href="<?php echo $this->url(array('module'=>'report','controller'=>'index','action'=>'rpt-quotationissue'), null, true);;?>">
+						<a class="more" href="<?php echo $sale_quotation_report;?>">
 						<div class="visual">
 							<i class="fa fa-shopping-cart"></i>
 						</div>
@@ -90,31 +94,12 @@
 							<div class="number">
 							</div>
 							<div class="desc">
-								 Sale Quotation
+								 <?php echo $tr->translate("SALE_QUOTATION_REPORT");?>
 							</div>
 						</div>
 						</a>
-						<a class="more" href="javascript:;">
-						View more <i class="m-icon-swapright m-icon-white"></i>
-						</a>
-					</div>
-				</div>
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-					<div class="dashboard-stat green-haze">
-						<a class="more" href="<?php echo $rpt_sale;?>">
-						<div class="visual">
-							<i class="fa fa-shopping-cart"></i>
-						</div>
-						<div class="details">
-							<div class="number">
-							</div>
-							<div class="desc">
-								 Sale Report
-							</div>
-						</div>
-						</a>
-						<a class="more" href="javascript:;">
-						View more <i class="m-icon-swapright m-icon-white"></i>
+						<a class="more" href="<?php echo $sale_quotation_report;?>">
+						<?php echo $tr->translate("VIEW_MORE");?><i class="m-icon-swapright m-icon-white"></i>
 						</a>
 					</div>
 				</div>
@@ -129,18 +114,18 @@
 								 
 							</div>
 							<div class="desc">
-								 Sale Porudct Detail
+								 <?php echo $tr->translate("REPORT_LIST_SALE_DETAIL");?>
 							</div>
 						</div>
 						</a>
-						<a class="more" href="javascript:;">
-						View more <i class="m-icon-swapright m-icon-white"></i>
+						<a class="more" href="<?php echo $rpt_saledetail;?>">
+						<?php echo $tr->translate("VIEW_MORE");?><i class="m-icon-swapright m-icon-white"></i>
 						</a>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 					<div class="dashboard-stat green-haze">
-						<a class="more" href="<?php echo $this->url(array('module'=>'report','controller'=>'index','action'=>'rpt-delivery'), null, true);;?>">
+						<a class="more" href="<?php echo $invoice_and_delivery;?>">
 						<div class="visual">
 							<i class="fa fa-shopping-cart"></i>
 						</div>
@@ -148,12 +133,12 @@
 							<div class="number">
 							</div>
 							<div class="desc">
-								 Invoice/Delivery
+								 <?php echo $tr->translate("INVOICE_DELIVERY");?>
 							</div>
 						</div>
 						</a>
-						<a class="more" href="javascript:;">
-						View more <i class="m-icon-swapright m-icon-white"></i>
+						<a class="more" href="<?php echo $invoice_and_delivery;?>">
+						<?php echo $tr->translate("VIEW_MORE");?><i class="m-icon-swapright m-icon-white"></i>
 						</a>
 					</div>
 				</div>
@@ -168,12 +153,12 @@
 								 
 							</div>
 							<div class="desc">
-								 Customer Report
+								 <?php echo $tr->translate("CUSTOMER_REPORT");?>
 							</div>
 						</div>
 						</a>
-						<a class="more" href="javascript:;">
-						View more <i class="m-icon-swapright m-icon-white"></i>
+						<a class="more" href="<?php echo $rpt_customer;?>">
+						<?php echo $tr->translate("VIEW_MORE");?><i class="m-icon-swapright m-icon-white"></i>
 						</a>
 					</div>
 				</div>
@@ -188,12 +173,12 @@
 								 
 							</div>
 							<div class="desc">
-								 Sale Person Report
+								 <?php echo $tr->translate("SALE_PERSON_REPORT");?>
 							</div>
 						</div>
 						</a>
-						<a class="more" href="javascript:;">
-						View more <i class="m-icon-swapright m-icon-white"></i>
+						<a class="more" href="<?php echo $rpt_saleperson;?>">
+						<?php echo $tr->translate("VIEW_MORE");?><i class="m-icon-swapright m-icon-white"></i>
 						</a>
 					</div>
 				</div>
@@ -201,26 +186,6 @@
 		
 		<?php //if( $level==1 or  $level==2 or  $level==3 or  $level==6 or  $level==8 or  $level==10){?>
 		<?php //if( $level==1 OR $level==2 OR $level==3 OR $level==9 OR $level==10){// admin /sale finance?>
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-					<div class="dashboard-stat purple-plum">
-						<a class="more" href="<?php echo $rpt_saledetail;?>">
-						<div class="visual">
-							<i class="fa fa-globe"></i>
-						</div>
-						<div class="details">
-							<div class="number">
-								 
-							</div>
-							<div class="desc">
-								 Customer Balance Report
-							</div>
-						</div>
-						</a>
-						<a class="more" href="javascript:;">
-						View more <i class="m-icon-swapright m-icon-white"></i>
-						</a>
-					</div>
-				</div>
 				<?php }?>
 				<?php if( $level==1 or  $level==8){//work?>
 				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
@@ -234,12 +199,12 @@
 								 
 							</div>
 							<div class="desc">
-								 Expense Report
+								 <?php echo $tr->translate("EXPENS_REPORT");?>
 							</div>
 						</div>
 						</a>
-						<a class="more" href="javascript:;">
-						View more <i class="m-icon-swapright m-icon-white"></i>
+						<a class="more" href="<?php echo $rpt_expense;?>">
+						<?php echo $tr->translate("VIEW_MORE");?><i class="m-icon-swapright m-icon-white"></i>
 						</a>
 					</div>
 				</div>
@@ -254,12 +219,12 @@
 								 
 							</div>
 							<div class="desc">
-								 Income Report
+								 <?php echo $tr->translate("INCOME_REPORT");?>
 							</div>
 						</div>
 						</a>
-						<a class="more" href="javascript:;">
-						View more <i class="m-icon-swapright m-icon-white"></i>
+						<a class="more" href="<?php echo $rpt_income;?>">
+						<?php echo $tr->translate("VIEW_MORE");?><i class="m-icon-swapright m-icon-white"></i>
 						</a>
 					</div>
 				</div>
@@ -274,18 +239,18 @@
 								 
 							</div>
 							<div class="desc">
-								 Grand Report
+								 <?php echo $tr->translate("GRAND_REPORT");?>
 							</div>
 						</div>
 						</a>
 						<a class="more" href="javascript:;">
-						View more <i class="m-icon-swapright m-icon-white"></i>
+						<?php echo $tr->translate("VIEW_MORE");?><i class="m-icon-swapright m-icon-white"></i>
 						</a>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 					<div class="dashboard-stat purple-plum">
-						<a class="more" href="<?php echo $this->url(array('module'=>'report','controller'=>'index','action'=>'rpt-typeexpense'), null, true);?>">
+						<a class="more" href="<?php echo $income_expense;?>">
 						<div class="visual">
 							<i class="fa fa-globe"></i>
 						</div>
@@ -293,18 +258,18 @@
 							<div class="number">
 							</div>
 							<div class="desc">
-								 Expense Type Report
+								 <?php echo $tr->translate("TYPE_EXPENS_REPORT");?>
 							</div>
 						</div>
 						</a>
-						<a class="more" href="javascript:;">
-						View more <i class="m-icon-swapright m-icon-white"></i>
+						<a class="more" href="<?php echo $income_expense;?>">
+						<?php echo $tr->translate("VIEW_MORE");?><i class="m-icon-swapright m-icon-white"></i>
 						</a>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 					<div class="dashboard-stat purple-plum">
-						<a class="more" href="<?php echo $this->url(array('module'=>'report','controller'=>'index','action'=>'rpt-vandorbalance'), null, true);?>">
+						<a class="more" href="<?php echo $vandor_balance;?>">
 						<div class="visual">
 							<i class="fa fa-globe"></i>
 						</div>
@@ -312,18 +277,18 @@
 							<div class="number">
 							</div>
 							<div class="desc">
-								 Suppliyer Balance Report
+								 <?php echo $tr->translate("SUPPLIYER_BALANCE");?>
 							</div>
 						</div>
 						</a>
-						<a class="more" href="javascript:;">
-						View more <i class="m-icon-swapright m-icon-white"></i>
+						<a class="more" href="<?php echo $vandor_balance;?>">
+						<?php echo $tr->translate("VIEW_MORE");?><i class="m-icon-swapright m-icon-white"></i>
 						</a>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 					<div class="dashboard-stat purple-plum">
-						<a class="more" href="<?php echo $this->url(array('module'=>'report','controller'=>'index','action'=>'rpt-chequewithdrawal'), null, true);?>">
+						<a class="more" href="<?php echo $chque_withdrawal?>">
 						<div class="visual">
 							<i class="fa fa-globe"></i>
 						</div>
@@ -331,12 +296,12 @@
 							<div class="number">
 							</div>
 							<div class="desc">
-								 Cheque Withdrawal
+								 <?php echo $tr->translate("CHQUE_WITHDRAWAL");?>
 							</div>
 						</div>
 						</a>
-						<a class="more" href="javascript:;">
-						View more <i class="m-icon-swapright m-icon-white"></i>
+						<a class="more" href="<?php echo $chque_withdrawal?>">
+						<?php echo $tr->translate("VIEW_MORE");?><i class="m-icon-swapright m-icon-white"></i>
 						</a>
 					</div>
 				</div>

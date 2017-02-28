@@ -99,38 +99,26 @@ $formFilter = $this->formFilter;
 		                		</ul>
 		                	</td>
 		                    <td width="20%"></td>
-		                </tr> 
-		                <tr>
-		                	<td colspan="3" valign="top">
-		                		<table width="100%" cellpadding="0" cellspacing="0">
-		                			<tbody><tr>
-		                				<td style="font-size: 11px;">
-		                				    <span style="white-space: nowrap;"><?php echo $tr->translate("ADDRESS_COMPANY");?></span>
-		                					<br><?php echo $tr->translate("TEL_COMPANY");?> 
-		                				</td>
-		                				<td width="65%"></td>
-		                			</tr>
-				                </tbody></table>
-				              </td>
-				           </tr>   
+		                </tr>
 		            </tbody></table>
 		        </td>
 		    </tr>
 		    <tr>
 		    	<td id="exportExcel">
-		            <table border="1" &#8203;="" style="border-collapse:collapse;border:1px solid #000; font-size:10px;" width="100%" cellspacing="0">
+		            <table border="1" style="border-collapse:collapse;border:1px solid #000; font-size:10px;" width="100%" cellspacing="0">
 		                 <tbody><tr bgcolor="#ccc" class="style" align="center" style="font-weight:bold; line-height: 20px; font-size:12px; padding:1px 0px; white-space: nowrap; ">
 		                    <td>&nbsp;<?php echo $tr->translate("NUM");?></td>
 								<td><?php echo $tr->translate("ITEM_CODE");?></ts>
 									<td><?php echo $tr->translate("ITEM_NAME");?></td>
 									<td><?php echo $tr->translate("BRAND");?></td>
 									<td><?php echo $tr->translate("CATEGORY");?></td>
+									<td><?php echo $tr->translate("PRODUCT_TYPE");?></td>
 									<td><?php echo $tr->translate("MODEL");?></td>
 									<td><?php echo $tr->translate("MEASURE");?></td>
 									<td><?php echo $tr->translate("QTY");?></td>
-									<td><?php echo $tr->translate("MASTER_PRICE");?></td>
-									<td><?php echo $tr->translate("DEALER_PRICE");?></td>
-									<!-- <td><?php //echo $tr->translate("STATUS");?></td> -->
+									<!--<td><?php //echo $tr->translate("MASTER_PRICE");?></td>
+									<td><?php //echo $tr->translate("DEALER_PRICE");?></td>
+									 <td><?php //echo $tr->translate("STATUS");?></td> -->
 		                </tr>
 		                <?php $num=1; 
 		                $r_netotal = 0;$r_paid = 0; $r_balance = 0;
@@ -163,11 +151,18 @@ $formFilter = $this->formFilter;
 									<!--<td style="width:8% !important"><?php //echo $row["serial_number"]?> </td>-->
 								<td style="white-space: nowrap;">&nbsp;<?php echo $row["brand"]?></td>
 									<td style="width:10% !important" class="center"><?php echo $row["cat"]?></td>
+									<td style="width:10% !important" class="center">
+									<?php if ($row["product_type"]==1){echo $tr->translate("IN_STOCK");}
+									else {
+									    echo $tr->translate("LEAVE STOCK");
+									}?>
+									</td>
 									<td style="width:8% !important" class="center"><?php echo $row["model"]?></td>
 									<td style="width:5% !important" class="center"><?php echo $row["measure"]?></td>
 									<td style="width:8% !important" class="center"><?php echo $l_qty;?></td>
-									<td style="width:8% !important" class="center"><?php echo $row["master_price"]?></td>
-									<td style="width:8% !important" class="center"><?php echo $row["dealer_price"]?></td>
+									<!--  <td style="width:8% !important" class="center"><?php //echo $row["master_price"]?></td>
+									<td style="width:8% !important" class="center"><?php //echo $row["dealer_price"]?></td>
+									-->
 							</tr>
 						  <?php }?> 
 		                </tbody>
