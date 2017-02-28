@@ -1,12 +1,12 @@
 <?php
 $tr = Application_Form_FrmLanguages::getCurrentlanguage();
-$url_submit =  $this->url(array('module'=>'product','controller'=>'adjust','action'=>'add'));
+$url_submit =  $this->url(array('module'=>'product','controller'=>'adjust','action'=>'edit'));
 $url_cancel =  $this->url(array('module'=>'product','controller'=>'transfer','action'=>'index'));
 
 $url_getcurrentitem =  $this->url(array('module'=>'product','controller'=>'adjust-stock','action'=>'get-current-quantity'));
 $url_getProduct =  $this->url(array('module'=>'product','controller'=>'adjust','action'=>'get-product'));
 $formFilter = $this->formFilter;
-print_r($this->rs_detail);
+//print_r($this->rs_detail);
 ?>
 <title><?php echo $tr->translate("ADJUST_STOCK");?></title>
 <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>-->

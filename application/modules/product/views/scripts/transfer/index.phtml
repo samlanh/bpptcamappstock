@@ -1,12 +1,21 @@
 <?php 
 	$url_new = $this->url(array('module'=>'product','controller'=>'transfer','action'=>'add',));
-	$url_edit = $this->url(array('module'=>'product','controller'=>'transfer','action'=>'edit',));
+	$url_edit = $this->url(array('module'=>'product','controller'=>'transfer','action'=>'edit',),null,true);
+	$url_view = $this->url(array('module'=>'product','controller'=>'transfer','action'=>'view',),null,true);
 	$url_delete = $this->url(array('module'=>'product','controller'=>'transfer','action'=>'delete',));
 	$tr = Application_Form_FrmLanguages::getCurrentlanguage();
 	$formFilter = $this->formFilter;
 	
 	$rs = $this->product;
 ?>
+<style>
+td{
+	padding: 0px !important;
+    vertical-align: middle !important;
+	    line-height: 15px !important;
+}
+
+</style>
 <title><?php echo $tr->translate("TRANSFER_LIST");?></title>
 
 	<div class="portlet box blue">
@@ -73,16 +82,23 @@
 									<td><?php echo $row["tran_no"]?></td>
 									<td><?php echo $row["cur_location"]?></td>
 									<td><?php echo $row["tran_location"]?></td>
-									<td><?php echo $row["date"]?></td>
-									<td><?php echo $row["date_mod"]?></td>
-									<td><?php echo $row["user_tran"]?> </td>
+									<td align="center"><?php echo $row["date"]?></td>
+									<td align="center"><?php echo $row["date_mod"]?></td>
+									<td align="center"><?php echo $row["user_tran"]?> </td>
 									<?php if($row["status"] == 1){?>
-										<td style="background:#d9edf7;text-align:center;"><p style="text-align:center;margin-top:5px;"><?php echo $tr->translate("ACTIVE");?> </p></td>
-									<?php }else{?>
-										<td style="background:#f2dede;text-align:center;"><p style="text-align:center;margin-top:5px;" ><?php echo $tr->translate("DEACTIVE");?> </p></td>
-										<?php }?>
-									<td>
-										<a href="<?php echo $url_edit;?>/id/<?php echo $row["id"]?>"><?php echo $tr->translate("EDIT");?></a>
+										<td style="background:#d9edf7;text-align:center;"><p style="text-align:center;margin-top:5px;"><?php echo $tr->translate("APPROVE");?> </p></td>
+									<?php }else if($row["status"] == 2){?>
+										<td style="background:#f2dede;text-align:center;"><p style="text-align:center;margin-top:5px;" ><?php echo $tr->translate("PENDING APPROVE");?> </p></td>
+									<?php }else if($row["status"] == 3){?>
+										<td style="background: rgba(2, 118, 220, 0.92);text-align: center;color: #fff;"><p style="text-align:center;margin-top:5px;" ><?php echo $tr->translate("REJECH");?> </p></td>
+									<?php } ?>
+									<td width="8%" align="center"> 
+									  <?php if($row["status"] == 1){ ?>
+										<a href="#"><?php //echo $tr->translate("EDIT");?></a>
+									  <?php }else{ ?>
+										<a href="<?php echo $url_edit;?>/id/<?php echo $row["id"]?>"> <?php echo $tr->translate("EDIT");?> | </a>
+									  <?php  }?>
+									   <a href="<?php echo $url_view;?>/id/<?php echo $row["id"]?>"><?php echo $tr->translate("VIEW");?></a>
 									</td>
 								</tr>
 								<?php }}?>
