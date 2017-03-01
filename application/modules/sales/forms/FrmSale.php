@@ -37,7 +37,7 @@ class Sales_Form_FrmSale extends Zend_Form
     	$options="";
 		
     	$locationID = new Zend_Form_Element_Select('branch_id');
-    	$locationID ->setAttribs(array('class'=>'validate[required] form-control select2me'));
+    	$locationID ->setAttribs(array('class'=>' form-control select2me'));
 		$options = $db->getAllLocation(1);
     	$locationID->setMultiOptions($options);
     	$locationID->setattribs(array(
@@ -73,7 +73,7 @@ class Sales_Form_FrmSale extends Zend_Form
     	$netTotalElement->setAttribs(array('readonly'=>'readonly',));
     	$this->addElement($netTotalElement);
     	
-    	$opt=array();
+    	$opt=array('0'=>'Select Sale Rep');
     	$rows = $db->getGlobalDb('SELECT id ,name FROM `tb_sale_agent` WHERE name!="" AND status=1');
     	if(!empty($rows)) {
     		foreach($rows as $rs) $opt[$rs['id']]=$rs['name'];

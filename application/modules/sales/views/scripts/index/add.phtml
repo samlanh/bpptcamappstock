@@ -16,7 +16,7 @@
 			</div>
 			<div class="portlet-body form">
 				<!-- Block FORM-->
-				<form id="orderFrm" action="<?php echo $url_submit; ?>" class="form-horizontal" enctype="multipart/form-data" method="post">
+				<form id="frm" action=" " class="form-horizontal" enctype="multipart/form-data" method="post">
 					<div class="form-body">
 						<div class="form-group">
 						</div>
@@ -109,8 +109,8 @@
 												</button>
 											</label>
 											<label class="control-label col-sm-10">
-												<select data-placeholder="Select..." class="form-control select2me " style="text-align: left;" id="add_item" name="add_item" Onchange="getItemOrder();getProuductInstock();" >
-												   <option value="0">eeeee</option>
+												<select data-placeholder="Select..." class="form-control select2me " style="text-align: left;" id="add_item" name="add_item" Onchange="getItemOrder();getProuductInstock();" class="form-select" >
+												   
 												<?php //echo $this->items; ?>
 												 
 												</select>
@@ -151,7 +151,7 @@
 											</label>
 											<label class="control-label col-sm-10">
 												<select data-placeholder="Select..." class="form-control select2me " style="text-align: left;" id="add_item_leave" name="add_item_leave" Onchange="getItemOrderLeaveProduct();getBlockBysite();getNoneProuduct();" >
-												<?php echo $this->items_leave; ?>
+												<?php //echo $this->items_leave; ?>
 												</select>
 											</label>
 										</div>
@@ -218,6 +218,36 @@
 								</div>
 							</div>
 						</div>
+						
+						<div class="form-group">
+							<label class="control-label col-md-2"><?php //echo $tr->translate("PAID");?><span class="required">
+								 </span>
+							</label>
+							<div class="col-md-4">
+								<div class="input-icon right">
+									<?php //echo $form->getElement("paid");?>
+								</div>
+							</div>
+							
+							<label class="control-label col-md-2"><?php echo $tr->translate("PAID");?><span class="required">
+								 </span>
+							</label>
+							<div class="col-md-2">
+								<div class="input-icon right">
+									<?php echo $form->getElement("paid");?>
+								</div>
+							</div>
+							
+							<label class="control-label col-md-1"><?php echo $tr->translate("BALANCE");?><span class="required">
+							* </span>
+							</label>
+							<div class="col-md-1">
+								<div class="input-icon right">
+								<?php echo $form->getElement("remain");?>
+								</div>
+							</div>
+						</div>
+						
 						<!-- Close Block Price  -->
 						<!-- Block Condition -->
 						<div class="form-group">
@@ -264,6 +294,17 @@
 		</div>
 	</div>
 </div>
+<script>
+$('#frm').submit(function() {
+	saleagent_id=$("#saleagent_id").val();
+	if(saleagent_id=='' || saleagent_id==-1 || saleagent_id==0 ){
+		alert("Please select vendor name");
+		$('#saleagent_id').select2('open');
+		return false;	
+	}
+ 
+});
+</script>
 <script>
 $(document).ready(function() {
 	getProuductInstock();
@@ -359,7 +400,7 @@ function addRow(item_id) {
 	template+='<td ><input type="text" onkeyup="totalQty('+index5+')" class="validate[required,custom[number]] input form-control" required="1" value="1" id="qty_unit_'+index5+'" name="qty_unit_'+index5+'" /></td>';
 	template+='<td ><input type="text" onkeyup="totalQty('+index5+')" class="validate[required,custom[number]] input form-control" value="0" id="qty_per_unit_'+index5+'" name="qty_per_unit_'+index5+'" /></td>';
 	template+='<td ><input type="text" readonly onkeyup="calculatePrice('+index5+')" class="form-control" required="1" id="qty'+index5+'" name="qty'+index5+'"/></td>';
-	template+='<td ><input type="text" onkeyup="calculatePrice('+index5+')" required="1" class="validate[required,custom[number]] input form-control" id="price'+index5+'" name="price'+index5+'" /></td>';
+	template+='<td ><input type="text" onkeyup="calculatePrice('+index5+')"  required="1" class="validate[required,custom[number]] input form-control" id="price'+index5+'" name="price'+index5+'" /></td>';
 	template+='<td  width="5%"><input type="text" onkeyup="calculatePrice('+index5+')" value="0" id="dis_value'+index5+'" name="dis_value'+index5+'" class="form-control" /></td>';
 	template+='<td ><input type="text" class="form-control" readonly="readonly" id="total'+index5+'" name="total'+index5+'" /></span></td>';
 	template+='<td width="10%"><select class="form-control select2me"  id="block_id_'+index5+'" name="block_id_'+index5+'" ><option>'+getBlockBysites()+'</option></select>'+inp+'</td>';
@@ -410,7 +451,7 @@ function addRowLeave(item_id) {
 	template+='<td  width="5%"><input type="text" onkeyup="calculatePriceLeave('+index+')" value="0" id="dis_value_l_'+index+'" name="dis_value_l_'+index+'" class="form-control" /></td>';
 	template+='<td ><input type="text" class="form-control" readonly="readonly" id="total_l_'+index+'" name="total_l_'+index+'" /></span></td>';
 	template+='<td width="10%"><select class="form-control select2me"  id="block_id_l_'+index+'" name="block_id_l_'+index+'" ><option>'+getBlockBysite()+'</option></select>'+inp+'</td>';
-	template+='<td width="6%"><select class="form-control select2me"   id="job_id_'+index+'" name="job_id_'+index+'" ><option>'+job+'</option></select>'+inp+'</td>';
+	template+='<td width="10%"><select class="form-control select2me"   id="job_id_'+index+'" name="job_id_'+index+'" ><option>'+job+'</option></select>'+inp+'</td>';
 	template+="</tr>";
 	$('#table_leave_product').append(template);
 	if($('#leave_stock_identity').val()!="") {
@@ -832,7 +873,8 @@ function getProuductInstock(){
 				 	$("#add_item").select2();
 				 	for(i=0;i<so.length;i++){  
 				  		 $('#add_item').append($("<option></option>").attr("value",so[i].id).attr("selected",true).text(so[i].item_name));
-					  	 $("#add_item").select2();
+					  	 $("#add_item option[value='0']").attr("selected","selected");
+						 $("#add_item").select2();
 				   }
 					$("#add_item").val(0);
 				 	var identity = $('#identity').val();
@@ -846,6 +888,7 @@ function getProuductInstock(){
 							  	 $("#item_id_"+k).select2();
 						  }
 				 		}
+					 		totalQty(k);
 				 	}
 	        },
 	        error:function(){
@@ -870,7 +913,9 @@ function getNoneProuduct(){
 				 	$("#add_item_leave").select2();
 				 	for(i=0;i<so.length;i++){  
 				  		 $('#add_item_leave').append($("<option></option>").attr("value",so[i].id).attr("selected",true).text(so[i].item_name));
-					  	 $("#add_item_leave").select2();
+					  	 $("#add_item_leave option[value='0']").attr("selected","selected");
+						 $("#add_item_leave").select2();
+						 
 				   }
 					 
 				 	var identity = $('#leave_stock_identity').val();
