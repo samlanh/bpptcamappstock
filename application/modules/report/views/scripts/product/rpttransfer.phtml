@@ -84,20 +84,7 @@ $formFilter = $this->formFilter;
 		                		</ul>
 		                	</td>
 		                    <td width="20%"></td>
-		                </tr> 
-		                <tr>
-		                	<td colspan="3" valign="top">
-		                		<table width="100%" cellpadding="0" cellspacing="0">
-		                			<tbody><tr>
-		                				<td style="font-size: 11px;">
-		                				    <span style="white-space: nowrap;"><?php echo $tr->translate("ADDRESS_COMPANY");?></span>
-		                					<br><?php echo $tr->translate("TEL_COMPANY");?> 
-		                				</td>
-		                				<td width="65%"></td>
-		                			</tr>
-				                </tbody></table>
-				              </td>
-				           </tr>   
+		                </tr>
 		            </tbody></table>
 		        </td>
 		    </tr>
@@ -106,17 +93,21 @@ $formFilter = $this->formFilter;
 		            <table border="1" &#8203;="" style="border-collapse:collapse;border:1px solid #000; font-size:10px;" width="100%" cellspacing="0">
 		                 <tbody><tr bgcolor="#ccc" class="style" align="center" style="font-weight:bold; line-height: 20px; font-size:12px; padding:1px 0px; white-space: nowrap; ">
 		                    <td>&nbsp;<?php echo $tr->translate("NUM");?></td>
-								<th><?php echo $tr->translate("TRANSFER_NO");?></td>
+								    <th><?php echo $tr->translate("TRANSFER_NO");?></td>
+									<td><?php echo $tr->translate("PRODUCT_NAME");?></td>
+									<td><?php echo $tr->translate("QTY");?></td>
 									<td><?php echo $tr->translate("TRANSFER_TO");?></td>
 									<td><?php echo $tr->translate("DATE_TRANSFER");?></td>
 									<td><?php echo $tr->translate("TRANSFER_BY");?></td>
 									<td><?php echo $tr->translate("STATUS");?></td>
 		                </tr>
-		                <?php $num=1; 
+		                <?php $num=1; //print_r ($this->product);
 		                if(!empty($this->product))foreach ($this->product AS $index => $row){?>
 						<tr height="30" class='row-format<?php echo $num; ?>' id="item_<?php echo $index; ?>">
 								<td align="center">&nbsp;<?php echo $index ?></td>
 									<td><?php echo $row["tran_no"]?></td>
+									<td><?php echo $row["product"]?></td>
+									<td><?php echo $row["qty"].' '.$row["label"]?></td>
 									<td><?php echo $row["tran_location"]?></td>
 									<td><?php echo $row["date"]?> </td>
 									<td><?php echo $row["user_tran"]?> </td>

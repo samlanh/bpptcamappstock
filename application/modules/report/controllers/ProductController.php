@@ -90,7 +90,7 @@ class report_ProductController extends Zend_Controller_Action
     }
     public function rpttransferAction()
     {
-    	$db = new Product_Model_DbTable_DbTransfer();
+    	$db = new report_Model_DbProduct();
     	if($this->getRequest()->isPost()){
     		$data = $this->getRequest()->getPost();
     	}else{

@@ -2,7 +2,7 @@
 $tr=Application_Form_FrmLanguages::getCurrentlanguage();
 $brach_name =  $this->branch;
 ?>
-<title>Sale Person Report</title>
+<title><?php echo $tr->translate("SALEPERSON_REPORT");?></title>
 <div class="row">
 	<div class="col-md-12">
 		<div class="portlet box blue">
@@ -33,15 +33,14 @@ $brach_name =  $this->branch;
 						<?php $formFilter = $this->formFilter; ?>
 						<form method="post" action="">
 							<div class="form-group" style="padding-top: 6px;">
-								<label class="control-label col-md-3"><?php echo $formFilter->getElement('text_search');?></label>
-								<label class="control-label col-md-3"><?php echo $formFilter->getElement('branch_id');?></label>
-								<label class="control-label col-md-3"><?php echo $formFilter->getElement('customer_id');?></label>
-								<label class="control-label col-md-3"><?php echo $formFilter->getElement('level');?></label>
-							</div>
-							<div class="form-group" style="padding-top: 6px;">
-								<label class="control-label col-md-3"><?php echo $formFilter->getElement('start_date');?><!--<i class="fa fa-calendar"></i> --></label>
-								<label class="control-label col-md-3"><?php echo $formFilter->getElement('end_date');?><!-- <i class="fa fa-calendar"></i> --></label>
-								<label class="control-label col-md-3">
+								<label class="control-label col-md-2"><?php echo $formFilter->getElement('text_search');?></label>
+								<label class="control-label col-md-2"><?php echo $formFilter->getElement('branch_id');?></label>
+								<!--<label class="control-label col-md-3"><?php //echo $formFilter->getElement('customer_id');?></label>
+								<label class="control-label col-md-3"><?php //echo $formFilter->getElement('level');?></label>
+							      -->
+								<label class="control-label col-md-2"><div class="input-icon right"><i class="icon-calendar"></i><?php echo $formFilter->getElement('start_date');?></div></label>
+								<label class="control-label col-md-2"><div class="input-icon right"><i class="icon-calendar"></i><?php echo $formFilter->getElement('end_date');?></div></label>
+								<label class="control-label col-md-2">
 									<button class="btn btn-primary col-md-12" value="" ><i class="fa fa-save"></i>&nbsp;<?php echo $tr->translate("REFRESH");?></button>
 								</label>
 							</div>	
@@ -76,19 +75,6 @@ $brach_name =  $this->branch;
 		                	</td>
 		                    <td width="20%"></td>
 		                </tr> 
-		                <tr>
-		                	<td colspan="3" valign="top">
-		                		<table width="100%" cellpadding="0" cellspacing="0">
-		                			<tbody><tr>
-		                				<td style="font-size: 11px;">
-		                				    <span style="white-space: nowrap;"><?php echo $tr->translate("ADDRESS_COMPANY");?></span>
-		                					<br><?php echo $tr->translate("TEL_COMPANY");?> 
-		                				</td>
-		                				<td width="65%"></td>
-		                			</tr>
-				                </tbody></table>
-				              </td>
-				           </tr>   
 		            </tbody></table>
 		        </td>
 		    </tr>

@@ -102,6 +102,8 @@ Class report_Model_DbQuery extends Zend_Db_Table_Abstract{
 			$s_where = array();
 			$s_search = trim(addslashes($search['txt_search']));
 			$s_where[] = " it.item_name LIKE '%{$s_search}%'";
+			$s_where[] = " (SELECT name FROM `tb_sublocation` WHERE id=p.branch_id) LIKE '%{$s_search}%'";
+			$s_where[] = " (SELECT name FROM `tb_category` WHERE id=it.cate_id LIMIT 1) LIKE '%{$s_search}%'";
 			$s_where[] = " it.item_code LIKE '%{$s_search}%'";
 			$s_where[] = " it.barcode LIKE '%{$s_search}%'";
 			$s_where[] = " p.order_number LIKE '%{$s_search}%'";
@@ -145,7 +147,9 @@ Class report_Model_DbQuery extends Zend_Db_Table_Abstract{
 		if(!empty($search['text_search'])){
 			$s_where = array();
 			$s_search = trim(addslashes($search['text_search']));
-			$s_where[] = " s.order_number LIKE '%{$s_search}%'";
+			$s_where[] = " (SELECT cust_name FROM `tb_customer` WHERE tb_customer.id=s.customer_id LIMIT 1 ) LIKE '%{$s_search}%'";
+			$s_where[] = " (SELECT name FROM `tb_sale_agent` WHERE id=s.saleagent_id LIMIT 1) LIKE '%{$s_search}%'";
+			$s_where[] = " s.sale_no LIKE '%{$s_search}%'";
 			$s_where[] = " s.net_total LIKE '%{$s_search}%'";
 			$s_where[] = " s.paid LIKE '%{$s_search}%'";
 			$s_where[] = " s.balance LIKE '%{$s_search}%'";
@@ -216,10 +220,13 @@ Class report_Model_DbQuery extends Zend_Db_Table_Abstract{
 		if(!empty($search['txt_search'])){
 			$s_where = array();
 			$s_search = trim(addslashes($search['txt_search']));
+			$s_where[] = " (SELECT name FROM `tb_category` WHERE id=it.cate_id LIMIT 1) LIKE '%{$s_search}%'";
+			$s_where[] = " (SELECT name FROM `tb_brand` WHERE id=it.brand_id LIMIT 1) LIKE '%{$s_search}%'";
+			$s_where[] = " (SELECT cust_name FROM `tb_customer` WHERE tb_customer.id=s.customer_id LIMIT 1 ) LIKE '%{$s_search}%'";
 			$s_where[] = " it.item_name LIKE '%{$s_search}%'";
 			$s_where[] = " it.item_code LIKE '%{$s_search}%'";
 			$s_where[] = " it.barcode LIKE '%{$s_search}%'";
-			$s_where[] = " s.order_number LIKE '%{$s_search}%'";
+			$s_where[] = " s.sale_no LIKE '%{$s_search}%'";
 			$s_where[] = " s.net_total LIKE '%{$s_search}%'";
 			$s_where[] = " s.paid LIKE '%{$s_search}%'";
 			$s_where[] = " s.balance LIKE '%{$s_search}%'";
@@ -262,11 +269,12 @@ Class report_Model_DbQuery extends Zend_Db_Table_Abstract{
 			$s_search = trim(addslashes($search['text_search']));
 			$s_where[] = " cust_name LIKE '%{$s_search}%'";
 			$s_where[] = " phone LIKE '%{$s_search}%'";
-			
+			$s_where[] = " ( SELECT name_en FROM `tb_view` WHERE type=5 AND key_code=status LIMIT 1) LIKE '%{$s_search}%'";
+			$s_where[] = " ( SELECT fullname FROM `tb_acl_user` WHERE tb_acl_user.user_id=user_id LIMIT 1) LIKE '%{$s_search}%'";
 			$s_where[] = " contact_name LIKE '%{$s_search}%'";
 			$s_where[] = " contact_phone LIKE '%{$s_search}%'";
-			$s_where[] = " address LIKE '%{$s_search}%'";
-				
+			$s_where[] = " (SELECT NAME FROM `tb_price_type` WHERE id=customer_level LIMIT 1) LIKE '%{$s_search}%'";
+			$s_where[] = " address LIKE '%{$s_search}%'";	
 			$s_where[] = " email LIKE '%{$s_search}%'";
 			$s_where[] = " fax LIKE '%{$s_search}%'";
 			$s_where[] = " website LIKE '%{$s_search}%'";
@@ -743,7 +751,9 @@ Class report_Model_DbQuery extends Zend_Db_Table_Abstract{
 		if(!empty($search['text_search'])){
 			$s_where = array();
 			$s_search = trim(addslashes($search['text_search']));
-			
+			$s_where[] = " (SELECT cust_name FROM `tb_customer` WHERE tb_customer.id=s.customer_id LIMIT 1 ) LIKE '%{$s_search}%'";
+			$s_where[] = " (SELECT name FROM `tb_sale_agent` WHERE id=s.saleagent_id LIMIT 1) LIKE '%{$s_search}%'";
+			$s_where[] = " iv.invoice_no LIKE '%{$s_search}%'";
 			$s_where[] = " s.sale_no LIKE '%{$s_search}%'";
 			$s_where[] = " s.net_total LIKE '%{$s_search}%'";
 			$s_where[] = " s.paid LIKE '%{$s_search}%'";
@@ -862,9 +872,12 @@ Class report_Model_DbQuery extends Zend_Db_Table_Abstract{
 		if(!empty($search['text_search'])){
 			$s_where = array();
 			$s_search = addslashes(trim($search['text_search']));
-			$s_where[] = " e.title_id LIKE '%{$s_search}%'";
+			$s_where[] = " (SELECT tb_expensetitle.title_en FROM `tb_expensetitle` WHERE tb_expensetitle.id=e.title_id LIMIT 1) LIKE '%{$s_search}%'";
+			$s_where[] = " (SELECT tb_expensetitle.title FROM `tb_expensetitle` WHERE tb_expensetitle.id=e.title_id LIMIT 1) LIKE '%{$s_search}%'";
 			$s_where[] = " e.desc LIKE '%{$s_search}%'";
+			$s_where[] = " e.user_id LIKE '%{$s_search}%'";
 			$s_where[] = " e.invoice LIKE '%{$s_search}%'";
+			$s_where[] = " e.branch_id LIKE '%{$s_search}%'";
 			$s_where[] = " e.total_amount LIKE '%{$s_search}%'";
 			$where .=' AND ( '.implode(' OR ',$s_where).')';
 		}
@@ -903,8 +916,12 @@ Class report_Model_DbQuery extends Zend_Db_Table_Abstract{
 	    if(!empty($search['text_search'])){
 	        $s_where = array();
 	        $s_search = addslashes(trim($search['text_search']));
-	        $s_where[] = " i.title_id LIKE '%{$s_search}%'";
-	        $s_where[] = " i.desc LIKE '%{$s_search}%'";
+	        $s_where[] = " (SELECT tb_expensetitle.title_en FROM `tb_expensetitle` WHERE tb_expensetitle.id=i.title_id  LIMIT 1) LIKE '%{$s_search}%'";
+	        $s_where[] = " (SELECT tb_expensetitle.title FROM `tb_expensetitle` WHERE tb_expensetitle.id=i.title_id  LIMIT 1) LIKE '%{$s_search}%'";
+			$s_where[] = " i.desc LIKE '%{$s_search}%'";
+			$s_where[] = " i.curr_type LIKE '%{$s_search}%'";
+			$s_where[] = " i.branch_id LIKE '%{$s_search}%'";
+			$s_where[] = " i.user_id LIKE '%{$s_search}%'";
 	        $s_where[] = " i.invoice LIKE '%{$s_search}%'";
 	        $s_where[] = " i.total_amount LIKE '%{$s_search}%'";
 	        $where .=' AND ( '.implode(' OR ',$s_where).')';
@@ -970,8 +987,6 @@ Class report_Model_DbQuery extends Zend_Db_Table_Abstract{
 		if(!empty($search['text_search'])){
 			$s_where = array();
 			$s_search = trim(addslashes($search['text_search']));
-			
-			
 			$s_where[] = " invoice_no LIKE '%{$s_search}%'";
 			$s_where[] = " order_number LIKE '%{$s_search}%'";
 			$s_where[] = " net_total LIKE '%{$s_search}%'";

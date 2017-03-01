@@ -68,19 +68,7 @@ $brach_name =  $this->branch;
 		                	</td>
 		                    <td width="20%"></td>
 		                </tr> 
-		                <tr>
-		                	<td colspan="3" valign="top">
-		                		<table width="100%" cellpadding="0" cellspacing="0">
-		                			<tbody><tr>
-		                				<td style="font-size: 11px;">
-		                				    <span style="white-space: nowrap;"><?php echo $tr->translate("ADDRESS_COMPANY");?></span>
-		                					<br><?php echo $tr->translate("TEL_COMPANY");?> 
-		                				</td>
-		                				<td width="65%"></td>
-		                			</tr>
-				                </tbody></table>
-				              </td>
-				           </tr>   
+		                 
 		            </tbody></table>
 		        </td>
 		    </tr>
@@ -133,7 +121,7 @@ $brach_name =  $this->branch;
 								$d_netotal = $d_netotal+$rs["sub_total"];
 								$d_paid = $d_paid+$rs["paid_amount"];
 								$d_balance = $d_balance+$rs["balance"];
-							}else if($rs['currency_id']==2){
+							}/*else if($rs['currency_id']==2){
 								$r_netotal = $r_netotal+$rs["sub_total"];
 								$r_paid = $r_paid+$rs["paid_amount"];
 								$r_balance = $r_balance+$rs["balance"];
@@ -141,36 +129,36 @@ $brach_name =  $this->branch;
 								$b_netotal = $b_netotal+$rs["sub_total"];
 								$b_paid = $b_paid+$rs["paid_amount"];
 								$b_balance = $b_balance+$rs["balance"];
-							}
+							}*/
                     }?>
 		                </tbody>
 		           </table>
 		            <br>
 		             <table border="1" style="border-collapse:collapse;border:1px solid #000; font-size:12px;" width="100%" cellspacing="0">
 		                <tbody><tr height="30px;" bgcolor="#ccc" class="style" align="center" style="floafont-weight:bold; line-height: 14px; font-size:12px; padding:2px 0px; ">
-		                    <td>ប្រភេទប្រាក់</td>
+		                    <td><strong><?php echo $tr->translate("CURRENCY_TYPE");?></strong></td>
 		                    <td><strong><?php echo $tr->translate("PURCHASE_AMOUNT");?></strong></td>
 		                    <td><strong><?php echo $tr->translate("PAID");?></strong></td>
 		                    <td><strong><?php echo $tr->translate("BALANCE");?></strong></td>
 		                </tr>
 		                 <tr class="style" style=" line-height: 24px; font-size:11px;">
-		                    <td>&nbsp;<?php echo $tr->translate("DOLLAR");?></td>
+		                    <td>&nbsp;<?php echo $tr->translate("PRICES_DOLLAR");?></td>
 		                    <td>&nbsp;<?php echo number_format($d_netotal,2);?>&nbsp;</td>
 		                    <td>&nbsp;<?php echo number_format($d_paid,2);?>&nbsp;</td>
 		                    <td>&nbsp;<?php echo number_format($d_balance,2);?>&nbsp;</td>
 		                 </tr>
-		                 <tr class="style" style=" line-height: 24px; font-size:11px;">
-		                    <td>&nbsp;<?php echo $tr->translate("KHMER");?></td>
-		                    <td>&nbsp;<?php echo number_format($r_netotal,2);?>&nbsp;</td>
-		                    <td>&nbsp;<?php echo number_format($r_paid,2);?>&nbsp;</td>
-		                    <td>&nbsp;<?php echo number_format($r_balance,2);?>&nbsp;</td>
+		                 <!--<tr class="style" style=" line-height: 24px; font-size:11px;">
+		                    <td>&nbsp;<?php //echo $tr->translate("KHMER");?></td>
+		                    <td>&nbsp;<?php //echo number_format($r_netotal,2);?>&nbsp;</td>
+		                    <td>&nbsp;<?php //echo number_format($r_paid,2);?>&nbsp;</td>
+		                    <td>&nbsp;<?php //echo number_format($r_balance,2);?>&nbsp;</td>
 		                </tr>
 		                 <tr class="style" style=" line-height: 24px; font-size:11px;">
-		                    <td>&nbsp;<?php echo $tr->translate("BATH");?></td>
-		                    <td>&nbsp;<?php echo number_format($b_netotal,2);?>&nbsp;</td>
-		                    <td>&nbsp;<?php echo number_format($b_paid,2);?>&nbsp;</td>
-		                    <td>&nbsp;<?php echo number_format($b_balance,2);?>&nbsp;</td>
-		                </tr>
+		                    <td>&nbsp;<?php //echo $tr->translate("BATH");?></td>
+		                    <td>&nbsp;<?php //echo number_format($b_netotal,2);?>&nbsp;</td>
+		                    <td>&nbsp;<?php //echo number_format($b_paid,2);?>&nbsp;</td>
+		                    <td>&nbsp;<?php //echo number_format($b_balance,2);?>&nbsp;</td>
+		                </tr>-->
 		               </tbody>
 		             </table>
 		              <br>

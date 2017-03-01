@@ -10,7 +10,7 @@
    $rpt_grand=$this->url(array('module'=>'report','controller'=>'index','action'=>'rpt-grand'), null, true);
    $sale_quotation_report=$this->url(array('module'=>'report','controller'=>'index','action'=>'rpt-quotationissue'), null, true);
    $invoice_and_delivery=$this->url(array('module'=>'report','controller'=>'index','action'=>'rpt-delivery'), null, true);
-   $income_expense=$this->url(array('module'=>'report','controller'=>'index','action'=>'rpt-typeexpense'), null, true);
+   //$income_expense=$this->url(array('module'=>'report','controller'=>'index','action'=>'rpt-typeexpense'), null, true);
    $vandor_balance=$this->url(array('module'=>'report','controller'=>'index','action'=>'rpt-vandorbalance'), null, true);
    $chque_withdrawal=$this->url(array('module'=>'report','controller'=>'index','action'=>'rpt-chequewithdrawal'), null, true);
    $user_info = new Application_Model_DbTable_DbGetUserInfo();
@@ -248,9 +248,9 @@
 						</a>
 					</div>
 				</div>
-				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+				<!--<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 					<div class="dashboard-stat purple-plum">
-						<a class="more" href="<?php echo $income_expense;?>">
+						<a class="more" href="<?php //echo $income_expense;?>">
 						<div class="visual">
 							<i class="fa fa-globe"></i>
 						</div>
@@ -258,15 +258,15 @@
 							<div class="number">
 							</div>
 							<div class="desc">
-								 <?php echo $tr->translate("TYPE_EXPENS_REPORT");?>
+								 <?php //echo $tr->translate("TYPE_EXPENS_REPORT");?>
 							</div>
 						</div>
 						</a>
-						<a class="more" href="<?php echo $income_expense;?>">
-						<?php echo $tr->translate("VIEW_MORE");?><i class="m-icon-swapright m-icon-white"></i>
+						<a class="more" href="<?php //echo $income_expense;?>">
+						<?php //echo $tr->translate("VIEW_MORE");?><i class="m-icon-swapright m-icon-white"></i>
 						</a>
 					</div>
-				</div>
+				</div>-->
 				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 					<div class="dashboard-stat purple-plum">
 						<a class="more" href="<?php echo $vandor_balance;?>">

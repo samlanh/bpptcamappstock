@@ -115,6 +115,43 @@ Class report_Model_DbProduct extends Zend_Db_Table_Abstract{
 		return $db->fetchAll($sql.$where.$location);
 			
 	}
+	function getTransfer($data){
+		$tran_date = $data["tran_date"];
+		$db = $this->getAdapter();
+		$sql = "SELECT  pt.*,
+				  (SELECT p.`item_name` FROM `tb_product` AS p WHERE p.id=
+				  (SELECT ti.`pro_id` FROM `tb_transfer_item` AS ti WHERE ti.`tran_id`=pt.id)) AS product,
+                  (SELECT ti.`qty` FROM `tb_transfer_item` AS ti WHERE ti.`tran_id`=pt.id) AS qty,
+                  (SELECT tm.`name` FROM `tb_measure` AS tm WHERE tm.`id`=(SELECT p.`measure_id` FROM `tb_product` AS p WHERE p.`id`=(SELECT ti.`tran_id` FROM `tb_transfer_item` AS ti WHERE ti.`tran_id`=pt.id))) AS label,
+				  (SELECT s.name FROM `tb_sublocation` AS s WHERE s.id=pt.`cur_location`) AS cur_location,
+				  (SELECT s.name FROM `tb_sublocation` AS s WHERE s.id=pt.`tran_location`) AS tran_location,
+  				  (SELECT u.`fullname` FROM `tb_acl_user` AS u WHERE u.`user_id`=pt.`user_mod`) AS user_tran
+				FROM
+				  `tb_product_transfer` AS pt
+				WHERE 1 AND pt.`date`<='$tran_date'";
+		$where = '';
+	  	if($data["tran_num"]!=""){
+	  		$s_where=array();
+	  		$s_search = addslashes(trim($data['tran_num']));
+	  		$s_where[]= " pt.tran_no LIKE '%{$s_search}%'";
+	  		//$s_where[]=" p.user_mod LIKE '%{$s_search}%'";
+	  		$s_where[]= " pt.date LIKE '%{$s_search}%'";
+	  		$s_where[]= " pt.remark LIKE '%{$s_search}%'";
+	  		//$s_where[]= " cate LIKE '%{$s_search}%'";
+	  		$where.=' AND ('.implode(' OR ', $s_where).')';
+	  	}
+	  	if($data["type"]!=""){
+	  		$where.=' AND pt.`type`='.$data["type"];
+	  	}
+	  	if($data["status"]!=""){
+	  		$where.=' AND pt.status='.$data["status"];
+	  	}
+	  	if($data["to_loc"]!=""){
+	  		$where.=' AND pt.tran_location='.$data["to_loc"];
+	  	}
+  		//echo $sql.$where;
+		return $db->fetchAll($sql.$where);
+	}
 	
 }
 
