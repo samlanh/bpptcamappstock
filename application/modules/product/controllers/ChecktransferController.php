@@ -21,7 +21,7 @@ public function init()
     			'tran_num'	=>	'',
     			'tran_date'	=>	1,
     			'type'		=>	'',
-    			'status'	=>	2,
+    			'status'	=>	'',
     			'to_loc'	=>	'',
     		);
     	}
@@ -122,6 +122,19 @@ public function init()
 		$id = $this->getRequest()->getParam("id");
 		$this->view-> vt = $db->getview($id);
 		$this ->view -> vi = $db->getitemview($id);
+		if($this->getRequest()->isPost()){ 
+				try{
+					$post = $this->getRequest()->getPost();
+					$db->checktransfer($post,$id);
+					if(isset($post["save_close"]))
+					{
+						Application_Form_FrmMessage::message("INSERT_SUCCESS");
+						Application_Form_FrmMessage::redirectUrl('/product/transfer');
+					}
+				  }catch (Exception $e){
+				  	Application_Form_FrmMessage::messageError("INSERT_ERROR",$err = $e->getMessage());
+				  }
+			}
 		
 	}	
 }

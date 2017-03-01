@@ -29,15 +29,11 @@ class Product_Form_FrmTransfer extends Zend_Form
     	$remark = new Zend_Form_Element_Textarea("remark");
     	$remark->setAttribs(array('class'=>'form-control','style'=>'width: 100%;height:35px'));
     	
-    	$from_loc = new Zend_Form_Element_Select("from_loc");
-    	$from_loc->setAttribs(array(
-    			'class'=>'form-control select2me',
-    	));
-    	
-    	$opt = array(''=>$tr->translate("SELECT_BRANCH"));
+		$opt = array(''=>$tr->translate("SELECT_BRANCH"));
     	$to_loc = new Zend_Form_Element_Select("to_loc");
     	$to_loc->setAttribs(array(
     			'class'=>'form-control select2me',
+				'required'=>'required',
     	));
     	if(!empty($rs_loc)){
     		foreach ($rs_loc as $rs){
@@ -45,6 +41,22 @@ class Product_Form_FrmTransfer extends Zend_Form
     		}
     	}
     	$to_loc->setMultiOptions($opt);
+		
+		$opt = array(''=>$tr->translate("SELECT_BRANCH"));
+    	$from_loc = new Zend_Form_Element_Select("from_loc");
+    	$from_loc -> setAttribs(array(
+    			'class'=>'form-control select2me',
+				'required'=>'required',
+    	));
+    	if(!empty($rs_loc)){
+    		foreach ($rs_loc as $rs){
+    			$opt[$rs["id"]] = $rs["name"];
+    		}
+    	}
+    	$from_loc -> setMultiOptions($opt);
+		
+		
+		
     	
     	$pro_name =new Zend_Form_Element_Select("pro_name");
     	$pro_name->setAttribs(array(
@@ -67,17 +79,17 @@ class Product_Form_FrmTransfer extends Zend_Form
     	));
     	$opt= array(''=>$tr->translate("SELECT_TRANSFER_TYPE"),1=>$tr->translate("TRANSFER_IN"),2=>$tr->translate("TRANSFER_OUT"));
     	$type->setMultiOptions($opt);
-    	
-    	
+
     	$status =new Zend_Form_Element_Select("status");
     	$status->setAttribs(array(
     			'class'=>'form-control select2me',
     	));
-    	$opt= array(''=>$tr->translate("SELECT_STATUS"),1=>$tr->translate("ACTIVE"),0=>$tr->translate("DEACTIVE"));
+    	$opt= array(2 =>$tr->translate("PENDING APPROVE"));
     	$status->setMultiOptions($opt);
     	//set value when edit
     	if($data != null) {
-    		$tran_num->setValue($data["tran_no"]);
+    		$from_loc->setValue($data["cur_location"]);
+			$tran_num->setValue($data["tran_no"]);
     		$tran_date->setValue($data["date"]);
     		$remark->setValue($data["remark"]);
     		$to_loc->setValue($data["tran_location"]);

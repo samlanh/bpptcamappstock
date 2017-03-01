@@ -105,12 +105,12 @@ $url_cancel =  $this->url(array('module'=>'product','controller'=>'checktransfer
 						<tbody>
 							<tr style="font-size: 11px;">
 							    <td style="width:10%;font-size:13px;line-height: 20px;"><?php echo $tr->translate("REMARK");?></td>
-								<th style="width:45%;font-size:13px;text-align:left;font-family:'Khmer MEF2'"><textarea style="width:100%;"> </textarea></th>
+								<th style="width:45%;font-size:13px;text-align:left;font-family:'Khmer MEF2'"><textarea name="remark" style="width:100%;"> </textarea></th>
 								<th nowrap="nowrap" style="width:15%;font-size:13px;line-height: 20px;"><?php echo $tr->translate("STATUS");?></th>
 								<th style="width:30%;text-align:center;font-family:'Khmer MEF2'">
-									<select style="width:100%;height:40px; font-size:13px;">
-										<option>Approve</option>
-										<option>Reject</option>										
+									<select name="status" style="width:100%;height:40px; font-size:13px;">
+										<option value="2">Approve</option>
+										<option value="3">Reject</option>										
 									</select>
 								</th>
 						    </tr>
