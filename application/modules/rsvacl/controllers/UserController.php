@@ -166,22 +166,24 @@ class Rsvacl_UserController extends Zend_Controller_Action
 				if(!$user_id) $user_id=0;			
 				$current_password=$this->getRequest()->getParam('current_password');
 				$password=$this->getRequest()->getParam('password');
-				if($level==1 OR $level==2){
-					//if($db->isValidCurrentPassword($user_id,$current_password)){ 
-						$db->changePassword($user_id, md5($password));	
-						Application_Form_FrmMessage::message('Password has been changed');
-						Application_Form_FrmMessage::redirector('/Rsvacl/user/'.$user_id);
-					//}else{
-					//	Application_Form_FrmMessage::message('Invalid current password');
-					//}
-				}else{
-					if($db->isValidCurrentPassword($user_id,$current_password)){ 
-						$db->changePassword($user_id, md5($password));	
-						Application_Form_FrmMessage::message('Password has been changed');
-						Application_Form_FrmMessage::redirector('/Rsvacl/user/'.$user_id);
+				if (isset($_POST["btnsaveclose"])){
+					if($level==1 OR $level==2){
+						//if($db->isValidCurrentPassword($user_id,$current_password)){ 
+							$db->changePassword($user_id, md5($password));	
+							Application_Form_FrmMessage::message('Password has been changed');
+							Application_Form_FrmMessage::redirector('/rsvacl/user/edit?id='.$user_id);
+						//}else{
+						//	Application_Form_FrmMessage::message('Invalid current password');
+						//}
 					}else{
-						Application_Form_FrmMessage::message('Invalid current password');
-					}
+						if($db->isValidCurrentPassword($user_id,$current_password)){ 
+							$db->changePassword($user_id, md5($password));	
+							Application_Form_FrmMessage::message('Password has been changed');
+							Application_Form_FrmMessage::redirector('/rsvacl/user/edit?id='.$user_id);
+						}else{
+							Application_Form_FrmMessage::message('Invalid current password');
+						}
+					  }
 				}
 			}		
 		}else{ 
