@@ -6,7 +6,7 @@ $url_edit =  $this->url(array('module'=>'purchase','controller'=>'vendor','actio
 $form=$this->form;
 $tr = Application_Form_FrmLanguages::getCurrentlanguage();
 ?>
-<title><?php echo $tr->translate("ADD_NEW_VENDOR");?></title>
+<title><?php echo $tr->translate("VENDOR");?></title>
 <div class="row">
 	<div class="col-md-12">
 		<div class="portlet box blue">
@@ -14,10 +14,10 @@ $tr = Application_Form_FrmLanguages::getCurrentlanguage();
 				<div class="caption">
 					<i class="icon-home"></i><?php echo $tr->translate("VENDOR");?>
 				</div>
-				<div class="caption pull-right" >
-					<a href="<?php echo $url_edit;?>" class="btn btn-sm " style="color:white;">
-					<i class="fa fa-undo"></i>	&nbsp;<?php echo $tr->translate("GO_BACK");?>
-					</a>
+				<div class="pull-right" >
+				<a href="<?php echo $url_edit;?>"><button type="button" name="calcel" class="btn red"><i class="fa fa-undo"></i>	&nbsp;<?php echo $tr->translate("GO_BACK");?></button></a>
+			
+					
 				</div>
 			</div>
 			<div class="portlet-body form">

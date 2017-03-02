@@ -3,10 +3,10 @@ Class Purchase_Form_Frmexpense extends Zend_Form {
 	protected $tr;
 	public function init()
 	{
-		$this->tr = Application_Form_FrmLanguages::getCurrentlanguage();
+		
 	}
 	public function FrmAddExpense($data=null){
-		
+	    $tr = Application_Form_FrmLanguages::getCurrentlanguage();
 		$db = new Application_Model_DbTable_DbGlobal();
 		$optexpense = $db->getAllExpense(1);
 		$title = new Zend_Form_Element_Select('title');
@@ -45,7 +45,7 @@ Class Purchase_Form_Frmexpense extends Zend_Form {
 		$_stutas ->setAttribs(array(
 				'class'=>' form-control',			
 		));
-		$options= array(1=>"ប្រើប្រាស់",0=>"មិនប្រើប្រាស់");
+		$options= array(1=>$tr->translate("ACTIVE"),0=>$tr->translate("DEACTIVE"));
 		$_stutas->setMultiOptions($options);
 		
 		$_Description = new Zend_Form_Element_Textarea('Description');

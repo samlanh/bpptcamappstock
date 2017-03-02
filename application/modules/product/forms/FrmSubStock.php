@@ -7,6 +7,7 @@ class Product_Form_FrmSubStock extends Zend_Form
 
 	}
 	public function orderSubstockForm($data=null) {
+	    $tr = Application_Form_FrmLanguages::getCurrentlanguage();
 		$db=new Application_Model_DbTable_DbGlobal();		
 			
 		$nameElement = new Zend_Form_Element_Text('Stock Name');
@@ -29,7 +30,7 @@ class Product_Form_FrmSubStock extends Zend_Form
 		$descriptionElement->setAttribs(array('placeholder'=>'Description Here...'));
 		$this->addElement($descriptionElement);
 		
-		$optionsStatus=array(1=>"Active",2=>'Deactive');
+		$optionsStatus=array(1=>$tr->translate("ACTIVE"),2=>$tr->translate('DEACTIVE'));
 		$statusElement = new Zend_Form_Element_Select('status');
 		$statusElement->setMultiOptions($optionsStatus);
 		$statusElement->setValue($data["status"]);

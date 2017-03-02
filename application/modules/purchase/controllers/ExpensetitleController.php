@@ -13,9 +13,20 @@ public function init()
     }
     public function indexAction()
     {
-		$db = new Purchase_Model_DbTable_Dbexpensetitle();
-		$rows = $db->getAllTerm();
-// 		$list = new Application_Form_Frmlist();
+        try{
+        $db = new Purchase_Model_DbTable_Dbexpensetitle();
+		if($this->getRequest()->isPost()){
+		    $search = $this->getRequest()->getPost();
+		}else{
+		    $search = array(
+		        "txt_search"=>'',
+		        "parent_id_title"=>-1,
+		        "title"	=>	'',
+		        "title_en"	=>	'',
+		         "status"=>-1,
+		    );
+		}
+		$rows = $db->getAllTerms($search);
 		$glClass = new Application_Model_GlobalClass();
 		$rows = $glClass->getImgStatus($rows, BASE_URL, true);
 		$list = new Application_Form_Frmlist();
@@ -25,26 +36,34 @@ public function init()
 		);
 		$this->view->list=$list->getCheckList(0, $columns, $rows, array('title'=>$link));
 		
-		
+		$frmexpensetitle=new Purchase_Form_Frmexpensetitle();
+		$frmexpensetitle->FrmAddExpenseTitle();
+		$this->view->filterexpensetitle=$frmexpensetitle;
+		}catch (Exception $e){
+		    Application_Form_FrmMessage::message("Application Error");
+		    Application_Model_DbTable_DbUserLog::writeMessageError($e->getMessage());
+		}
 	}
 	public function addAction()
 	{
+	    $tr = Application_Form_FrmLanguages::getCurrentlanguage();
 		$session_stock = new Zend_Session_Namespace('stock');
 		if($this->getRequest()->isPost()) {
 			$data = $this->getRequest()->getPost();
 			$db = new Purchase_Model_DbTable_Dbexpensetitle();
 			$db->add($data);
 			if($data['save_close']){
-				Application_Form_FrmMessage::message("INSERT_SUCCESS");
+				Application_Form_FrmMessage::message($tr->translate("INSERT_SUCCESS"));
 				Application_Form_FrmMessage::redirectUrl('/purchase/expensetitle/index');
 			}
 			else{
-				Application_Form_FrmMessage::message("INSERT_SUCCESS");
+				Application_Form_FrmMessage::message($tr->translate("INSERT_SUCCESS"));
 			}
 		}
 	}
 	public function editAction()
 	{
+	    $tr = Application_Form_FrmLanguages::getCurrentlanguage();
 		$id = ($this->getRequest()->getParam('id'))? $this->getRequest()->getParam('id'): '0';
 		$db = new Purchase_Model_DbTable_Dbexpensetitle();
 		
@@ -57,7 +76,7 @@ public function init()
 			$db = new Purchase_Model_DbTable_Dbexpensetitle();
 			$db->edit($data);
 			if($data['save_close']){
-				Application_Form_FrmMessage::Sucessfull("EDIT_SUCCESS", '/purchase/expensetitle/index');
+				Application_Form_FrmMessage::Sucessfull($tr->translate("EDIT_SUCCESS"), '/purchase/expensetitle/index');
 			}
 		}
 		$this->view->rs =  $db->getTermById($id);

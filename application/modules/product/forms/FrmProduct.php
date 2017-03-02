@@ -349,7 +349,28 @@ class Product_Form_FrmProduct extends Zend_Form
 		$size->setMultiOptions($opt);
 		$size->setValue($request->getParam("size"));
 		
-		$this->addElements(array($txt_search,$ad_search,$branch,$brand,$model,$category,$color,$size,$status));
+		$type_stock = new Zend_Form_Element_Select("type_stock");
+		$type_stock->setAttribs(array(
+				'class'=>'form-control select2me',
+		));
+		$db_type_stock=new Product_Model_DbTable_DbProduct();
+		$opt_type_stock = array(''=>$tr->translate("SELECT_TYPE_STOCK"));
+		$row_type_stock = $db_type_stock->getTypeproduct();
+		if(!empty($row_type_stock)){
+			foreach ($row_type_stock as $rs_row_type_stock){
+				//print_r($rs_row_type_stock);
+				if($rs_row_type_stock["key_code"]==1){
+					$opt_type_stock[$rs_row_type_stock["key_code"]]=$tr->translate("IN_STOCK"); 
+				}else{
+					$opt_type_stock[$rs_row_type_stock["key_code"]]=$tr->translate("LEAVE STOCK");
+				}
+				//$opt_type_stock[$rs_row_type_stock["key_code"]] = $rs_row_type_stock["name"];
+			}
+		}
+		$type_stock->setMultiOptions($opt_type_stock);
+		$type_stock->setValue($request->getParam("type_stock"));
+		
+		$this->addElements(array($txt_search,$ad_search,$branch,$brand,$model,$category,$color,$size,$status,$type_stock));
 		return $this;
 	}
 }

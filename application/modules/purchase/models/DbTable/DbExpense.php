@@ -76,7 +76,7 @@ function getAllExpense($search=null){
 			$s_where[] = " invoice LIKE '%{$s_search}%'";
 			$where .=' AND ('.implode(' OR ',$s_where).')';
 		}
-		if($search['branch_id']>-1){
+		if($search['branch_id']>0){
 			$where.= " AND branch_id = ".$search['branch_id'];
 		}
 // 		if($search['currency_type']>-1){
@@ -108,10 +108,10 @@ function getAllExpenseReport($search=null){
 			$s_where[] = " invoice LIKE '%{$s_search}%'";
 			$where .=' AND ('.implode(' OR ',$s_where).')';
 		}
-		if($search['branch_id']>-1){
+		if($search['branch_id']>0){
 			$where.= " AND branch_id = ".$search['branch_id'];
 		}
-		if($search['title']>-1){
+		if($search['title']>0){
 			$where.= " AND title = ".$search['title'];
 		}
        $order=" order by id desc ";

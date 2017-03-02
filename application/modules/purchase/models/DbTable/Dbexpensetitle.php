@@ -68,6 +68,30 @@ class Purchase_Model_DbTable_Dbexpensetitle extends Zend_Db_Table_Abstract
 				  tb_expensetitle AS t ORDER BY id desc ";
 		return $db->fetchAll($sql);
 	}
+	public function getAllTerms($search=null){
+	    $db = $this->getAdapter();
+	    $sql = "SELECT t.id,
+		          (SELECT name_en FROM `tb_view` WHERE key_code=t.`parent_id_title` AND TYPE=15) AS parent_id_title,
+				  t.title,t.title_en,t.status
+				FROM
+				  tb_expensetitle AS t";
+	    $where=" ";
+// 	    if (!empty($search['txt_search'])){
+// 	        $s_where = array();
+// 	        $s_search = trim(addslashes($search['txt_search']));
+// 	        $s_where[] = " t.parent_id_title LIKE '%{$s_search}%'";
+// 	        $s_where[] = " t.title LIKE '%{$s_search}%'";
+// 	        $s_where[] = " t.title_en LIKE '%{$s_search}%'";
+// 	        $where .=' AND ('.implode(' OR ',$s_where).')';
+// 	    }
+// 	    if($search["status"]>0){
+// 	        $where.=' AND status='.$search["status"];
+// 	    }
+// 	    $dbg = new Application_Model_DbTable_DbGlobal();
+// 	    $where.=$dbg->getAccessPermission();
+ 	   $order="ORDER BY id desc";
+	    return $db->fetchAll($sql.$where.$order);
+	}
 	public function getTermById($id){
 		$db = $this->getAdapter();
 		$sql = "SELECT t.* FROM tb_expensetitle AS t WHERE t.id= $id";

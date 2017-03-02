@@ -13,6 +13,7 @@ public function init()
     }
     public function indexAction()
     {
+        
 		$db = new Sales_Model_DbTable_DbTermCondiction();
 		$rows = $db->getAllTerm();
 // 		$list = new Application_Form_Frmlist();
@@ -28,18 +29,18 @@ public function init()
 		
 	}
 	public function addAction()
-	{
+	{$tr = Application_Form_FrmLanguages::getCurrentlanguage();
 		$session_stock = new Zend_Session_Namespace('stock');
 		if($this->getRequest()->isPost()) {
 			$data = $this->getRequest()->getPost();
 			$db = new Sales_Model_DbTable_DbTermCondiction();
 			$db->add($data);
 			if($data['save_close']){
-				Application_Form_FrmMessage::message("INSERT_SUCCESS");
+				Application_Form_FrmMessage::message($tr->translate("INSERT_SUCCESS"));
 				Application_Form_FrmMessage::redirectUrl('/sales/termcondiction/index');
 			}
 			else{
-				Application_Form_FrmMessage::message("INSERT_SUCCESS");
+				Application_Form_FrmMessage::message($tr->translate("INSERT_SUCCESS"));
 				//Application_Form_FrmMessage::redirectUrl('/sales/termcondiction/index/add');
 			}
 		}
@@ -48,7 +49,7 @@ public function init()
 		Application_Model_Decorator::removeAllDecorator($formFilter->Formterm());
 	}
 	public function editAction()
-	{
+	{$tr = Application_Form_FrmLanguages::getCurrentlanguage();
 		$id = ($this->getRequest()->getParam('id'))? $this->getRequest()->getParam('id'): '0';
 		$db = new Sales_Model_DbTable_DbTermCondiction();
 		
@@ -61,7 +62,7 @@ public function init()
 			$db = new Sales_Model_DbTable_DbTermCondiction();
 			$db->edit($data);
 			if($data['save_close']){
-				Application_Form_FrmMessage::Sucessfull("EDIT_SUCCESS", '/sales/termcondiction/index');
+				Application_Form_FrmMessage::Sucessfull($tr->translate("EDIT_SUCCESS"), '/sales/termcondiction/index');
 			}
 		}
 		$rs = $db->getTermById($id);

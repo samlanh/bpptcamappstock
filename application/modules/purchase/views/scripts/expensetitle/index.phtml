@@ -1,7 +1,7 @@
 <?php 					
 	$url_new = $this->url(array('module'=>'purchase','controller'=>'expensetitle','action'=>'add',));
 	$tr = Application_Form_FrmLanguages::getCurrentlanguage();
-	$formFilter = $this->formFilter;
+	$formFilter = $this->filterexpensetitle;
 ?>
 <title><?php echo $tr->translate("TYPE");?></title>
 <meta charset="utf-8" />
@@ -12,12 +12,34 @@
 				<div class="caption">
 					<i class="fa fa-globe"></i><?php echo $tr->translate("TYPE");?>
 				</div>
-				<div class="caption pull-right">
-				<a href="<?php echo $url_new;?>" class="btn btn-sm green  pull-right">
+				<div class=" pull-right">
+				<a href="<?php echo $url_new;?>" class="btn green  pull-right">
 					<i class="fa fa-plus"></i>&nbsp;<?php echo $tr->translate("ADD_NEW");?>
 				</a>
 				</div>
 			</div>
+			<div class="portlet-body form">
+			<form class="form-horizontal" method="post" action="" >
+				<div class="form-body">
+							<div class="form-group">
+								<!--  <div class="col-md-3">
+									<?php //echo $formFilter->getElement('name');?>
+								</div>	-->			
+								<div class="col-md-3">
+									<?php echo $formFilter->getElement('txt_search');?>
+								</div>
+								<div class="col-md-3">
+									<?php echo $formFilter->getElement('status');?>
+								</div>
+								<div class="col-md-3">
+									<button type="submit" class="btn green"><?php echo $tr->translate("SEARCH");?></button>
+								</div>
+							</div>
+						
+					</div>
+			</form>
+			
+		</div>
 			<div class="portlet-body form">
 				<div class="contain_form" style="clear:both;">
 					<?php echo $this->list; ?>

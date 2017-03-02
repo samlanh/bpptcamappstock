@@ -59,7 +59,7 @@ class Sales_Model_DbTable_DbSaleOrder extends Zend_Db_Table_Abstract
 					"remark"         => 	$data['remark'],
 					"all_total"      => 	$data['totalAmoun'],
 					"discount_value" => 	$data['dis_value'],
-					"discount_type"  => 	$data['discount_type'],
+					//"discount_type"  => 	$data['discount_type'],
 					"net_total"      => 	$data['all_total'],
 					"user_mod"       => 	$GetUserId,
 					'pending_status' =>2,
@@ -78,10 +78,11 @@ class Sales_Model_DbTable_DbSaleOrder extends Zend_Db_Table_Abstract
 						'qty_unit'=>$data['qty_unit_'.$i],
 						'qty_detail'  => 	$data['qty_per_unit_'.$i],
 						'qty_order'	  => 	$data['qty'.$i],
-						'price'		  => 	$data['price'.$i]+$data['extra_price'.$i],
-						'old_price'   =>    $data['oldprice_'.$i],
+				        'price'		  => 	$data['price'.$i],
+						//'price'		  => 	$data['price'.$i]+$data['extra_price'.$i],
+						//'old_price'   =>    $data['oldprice_'.$i],
 						'disc_value'  =>    str_replace("%",'',$data['dis_value'.$i]),
-						'disc_type'	  =>    $data['discount_type'.$i],
+						//'disc_type'	  =>    $data['discount_type'.$i],
 						'sub_total'	  =>    $data['total'.$i],
 				);
 				$this->_name='tb_salesorder_item';

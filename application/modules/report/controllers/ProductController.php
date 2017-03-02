@@ -32,6 +32,7 @@ class report_ProductController extends Zend_Controller_Action
     				'model'		=>	'',
     				'color'		=>	'',
     				'size'		=>	'',
+					'type_stock'	=>	'',
     				'status'	=>	1
     		);
     	}

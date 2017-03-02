@@ -40,7 +40,8 @@ class Purchase_vendorController extends Zend_Controller_Action
 	}
 	
 	public function addAction()
-	{
+	{$tr = Application_Form_FrmLanguages::getCurrentlanguage();
+	   
 		if($this->getRequest()->isPost())
 		{
 			$post = $this->getRequest()->getPost();
@@ -50,9 +51,9 @@ class Purchase_vendorController extends Zend_Controller_Action
 				
 				if(!empty($post['saveclose']))
 				{
-					Application_Form_FrmMessage::Sucessfull('INSERT_SUCCESS', self::REDIRECT_URL . '/vendor/index');
+					Application_Form_FrmMessage::Sucessfull($tr->translate('INSERT_SUCCESS'), self::REDIRECT_URL . '/vendor/index');
 				}else{
-					Application_Form_FrmMessage::message("INSERT_SUCCESS");
+					Application_Form_FrmMessage::message($tr->translate("INSERT_SUCCESS"));
 				}
 			}catch(Exception $e){
 				Application_Form_FrmMessage::message('INSERT_FAIL');
@@ -68,12 +69,13 @@ class Purchase_vendorController extends Zend_Controller_Action
 		//.end controller
 	}
 	public function editAction() {
+	    $tr = Application_Form_FrmLanguages::getCurrentlanguage();
 		$db = new Purchase_Model_DbTable_DbVendor();
 		if($this->getRequest()->isPost())
 		{
 			$post = $this->getRequest()->getPost();
 			$db->addVendor($post);
-			Application_Form_FrmMessage::Sucessfull('EDIT_SUCCESS', self::REDIRECT_URL . '/vendor/index');
+			Application_Form_FrmMessage::Sucessfull($tr->translate('EDIT_SUCCESS'), self::REDIRECT_URL . '/vendor/index');
 		}
 		$id = ($this->getRequest()->getParam('id'))? $this->getRequest()->getParam('id'): '0';
 		$row= $db->getvendorById($id);

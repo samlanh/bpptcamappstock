@@ -737,6 +737,7 @@ Class report_Model_DbQuery extends Zend_Db_Table_Abstract{
 		$db= $this->getAdapter();
 		$sql=" SELECT s.id,
 		(SELECT name FROM `tb_sublocation` WHERE tb_sublocation.id = s.branch_id AND status=1 AND name!='' LIMIT 1) AS branch_name,
+		 (SELECT p.`item_name` FROM `tb_product` AS p WHERE p.`id` =(SELECT i.`pro_id` FROM `tb_salesorder_item` AS i WHERE i.`saleorder_id`= s.id LIMIT 1)) AS product,
 		(SELECT cust_name FROM `tb_customer` WHERE tb_customer.id=s.customer_id LIMIT 1 ) AS customer_name,
 		(SELECT name FROM `tb_sale_agent` WHERE id=s.saleagent_id LIMIT 1) AS agent_name,
 		s.sale_no,s.date_sold,s.tax,

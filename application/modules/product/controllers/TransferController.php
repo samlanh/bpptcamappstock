@@ -37,7 +37,7 @@ public function init()
 				try{
 					$post = $this->getRequest()->getPost();
 					$db->add($post);
-					if(isset($post["save_close"]))
+					if(isset($post["saveclose"]))
 					{
 						Application_Form_FrmMessage::message("INSERT_SUCCESS");
 						Application_Form_FrmMessage::redirectUrl('/product/transfer');

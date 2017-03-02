@@ -141,6 +141,9 @@ class Product_Model_DbTable_DbProduct extends Zend_Db_Table_Abstract
   	if($data["color"]!=""){
   		$where.=' AND p.color_id='.$data["color"];
   	}
+	if($data["type_stock"]!=""){
+  	   $where.=' AND p.`product_type`='.$data["type_stock"];
+  	}
   	if($data["status"]!=-1){
   		$where.=' AND p.status='.$data["status"];
   	}
@@ -749,5 +752,10 @@ class Product_Model_DbTable_DbProduct extends Zend_Db_Table_Abstract
 		$rows = $db->fetchAll($sql);
 		return $rows;
 	}
-    
+    public function getTypeproduct(){
+		$db=$this->getAdapter();
+		$sql = "SELECT key_code FROM tb_view WHERE type =34 ";
+		$rows = $db->fetchAll($sql);
+		return $rows;
+	}
 }

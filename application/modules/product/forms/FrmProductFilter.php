@@ -13,7 +13,7 @@ class Product_Form_FrmProductFilter extends Zend_Form
     	$this->addElement($nameElement);
     	
     	$rs=$db->getGlobalDb('SELECT id, Name FROM tb_sublocation WHERE Name!="" ');
-    	$options=array(''=>$tr->translate('Please_Select_Location'));
+    	$options=array(''=>$tr->translate('SELECT_LOCATION'));
     	$locationValue = $request->getParam('id');
     	foreach($rs as $read) $options[$read['id']]=$read['Name'];
     	$location_id=new Zend_Form_Element_Select('id');
@@ -64,7 +64,7 @@ class Product_Form_FrmProductFilter extends Zend_Form
     	
     	*/
     	$rs=$db->getGlobalDb('SELECT pro_id, item_name,item_code FROM tb_product WHERE item_name!="" ');
-    	$options=array(''=>$tr->translate('Select_Products'));
+    	$options=array(''=>$tr->translate('SELECT_PRODUCT'));
     	$proValue = $request->getParam('pro_id');
     	foreach($rs as $read) $options[$read['pro_id']]=$read['item_code']." ".$read['item_name'];
     	$pro_id=new Zend_Form_Element_Select('pro_id');
@@ -78,7 +78,7 @@ class Product_Form_FrmProductFilter extends Zend_Form
     	
     	$tr = Application_Form_FrmLanguages::getCurrentlanguage();
     	$rs=$db->getGlobalDb('SELECT id, Name FROM tb_category WHERE Name!="" ');
-    	$options=array(''=>$tr->translate('Please_Select'));
+    	$options=array(''=>$tr->translate('SELECT_CATEGORY'));
     	$cateValue = $request->getParam('category_id');
     	foreach($rs as $read) $options[$read['CategoryId']]=$read['Name'];
     	$cate_element=new Zend_Form_Element_Select('category_id');
@@ -91,7 +91,7 @@ class Product_Form_FrmProductFilter extends Zend_Form
     	$this->addElement($cate_element);
     	
     	$rs=$db->getGlobalDb('SELECT branch_id, Name FROM tb_branch WHERE Name!="" ORDER BY Name');
-    	$options=array(''=>$tr->translate('Please_Select'));
+    	$options=array(''=>$tr->translate('SELECT_BRANCH'));
     	$branchValue = $request->getParam('branch_id');
     	foreach($rs as $read) $options[$read['branch_id']]=$read['Name'];
     	$branch_element=new Zend_Form_Element_Select('branch_id');

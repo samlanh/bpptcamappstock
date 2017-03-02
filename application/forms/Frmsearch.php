@@ -3,6 +3,7 @@ class Application_Form_Frmsearch extends Zend_Form
 {
 	public function init()
 	{
+	    $tr = Application_Form_FrmLanguages::getCurrentlanguage();
 		$request=Zend_Controller_Front::getInstance()->getRequest();
 		$db=new Application_Model_DbTable_DbGlobal();
 		
@@ -31,7 +32,7 @@ class Application_Form_Frmsearch extends Zend_Form
 		$_stutas ->setAttribs(array(
 				'class'=>' form-control',			
 		));
-		$options= array(-1=>"ទាំងអស់",1=>"ប្រើប្រាស់",0=>"មិនប្រើប្រាស់");
+		$options= array(-1=>$tr->translate("ALL"),1=>$tr->translate("ACTIVE"),0=>$tr->translate("DEACTIVE"));
 		$_stutas->setMultiOptions($options);
 		$this->addElement($_stutas);
 		
@@ -72,7 +73,7 @@ class Application_Form_Frmsearch extends Zend_Form
 	  
 		$statusCOValue=4;
 		$statusCOValue = $request->getParam('purchase_status');
-		$optionsCOStatus=array(''=>$tr->translate('CHOSE_STATUS'),0=>$tr->translate('NOT_YET_APPROVE'),1=>$tr->translate('APPROVE'),2=>$tr->translate('REJECT'),);
+		$optionsCOStatus=array(''=>$tr->translate('SELECT_STATUS'),0=>$tr->translate('NOT_YET_APPROVE'),1=>$tr->translate('APPROVE'),2=>$tr->translate('REJECT'),);
 		$statusCO=new Zend_Form_Element_Select('purchase_status');
 		$statusCO->setMultiOptions($optionsCOStatus);
 		$statusCO->setattribs(array(

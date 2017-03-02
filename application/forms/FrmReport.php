@@ -116,7 +116,7 @@ class Application_Form_FrmReport extends Zend_Form
 			$sql.=" ORDER BY p.item_name " ;
 		$rs=$db->getGlobalDb($sql);
 		if($rs){
-    	$options=array(''=>$tr->translate('CHOOSE_PRODUCT'));
+    	$options=array(''=>$tr->translate('SELECT_PRODUCT'));
     	foreach($rs as $read) $options[$read['id']]=$read['item_code']." ".$read['item_name'];
 		}else{
 			$options=array(''=>'No Items Results');
@@ -138,7 +138,7 @@ class Application_Form_FrmReport extends Zend_Form
     		 
     	}
     	$rs=$db->getGlobalDb($sql);
-    	$options=array(''=>$tr->translate('CHOOSE_BRANCH'));
+    	$options=array(''=>$tr->translate('SELECT_BRANCH'));
     	$locationValue = $request->getParam('branch_id');
     	foreach($rs as $read) $options[$read['id']]=$read['name'];
     	$location_id=new Zend_Form_Element_Select('branch_id');
@@ -151,7 +151,7 @@ class Application_Form_FrmReport extends Zend_Form
     	$location_id->setValue($locationValue);
     	
     	$rs=$db->getGlobalDb('SELECT id, name FROM tb_category WHERE name!="" ORDER BY id DESC ');
-    	$options=array(''=>$tr->translate('CHOOSE_CATEGORY'));
+    	$options=array(''=>$tr->translate('SELECT_CATEGORY'));
     	$cateValue = $request->getParam('category_id');
     	foreach($rs as $read) $options[$read['id']]=$read['name'];
     	$cate_element=new Zend_Form_Element_Select('category_id');
@@ -165,7 +165,7 @@ class Application_Form_FrmReport extends Zend_Form
     	$this->addElement($cate_element);
     
     	$rs=$db->getGlobalDb('SELECT id, name FROM tb_brand WHERE name!="" ORDER BY id ');
-    	$options=array(''=>$tr->translate('CHOOSE_BRAND'));
+    	$options=array(''=>$tr->translate('SELECT_BRAND'));
     	$branchValue = $request->getParam('branch_id');
     	foreach($rs as $read) $options[$read['id']]=$read['name'];
     	

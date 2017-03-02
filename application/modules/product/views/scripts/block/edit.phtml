@@ -10,7 +10,7 @@
 	<div class="portlet box blue">
 		<div class="portlet-title">
 			<div class="caption col-md-10">
-					<i class="fa fa-globe"></i><?php echo $tr->translate("ADD_NEW_BLOCK");?>
+					<i class="fa fa-globe"></i><?php echo $tr->translate("EDIT_NEW_BLOCK");?>
 			</div>
 			<div class="col-md-2" style="text-align:right; margin-top: 4px;">
 				<a href="<?php echo $url_close;?>"><button type="button" name="calcel" class="btn red"><?php echo $tr->translate("GO_BACK");?></button></a>
@@ -20,23 +20,23 @@
 			<form class="form-horizontal" method="post" action="<?php echo $url_edit;?>" enctype="multipart/form-data"  >
 				<div class="form-body">
 							<div class="form-group">
-								<label class="col-md-2 control-label"><?php echo $tr->translate("code");?></label>
+								<label class="col-md-2 control-label"><?php echo $tr->translate("CODE");?></label>
 								<div class="col-md-4">
 									<?php echo $formFilter->getElement('code');?>
 								</div>
 												
-								<label class="col-md-2 control-label"><?php echo $tr->translate("branch_name");?></label>
+								<label class="col-md-2 control-label"><?php echo $tr->translate("BRANCH_NAME");?></label>
 								<div class="col-md-4">
 									<?php echo $formFilter->getElement('branch_name');?>
 								</div>
 							</div>
 											
 							<div class="form-group">
-								<label class="col-md-2 control-label"><?php echo $tr->translate("block_name");?></label>
+								<label class="col-md-2 control-label"><?php echo $tr->translate("BLOCK_NAME");?></label>
 								<div class="col-md-4">
 									<?php echo $formFilter->getElement('block_name');?>
 								</div>
-								<label class="col-md-2 control-label"><?php echo $tr->translate("contact_name");?></label>
+								<label class="col-md-2 control-label"><?php echo $tr->translate("CONTACT_NAME");?></label>
 								<div class="col-md-4">
 									<?php echo $formFilter->getElement('contact_name');?>
 								</div>
@@ -44,7 +44,7 @@
 							</div>
 							<div class="form-group">	
 								
-								<label class="col-md-2 control-label"><?php echo $tr->translate("ph_number");?></label>
+								<label class="col-md-2 control-label"><?php echo $tr->translate("PHONE_NUM");?></label>
 								<div class="col-md-4">
 									<?php echo $formFilter->getElement('ph_number');?>
 								</div>
@@ -54,14 +54,14 @@
 								</div>
 							</div>
 							<div class="form-group">	
-								<label class="col-md-2 control-label"><?php echo $tr->translate("Remark");?></label>
+								<label class="col-md-2 control-label"><?php echo $tr->translate("REMARK");?></label>
 								<div class="col-md-10">
 									<?php echo $formFilter->getElement('rmark');?>
 								</div>
 							</div>
 						<div class="form-group">
 								<label  class="col-md-12 col-md-offset-4 col-md-8">
-									<a href="<?php echo $this->baseUrl();?>/branch/index"><button type="button" class="btn red"><i class="fa fa-times"></i> <?php echo $tr->translate("GO_BACK")?></button></a>
+									<a href="<?php echo $this->baseUrl();?>/product/block"><button type="button" class="btn red"><i class="fa fa-times"></i> <?php echo $tr->translate("GO_BACK")?></button></a>
 									<button type="submit" name="save_close" value="saveclose" class="btn btn-primary" ><i class="glyphicon glyphicon-log-in"></i> <?php echo $tr->translate("GO_EDIT")?></button>
 								</label>
 						</div>

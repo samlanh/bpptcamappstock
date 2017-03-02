@@ -33,7 +33,7 @@ $formFilter = $this->formFilter;
 					<div class="form-body">
 							<div class="form-group">
 								<label class="control-label col-md-3">
-									<?php echo $formFilter->getElement('ad_search');?>
+									<?php echo $formFilter->getElement('txt_search');?>
 								</label>
 								<label class="control-label col-md-3">
 									<?php echo $formFilter->getElement('branch');?>
@@ -55,6 +55,9 @@ $formFilter = $this->formFilter;
 								</label>
 								<label class="control-label col-md-3">
 									<?php echo $formFilter->getElement('color');?>
+								</label>
+								<label class="control-label col-md-3">
+									<?php echo $formFilter->getElement('type_stock');?>
 								</label>
 								<label class="control-label col-md-3">
 									<?php echo $formFilter->getElement('status');?>
@@ -108,14 +111,15 @@ $formFilter = $this->formFilter;
 		            <table border="1" style="border-collapse:collapse;border:1px solid #000; font-size:10px;" width="100%" cellspacing="0">
 		                 <tbody><tr bgcolor="#ccc" class="style" align="center" style="font-weight:bold; line-height: 20px; font-size:12px; padding:1px 0px; white-space: nowrap; ">
 		                    <td>&nbsp;<?php echo $tr->translate("NUM");?></td>
-								<td><?php echo $tr->translate("ITEM_CODE");?></ts>
+							        <td><?php echo $tr->translate("BRANCH_NAME");?></td>
+								    <td><?php echo $tr->translate("ITEM_CODE");?></td>
 									<td><?php echo $tr->translate("ITEM_NAME");?></td>
 									<td><?php echo $tr->translate("BRAND");?></td>
 									<td><?php echo $tr->translate("CATEGORY");?></td>
 									<td><?php echo $tr->translate("PRODUCT_TYPE");?></td>
 									<td><?php echo $tr->translate("MODEL");?></td>
-									<td><?php echo $tr->translate("MEASURE");?></td>
 									<td><?php echo $tr->translate("QTY");?></td>
+									<td><?php echo $tr->translate("USER_NAME");?></td>
 									<!--<td><?php //echo $tr->translate("MASTER_PRICE");?></td>
 									<td><?php //echo $tr->translate("DEALER_PRICE");?></td>
 									 <td><?php //echo $tr->translate("STATUS");?></td> -->
@@ -145,6 +149,7 @@ $formFilter = $this->formFilter;
 						?>
 						<tr class='row-format<?php echo $num; ?>' id="item_<?php echo $index; ?>">
 								<td align="center" style="white-space: nowrap;">&nbsp;<?php echo $index ?></td>
+								<td style="white-space: nowrap;">&nbsp;<?php echo $row["branch"]?></td>
 								<td style="white-space: nowrap;">&nbsp;<?php echo $row["item_code"]?></td>
 								<td style="white-space: nowrap;">&nbsp;<?php echo $row["item_name"]?></td>
 									<!--<td style="width:5% !important"><?php //echo $row["barcode"]?></td>-->
@@ -158,8 +163,8 @@ $formFilter = $this->formFilter;
 									}?>
 									</td>
 									<td style="width:8% !important" class="center"><?php echo $row["model"]?></td>
-									<td style="width:5% !important" class="center"><?php echo $row["measure"]?></td>
 									<td style="width:8% !important" class="center"><?php echo $l_qty;?></td>
+									<td style="width:5% !important" class="center"><?php echo $row["user_name"]?></td>
 									<!--  <td style="width:8% !important" class="center"><?php //echo $row["master_price"]?></td>
 									<td style="width:8% !important" class="center"><?php //echo $row["dealer_price"]?></td>
 									-->

@@ -6,6 +6,7 @@ class Purchase_Form_FrmVendor extends Zend_Form
 	}
 	/////////////	Form vendor		/////////////////
 public function AddVendorForm($data=null) {
+    $tr = Application_Form_FrmLanguages::getCurrentlanguage();
 		$db=new Application_Model_DbTable_DbGlobal();
 		
 		$nameElement = new Zend_Form_Element_Text('txt_name');
@@ -57,7 +58,7 @@ public function AddVendorForm($data=null) {
 		$_stutas ->setAttribs(array(
 				'class'=>' form-control',			
 		));
-		$options= array(1=>"ប្រើប្រាស់",0=>"មិនប្រើប្រាស់");
+		$options= array(1=>$tr->translate("ACTIVE"),0=>$tr->translate("DEACTIVE"));
 		$_stutas->setMultiOptions($options);
 		$this->addElement($_stutas); 
     	

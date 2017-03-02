@@ -28,18 +28,20 @@ Class report_Model_DbProduct extends Zend_Db_Table_Abstract{
 				  (SELECT m.name FROM `tb_measure` AS m WHERE m.id = p.`measure_id` LIMIT 1) AS measure,
 				  (SELECT pp.`price` FROM `tb_product_price` AS pp WHERE pp.`pro_id`=p.`id` AND `type_id`=1 LIMIT 1) AS master_price,
 				(SELECT pp.`price` FROM `tb_product_price` AS pp WHERE pp.`pro_id`=p.`id` AND `type_id`=2 LIMIT 1) AS dealer_price,
-				  SUM(pl.`qty`) AS qty
+				  SUM(pl.`qty`) AS qty,
+				  (SELECT u.`fullname` FROM `tb_acl_user` AS u WHERE u.`user_id`=p.`user_id`) AS user_name
 				FROM
 				  `tb_product` AS p ,
 				  `tb_prolocation` AS pl
 				WHERE p.`id`=pl.`pro_id`";
 		$where = '';
-		if($data["ad_search"]!=""){
+		if($data["txt_search"]!=""){
 			$s_where=array();
-			$s_search = addslashes(trim($data['ad_search']));
+			$s_search = addslashes(trim($data['txt_search']));
 			$s_where[]= " p.item_name LIKE '%{$s_search}%'";
 			$s_where[]=" p.barcode LIKE '%{$s_search}%'";
 			$s_where[]= " p.item_code LIKE '%{$s_search}%'";
+			//$s_where[]= " p.product_type LIKE '%{$s_search}%'";
 			$s_where[]= " p.serial_number LIKE '%{$s_search}%'";
 			//$s_where[]= " cate LIKE '%{$s_search}%'";
 			$where.=' AND ('.implode(' OR ', $s_where).')';
@@ -64,6 +66,9 @@ Class report_Model_DbProduct extends Zend_Db_Table_Abstract{
 		}
 		if($data["color"]!=""){
 			$where.=' AND p.color_id='.$data["color"];
+		}
+		if($data["type_stock"]!=""){
+			$where.=' AND p.product_type='.$data["type_stock"];
 		}
 		if($data["status"]!=-1){
 			$where.=' AND p.status='.$data["status"];

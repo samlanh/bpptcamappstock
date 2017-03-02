@@ -30,6 +30,7 @@ public function init()
     			'model'		=>	'',
     			'color'		=>	'',
     			'size'		=>	'',
+				'type_stock'	=>	'',
     			'status'	=>	1
     		);
     	}

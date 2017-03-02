@@ -23,7 +23,7 @@ class Product_Form_FrmBlock extends Zend_Form
 				'id'=>'code'
 		));
 		
-		$ph_nunber = new Zend_Form_Element_Text("ph_number");
+		$ph_nunber = new Zend_Form_Element_text("ph_number");
 		$ph_nunber -> setAttribs(array(
 				'class'=>'form-control',
 				'id'=>'ph_number'
@@ -58,7 +58,7 @@ class Product_Form_FrmBlock extends Zend_Form
 		));
 		$db = new Product_Model_DbTable_DbBlock();
 		$row = $db -> getBranchtitle();
-		$opt = array('-1'=>$tr->translate("CHOOSE BRANCH"));
+		$opt = array('-1'=>$tr->translate("SELECT_BRANCH"));
 		foreach($row as $rs){
 		$opt[$rs['id']]= $rs['name'];
 		}

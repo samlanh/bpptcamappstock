@@ -78,16 +78,16 @@ $brach_name =  $this->branch;
 		                 <tbody><tr bgcolor="#ccc" class="style" align="center" style="font-weight:bold; line-height: 20px; font-size:12px; padding:1px 0px; white-space: nowrap; ">
 		                    <td>&nbsp;<?php echo $tr->translate("NUM");?></td>
 							<td><?php echo $tr->translate("BRANCH_NAME");?></td>
+							<td><?php echo $tr->translate("PRODUCT_NAME");?></td>
 							<td>&nbsp;<?php echo $tr->translate("CUSTOMER_NAME");?></td>
 							<td>&nbsp;<?php echo $tr->translate("SALE_AGENT");?></td>
 							<td width="10%">&nbsp;<?php echo $tr->translate("INVOICE_NUMBER");?></td>
 							<td width="10%">&nbsp;<?php echo $tr->translate("INVOICE_DATE");?></td>
 							<td width="10%">&nbsp;<?php echo $tr->translate("SALE_ORDER");?></td>
 							<td><?php echo $tr->translate("SALE_DATE");?></td>
-							<td><?php echo $tr->translate("CURRNECY_TYPE");?></td>
 							<td>&nbsp;<?php echo $tr->translate("SALES_AMOUNT");?></td>
 							<td>&nbsp;<?php echo $tr->translate("DISCOUNT");?></td>
-							<td width="12%">&nbsp;<?php echo $tr->translate("PAID");?></td>
+							<td>&nbsp;<?php echo $tr->translate("PAID");?></td>
 							<td>&nbsp;<?php echo $tr->translate("BALANCE");?></td>
 							<td>&nbsp;<?php echo $tr->translate("BY_USER");?></td>
 							<td>&nbsp;<?php echo $tr->translate("PRINT_INVOCIE");?></td>
@@ -101,17 +101,17 @@ $brach_name =  $this->branch;
 						<tr class='row-format<?php echo $num; $num=1-$num;?> hover' style="border:1px solid #000;">
 						   <td align="center" style="white-space: nowrap;">&nbsp;<?php echo $index+1?></td>
 						   <td style="white-space: nowrap;">&nbsp;<?php echo $rs["branch_name"];?></td>
+						   <td style="white-space: nowrap;">&nbsp;<?php echo $rs["product"];?></td>
 						   <td style="white-space: nowrap;">&nbsp;<?php echo $rs["customer_name"];?></td>
 						   <td style="white-space: nowrap;">&nbsp;<?php echo $rs["agent_name"];?></td>
 						   <td style="white-space: nowrap;">&nbsp;<?php echo $rs["invoice_no"];?></td>
 						   <td style="white-space: nowrap;">&nbsp;<?php echo date("d/m/Y",strtotime($rs["invoice_date"]));?></td>
 						   <td style="white-space: nowrap;">&nbsp;<?php echo $rs["sale_no"];?></td>
 						   <td style="white-space: nowrap;">&nbsp;<?php echo date("d/m/Y",strtotime($rs["date_sold"]));?></td>
-						   <td style="white-space: nowrap;">&nbsp;<?php echo $rs["curr_name"];?></td>
-						   <td style="white-space: nowrap;">&nbsp;<?php echo number_format($rs["sub_total"],2);?></td>
-						   <td style="white-space: nowrap;">&nbsp;<?php echo number_format($rs["discount"],2);?></td>
-						   <td style="white-space: nowrap;">&nbsp;<?php echo number_format($rs["paid_amount"],2);?></td>
-						   <td>&nbsp;<?php echo number_format($rs["balance"],2);?></td>
+						   <td style="white-space: nowrap;">&nbsp;<?php echo number_format($rs["sub_total"],2).' $';?></td>
+						   <td style="white-space: nowrap;">&nbsp;<?php echo number_format($rs["discount"],2).' $';?></td>
+						   <td style="white-space: nowrap;color:blue">&nbsp;<?php echo number_format($rs["paid_amount"],2).' $';?></td>
+						   <td style="white-space: nowrap;color:red">&nbsp;<?php echo number_format($rs["balance"],2).' $';?></td>
 						   <td>&nbsp;<?php echo $rs["user_name"];?></td>
 						   <td><a style="color:#000;text-decoration: none;" target="_blank" href="<?php echo $this->baseUrl()."/report/index/invoice/id/".$rs["id"];?>">&nbsp;<i class="fa fa-print" aria-hidden="true"></i>&nbsp;<?php echo $tr->translate("PRINT"); ?></a></td>
 						   <td><a style="color:#000;text-decoration: none;" target="_blank" href="<?php echo $this->baseUrl()."/report/index/deliverynote/id/".$rs["id"];?>">&nbsp;<i class="fa fa-print" aria-hidden="true"></i>&nbsp;<?php echo $tr->translate("PRINT"); ?></a></td>

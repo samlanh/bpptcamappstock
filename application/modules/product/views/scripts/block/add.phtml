@@ -5,7 +5,7 @@
 	$tr = Application_Form_FrmLanguages::getCurrentlanguage();
 	$formFilter = $this->frmAdd;
 ?>
-<title><?php echo $tr->translate("ADD_NEW_LOCATION");?></title>
+<title><?php echo $tr->translate("ADD_NEW_BLOCK");?></title>
 <div class="col-md-12">
 	<div class="portlet box blue">
 		<div class="portlet-title">
@@ -20,23 +20,23 @@
 			<form class="form-horizontal" method="post" action="<?php echo $url_new;?>" enctype="multipart/form-data"  >
 				<div class="form-body">
 							<div class="form-group">
-								<label class="col-md-2 control-label"><?php echo $tr->translate("code");?></label>
+								<label class="col-md-2 control-label"><?php echo $tr->translate("CODE");?></label>
 								<div class="col-md-4">
 									<?php echo $formFilter->getElement('code');?>
 								</div>
 												
-								<label class="col-md-2 control-label"><?php echo $tr->translate("branch_name");?></label>
+								<label class="col-md-2 control-label"><?php echo $tr->translate("BRANCH_NAME");?></label>
 								<div class="col-md-4">
 									<?php echo $formFilter->getElement('branch_name');?>
 								</div>
 							</div>
 											
 							<div class="form-group">
-								<label class="col-md-2 control-label"><?php echo $tr->translate("block_name");?></label>
+								<label class="col-md-2 control-label"><?php echo $tr->translate("BLOCK_NAME");?></label>
 								<div class="col-md-4">
 									<?php echo $formFilter->getElement('block_name');?>
 								</div>
-								<label class="col-md-2 control-label"><?php echo $tr->translate("contact_name");?></label>
+								<label class="col-md-2 control-label"><?php echo $tr->translate("CONTACT_NAME");?></label>
 								<div class="col-md-4">
 									<?php echo $formFilter->getElement('contact_name');?>
 								</div>
@@ -44,7 +44,7 @@
 							</div>
 							<div class="form-group">	
 								
-								<label class="col-md-2 control-label"><?php echo $tr->translate("ph_number");?></label>
+								<label class="col-md-2 control-label"><?php echo $tr->translate("PHONE_NUM");?></label>
 								<div class="col-md-4">
 									<?php echo $formFilter->getElement('ph_number');?>
 								</div>
@@ -54,7 +54,7 @@
 								</div>
 							</div>
 							<div class="form-group">	
-								<label class="col-md-2 control-label"><?php echo $tr->translate("Remark");?></label>
+								<label class="col-md-2 control-label"><?php echo $tr->translate("REMARK");?></label>
 								<div class="col-md-10">
 									<?php echo $formFilter->getElement('rmark');?>
 								</div>
@@ -70,15 +70,15 @@
 								<div class="col-md-12">
 									<table id="table_list" class="collape tablesorter ">
 										<tr class="info">
-											 <th class="tdheader"><?php echo $tr->translate("NO");?></th>
-										    <th class="tdheader"><?php echo $tr->translate("code");?></th>
-											<th class="tdheader"><?php echo $tr->translate("Block");?></th>
-											<th class="tdheader"><?php echo $tr->translate("contact_name");?></th>
-											<th class="tdheader"><?php echo $tr->translate("ph_number");?></th>
-											<th class="tdheader"><?php echo $tr->translate("branch_name");?></th>
-											<th class="tdheader"><?php echo $tr->translate("Remark");?></th>
+											 <th class="tdheader"><?php echo $tr->translate("NUM");?></th>
+										    <th class="tdheader"><?php echo $tr->translate("CODE");?></th>
+											<th class="tdheader"><?php echo $tr->translate("BLOCK_NAME");?></th>
+											<th class="tdheader"><?php echo $tr->translate("CONTACT_NAME");?></th>
+											<th class="tdheader"><?php echo $tr->translate("PHONE_NUM");?></th>
+											<th class="tdheader"><?php echo $tr->translate("BRANCH_NAME");?></th>
+											<th class="tdheader"><?php echo $tr->translate("REMARK");?></th>
 											<th class="tdheader"><?php echo $tr->translate("STATUS");?></th>
-											<th class="tdheader"> Action</th>
+											<th class="tdheader"><?php echo $tr->translate("ACTION");?></th>
 										</tr>
 										<input type="hidden" id="identity" name="identity" value="" />
 									</table>	
