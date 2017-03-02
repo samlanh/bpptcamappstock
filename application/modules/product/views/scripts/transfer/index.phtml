@@ -91,6 +91,8 @@ td{
 										<td style="background:#f2dede;text-align:center;"><p style="text-align:center;margin-top:5px;" ><?php echo $tr->translate("PENDING APPROVE");?> </p></td>
 									<?php }else if($row["status"] == 3){?>
 										<td style="background: rgba(2, 118, 220, 0.92);text-align: center;color: #fff;"><p style="text-align:center;margin-top:5px;" ><?php echo $tr->translate("REJECH");?> </p></td>
+									<?php }else{ ?>
+											<td style="background: rgba(2, 118, 220, 0.92);text-align: center;color: #fff;"><p style="text-align:center;margin-top:5px;" ><?php echo $tr->translate("CENCEL");?> </p></td>
 									<?php } ?>
 									<td width="8%" align="center"> 
 									  <?php if($row["status"] == 1){ ?>

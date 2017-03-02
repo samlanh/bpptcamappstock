@@ -355,7 +355,7 @@ class Product_Model_DbTable_DbTransfer extends Zend_Db_Table_Abstract
 					$where=" id = ".$id;
 					$this->update($arr,$where);
 				}
-			}else{
+			}else if($post['status']== 3 ){
 				$arr = array(
 					'status'		=> 3,
 					'remark_reject' => $post['remark'],
@@ -363,6 +363,38 @@ class Product_Model_DbTable_DbTransfer extends Zend_Db_Table_Abstract
 				$this->_name = "tb_product_transfer";
 				$where=" id = ".$id;
 				$this->update($arr,$where);
+			}else{
+				$tr = $this -> getbranch($id); 
+				$row=$this->get_itemtransfer($tr['id']);
+				if(!empty($row)){
+					foreach($row as $rs){
+						$pro = $this -> getproduct($rs['pro_id'],$tr['tran_location']);
+							if(!empty($pro)){
+								$arr_pro = array(
+									'qty'		=>	$pro['qty'] + $rs['qty'],
+								);
+								$this->_name = "tb_prolocation";
+								$where=" id = ".$pro['id'];
+								$this->update($arr_pro,$where);
+							}
+							$pro_tran = $this -> getproduct($rs['pro_id'],$tr['cur_location']);
+							if(!empty($pro_tran)){
+								$arr_pro = array(
+									'qty'		=>	$pro_tran['qty'] - $rs['qty'],
+								);
+								$this->_name = "tb_prolocation";
+								$where=" id = ".$pro_tran['id'];
+								$this->update($arr_pro,$where);
+							}
+					}
+					$arr = array(
+					'status'		=> 4 ,
+					'remark_reject' => $post['remark'],
+					);
+					$this->_name = "tb_product_transfer";
+					$where=" id = ".$id;
+					$this->update($arr,$where);
+				}
 			}		
 			$db->commit();
 		}catch (Exception $e){
@@ -386,7 +418,6 @@ class Product_Model_DbTable_DbTransfer extends Zend_Db_Table_Abstract
 		$db = $this->getAdapter();
 		$sql="	SELECT * FROM tb_prolocation WHERE pro_id='".$pid."' AND location_id ='".$branch_id."'";
 		return $db->fetchrow($sql);	
-		
 	}
 	public function getbranch($id){
 		$db = $this->getAdapter();

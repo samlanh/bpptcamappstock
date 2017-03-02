@@ -67,7 +67,7 @@ $url_cancel =  $this->url(array('module'=>'product','controller'=>'checktransfer
 		                				   <ul class='pur_info'>
 			                					<li style="text-align: left; font-size:13px;line-height: 20px;"><strong>Transfer No : </strong><?php echo $this->vt['tran_no'];?></li>
 			                					<li style="text-align: left; font-size:13px;line-height: 20px;"><strong>Transfer Date : </strong><?php echo $this->vt['date_mod'];?></li>
-			                					<li style="text-align: left; font-size:13px;line-height: 20px;"><strong>Transfer : </strong><?php echo $this->vt['cur_location'];?> <?php echo $this->vt['type'];?> <?php echo $this->vt['tran_location'];?></li>
+			                					<li style="text-align: left; font-size:13px;line-height: 20px;"><strong>Transfer : </strong><?php echo $this->vt['cur_location'];?> <span style="color:red;"><?php echo $tr->translate("FROM");?></span> <?php echo $this->vt['tran_location'];?></li>
 			                					<li style="text-align: left; font-size:13px;line-height: 20px;"><strong>Remark : </strong><?php echo $this->vt['remark'];?></li>
 												<li style="text-align: left; font-size:13px;line-height: 20px;"><strong>Status : </strong><?php echo $this->vt['status'];?></li>
 		                					</ul>
@@ -109,8 +109,12 @@ $url_cancel =  $this->url(array('module'=>'product','controller'=>'checktransfer
 								<th nowrap="nowrap" style="width:15%;font-size:13px;line-height: 20px;"><?php echo $tr->translate("STATUS");?></th>
 								<th style="width:30%;text-align:center;font-family:'Khmer MEF2'">
 									<select name="status" style="width:100%;height:40px; font-size:13px;">
+									 <?php if($this->vt['status'] !=1){  ?>
 										<option value="2">Approve</option>
-										<option value="3">Reject</option>										
+										<option value="3">Reject</option>
+									 <?php }else{ ?>	
+										<option value="4">CENCLE</option>
+                                     <?php } ?>									 
 									</select>
 								</th>
 						    </tr>
@@ -120,7 +124,7 @@ $url_cancel =  $this->url(array('module'=>'product','controller'=>'checktransfer
 								<td colspan="2">
 									<div  class="form-group" style="margin-top: 10px;">
 										<div class="col-md-6">
-											<a href="<?php echo $this->baseUrl();?>/purchase/purchaseapprove/"><button type="button" class="btn red btn-block btn-lg"><i class="fa fa-times"></i> <?php echo $tr->translate("GO_BACK")?></button></a>
+											<a href="<?php echo $this->baseUrl();?>/product/checktransfer/"><button type="button" class="btn red btn-block btn-lg"><i class="fa fa-times"></i> <?php echo $tr->translate("GO_BACK")?></button></a>
 										</div>
 										<div class="col-md-6">
 											<div class="input-icon right">
