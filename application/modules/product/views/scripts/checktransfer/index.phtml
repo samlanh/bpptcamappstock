@@ -63,10 +63,10 @@ td{
 								<tr>
 									<th><?php echo $tr->translate("NUM");?></th>
 									<th><?php echo $tr->translate("TRANSFER_NO");?></th>
-									<th><?php echo $tr->translate("LOCATION");?></th>
-									<th><?php echo $tr->translate("TRANSFER_LOCATION");?></th>
+									<th><?php echo $tr->translate("TRANSFER_IN_SITE");?></th>
+									<th><?php echo $tr->translate("TRANSFER_FROM_SITE");?></th>
 									<th><?php echo $tr->translate("DATE_TRANSFER");?></th>
-									<th><?php echo $tr->translate("GET_IN_DATE");?></th>
+									<th><?php echo $tr->translate("STATUS_DATE");?></th>
 									<th><?php echo $tr->translate("TRANSFER_BY");?></th>
 									<th><?php echo $tr->translate("STATUS");?></th>
 									<th><?php echo $tr->translate("ACTION");?></th>
@@ -83,13 +83,13 @@ td{
 									<td align="center"><?php echo $row["date_mod"]?></td>
 									<td align="center"><?php echo $row["user_tran"]?> </td>
 									<?php if($row["status"] == 1){?>
-										<td style="background:#d9edf7;text-align:center;"><p style="text-align:center;margin-top:5px;"><?php echo $tr->translate("APPROVE");?> </p></td>
+										<td style="color:#147fdd;text-align:center;"><p style="text-align:center;margin-top:5px;"><?php echo $tr->translate("APPROVE");?> </p></td>
 									<?php }else if($row["status"] == 2){?>
-										<td style="background:#f2dede;text-align:center;"><p style="text-align:center;margin-top:5px;" ><?php echo $tr->translate("PENDING APPROVE");?> </p></td>
+										<td style="text-align:center;color:green;"><p style="text-align:center;margin-top:5px;" ><?php echo $tr->translate("PENDING APPROVE");?> </p></td>
 									<?php }else if($row["status"] == 3){?>
-										<td style="background: rgba(2, 118, 220, 0.92);text-align: center;color: #fff;"><p style="text-align:center;margin-top:5px;" ><?php echo $tr->translate("REJECH");?> </p></td>
+										<td style="text-align: center;color:red;"><p style="text-align:center;margin-top:5px;" ><?php echo $tr->translate("REJECH");?> </p></td>
 									<?php }else{ ?>
-										<td style="background: rgba(2, 118, 220, 0.92);text-align: center;color: #fff;"><p style="text-align:center;margin-top:5px;" ><?php echo $tr->translate("CENCLE");?> </p></td>	
+										<td style="text-align: center;color:#03070a;"><p style="text-align:center;margin-top:5px;" ><?php echo $tr->translate("CENCLE");?> </p></td>	
 									<?php } ?>
 									<td width="8%" align="center"> 
 									   <a href="<?php echo $url_check;?>/id/<?php echo $row["id"]?>"><?php echo $tr->translate("CHECK");?></a>

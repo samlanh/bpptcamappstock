@@ -62,17 +62,35 @@ $url_cancel =  $this->url(array('module'=>'product','controller'=>'transfer','ac
 		                				<td width="65%"></td>
 		                			</tr>
 		                			<tr>
-		                				<td style="font-size: 11px;" valign="top">
+		                				<td width="30%" style="font-size: 11px;" valign="top">
 		                				<div style="width:100%;font-size:13px; background: #244456;text-align:center;display: block;color:#fff;margin-top: 10px;">Transfer Info</div>
 		                				   <ul class='pur_info'>
 			                					<li style="text-align: left; font-size:13px;line-height: 20px;"><strong>Transfer No : </strong><?php echo $this->vt['tran_no'];?></li>
-			                					<li style="text-align: left; font-size:13px;line-height: 20px;"><strong>Transfer Date : </strong><?php echo $this->vt['date_mod'];?></li>
-			                					<li style="text-align: left; font-size:13px;line-height: 20px;"><strong>Transfer : </strong><?php echo $this->vt['cur_location'];?> <?php echo $this->vt['type'];?> <?php echo $this->vt['tran_location'];?></li>
+			                					<li style="text-align: left; font-size:13px;line-height: 20px;"><strong>Transfer Date : </strong><?php echo $this->vt['date'];?></li>
+			                					<li style="text-align: left; font-size:13px;line-height: 20px;"><strong>Transfer : </strong><?php echo $this->vt['cur_location'];?> <span style="color:red;"><?php echo $tr->translate("FROM");?></span> <?php echo $this->vt['tran_location'];?></li>
 			                					<li style="text-align: left; font-size:13px;line-height: 20px;"><strong>Remark : </strong><?php echo $this->vt['remark'];?></li>
-												<li style="text-align: left; font-size:13px;line-height: 20px;"><strong>Status : </strong><?php echo $this->vt['status'];?></li>
+												<li style="text-align: left; font-size:13px;line-height: 20px;"><strong>Status : </strong>
+												<?php if($this->vt['status'] ==1){?>
+														<span style="color:#147fdd;text-align:center;"><?php echo $tr->translate("APPROVE");?> </span>
+												<?php }else if($this->vt['status'] ==2){?>
+														<span style="color:green;text-align:center;"><?php echo $tr->translate("PENDING APPROVE");?> </span>
+												<?php }else if($this->vt['status'] ==3){ ?>
+														<span style="color:red;text-align:center;"><?php echo $tr->translate("REJECT");?> </span>
+												<?php }else{ ?>	
+														<span style="color:#03070a;text-align:center;"><?php echo $tr->translate("CANCEL");?></span>
+												<?php } ?>
+												
+												</li>
+												<li style="text-align: left; font-size:13px;line-height: 20px;"><strong>Status_date :</strong> <?php echo $this->vt['date_mod'];?>
 		                					</ul>
 		                				</td>
-		                				<td width="75%"></td>
+										<td width="40%" align="right"></td>
+		                				<td width="30%" align="right">
+										<div style="width:100%;font-size:13px; background: #244456;text-align:center;display: block;color:#fff;margin-top: 10px;">remark</div>
+										    <?php if($this->vt['remark_reject']!=''){ 
+										     echo '<textarea style="padding:10px;width: 328px;height: 115px;" name="remark_reject">'.$this->vt['remark_reject'] .'</textarea>';
+											}  ?>
+										</td>
 		                			</tr>
 				                </tbody></table>
 				              </td>

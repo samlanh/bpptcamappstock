@@ -349,6 +349,7 @@ class Product_Model_DbTable_DbTransfer extends Zend_Db_Table_Abstract
 					}
 					$arr = array(
 					'status'		=> 1,
+					'date_mod'		=> new Zend_Date(),
 					'remark_reject' => $post['remark'],
 					);
 					$this->_name = "tb_product_transfer";
@@ -358,6 +359,7 @@ class Product_Model_DbTable_DbTransfer extends Zend_Db_Table_Abstract
 			}else if($post['status']== 3 ){
 				$arr = array(
 					'status'		=> 3,
+					'date_mod'		=> new Zend_Date(),
 					'remark_reject' => $post['remark'],
 				);
 				$this->_name = "tb_product_transfer";
@@ -389,6 +391,7 @@ class Product_Model_DbTable_DbTransfer extends Zend_Db_Table_Abstract
 					}
 					$arr = array(
 					'status'		=> 4 ,
+					'date_mod'		=> new Zend_Date(),
 					'remark_reject' => $post['remark'],
 					);
 					$this->_name = "tb_product_transfer";

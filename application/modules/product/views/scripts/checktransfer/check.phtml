@@ -69,7 +69,17 @@ $url_cancel =  $this->url(array('module'=>'product','controller'=>'checktransfer
 			                					<li style="text-align: left; font-size:13px;line-height: 20px;"><strong>Transfer Date : </strong><?php echo $this->vt['date_mod'];?></li>
 			                					<li style="text-align: left; font-size:13px;line-height: 20px;"><strong>Transfer : </strong><?php echo $this->vt['cur_location'];?> <span style="color:red;"><?php echo $tr->translate("FROM");?></span> <?php echo $this->vt['tran_location'];?></li>
 			                					<li style="text-align: left; font-size:13px;line-height: 20px;"><strong>Remark : </strong><?php echo $this->vt['remark'];?></li>
-												<li style="text-align: left; font-size:13px;line-height: 20px;"><strong>Status : </strong><?php echo $this->vt['status'];?></li>
+												<li style="text-align: left; font-size:13px;line-height: 20px;"><strong>Status : </strong>
+												<?php if($this->vt['status'] ==1){?>
+														<span style="color:#147fdd;text-align:center;"><?php echo $tr->translate("APPROVE");?> </span>
+												<?php }else if($this->vt['status'] ==2){?>
+														<span style="color:green;text-align:center;"><?php echo $tr->translate("PENDING APPROVE");?> </span>
+												<?php }else if($this->vt['status'] ==3){ ?>
+														<span style="color:red;text-align:center;"><?php echo $tr->translate("REJECT");?> </span>
+												<?php }else{ ?>	
+														<span style="color:#03070a;text-align:center;"><?php echo $tr->translate("CANCEL");?> </span>
+												<?php } ?>	
+												</li>
 		                					</ul>
 		                				</td>
 		                				<td width="75%"></td>
@@ -105,7 +115,7 @@ $url_cancel =  $this->url(array('module'=>'product','controller'=>'checktransfer
 						<tbody>
 							<tr style="font-size: 11px;">
 							    <td style="width:10%;font-size:13px;line-height: 20px;"><?php echo $tr->translate("REMARK");?></td>
-								<th style="width:45%;font-size:13px;text-align:left;font-family:'Khmer MEF2'"><textarea name="remark" style="width:100%;"> </textarea></th>
+								<th style="width:45%;font-size:13px;text-align:left;font-family:'Khmer MEF2'"><textarea name="remark" style="width:100%;"><?php echo $this->vt['remark_reject']; ?></textarea></th>
 								<th nowrap="nowrap" style="width:15%;font-size:13px;line-height: 20px;"><?php echo $tr->translate("STATUS");?></th>
 								<th style="width:30%;text-align:center;font-family:'Khmer MEF2'">
 									<select name="status" style="width:100%;height:40px; font-size:13px;">
