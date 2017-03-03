@@ -97,8 +97,7 @@ class report_ProductController extends Zend_Controller_Action
     	}else{
     		$data = array(
     			'tran_num'	=>	'',
-    			'tran_date'	=>	date("m/d/Y"),
-    			'type'		=>	'',
+				'from_loc'=>'',
     			'status'	=>	1,
     			'to_loc'	=>	'',
     		);
@@ -109,5 +108,11 @@ class report_ProductController extends Zend_Controller_Action
     	Application_Model_Decorator::removeAllDecorator($formFilter);
     
     }
+	public function checkAction(){
+		$db = new Product_Model_DbTable_DbTransfer();
+		$id = $this->getRequest()->getParam("id");
+		$this->view-> vt = $db->getview($id);
+		$this ->view -> vi = $db->getitemview($id);
+	}	
 	
 }
