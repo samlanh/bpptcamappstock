@@ -32,7 +32,6 @@ class report_ProductController extends Zend_Controller_Action
     				'model'		=>	'',
     				'color'		=>	'',
     				'size'		=>	'',
-					'type_stock'	=>	'',
     				'status'	=>	1
     		);
     	}
@@ -91,7 +90,7 @@ class report_ProductController extends Zend_Controller_Action
     }
     public function rpttransferAction()
     {
-    	$db = new report_Model_DbProduct();
+    	$db = new Product_Model_DbTable_DbTransfer();
     	if($this->getRequest()->isPost()){
     		$data = $this->getRequest()->getPost();
     	}else{

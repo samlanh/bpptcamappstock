@@ -33,7 +33,7 @@ $formFilter = $this->formFilter;
 					<div class="form-body">
 							<div class="form-group">
 								<label class="control-label col-md-3">
-									<?php echo $formFilter->getElement('txt_search');?>
+									<?php echo $formFilter->getElement('ad_search');?>
 								</label>
 								
 								<label class="control-label col-md-3">
@@ -60,9 +60,7 @@ $formFilter = $this->formFilter;
 								<label class="control-label col-md-3">
 									<?php echo $formFilter->getElement('color');?>
 								</label>
-								<label class="control-label col-md-3">
-									<?php echo $formFilter->getElement('type_stock');?>
-								</label>
+								
 								<label class="control-label col-md-3">
 									<?php echo $formFilter->getElement('status');?>
 								</label>
@@ -105,7 +103,19 @@ $formFilter = $this->formFilter;
 		                	</td>
 		                    <td width="20%"></td>
 		                </tr> 
-		                  
+		                <tr>
+		                	<td colspan="3" valign="top">
+		                		<table width="100%" cellpadding="0" cellspacing="0">
+		                			<tbody><tr>
+		                				<td style="font-size: 11px;">
+		                				    <span style="white-space: nowrap;"><?php echo $tr->translate("ADDRESS_COMPANY");?></span>
+		                					<br><?php echo $tr->translate("TEL_COMPANY");?> 
+		                				</td>
+		                				<td width="65%"></td>
+		                			</tr>
+				                </tbody></table>
+				              </td>
+				           </tr>   
 		            </tbody></table>
 		        </td>
 		    </tr>
@@ -115,15 +125,14 @@ $formFilter = $this->formFilter;
 		                 <tbody><tr bgcolor="#ccc" class="style" align="center" style="font-weight:bold; line-height: 20px; font-size:12px; padding:1px 0px; white-space: nowrap; ">
 		                    <td>&nbsp;<?php echo $tr->translate("NUM");?></td>
 									<td><?php echo $tr->translate("BRANCH");?></td>
-									<td><?php echo $tr->translate("ITEM_CODE");?></td>
+									<td><?php echo $tr->translate("ITEM_CODE");?></ts>
 									<td><?php echo $tr->translate("ITEM_NAME");?></td>
+									<td><?php echo $tr->translate("BARCODE");?></td>
 									<td><?php echo $tr->translate("BRAND");?></td>
-									<td><?php echo $tr->translate("MODEL");?></td>
 									<td><?php echo $tr->translate("CATEGORY");?></td>
-									<td><?php echo $tr->translate("PRODUCT_TYPE");?></td>
+									<td><?php echo $tr->translate("MEASURE");?></td>
 									<td><?php echo $tr->translate("QTY");?></td>
-									<td><?php echo $tr->translate("USER_NAME");?></td>
-									<!--<td><?php //echo $tr->translate("STATUS");?></td>-->
+									<!--<td><?php echo $tr->translate("STATUS");?></td>-->
 		                </tr>
 		                <?php $num=1; 
 		                $r_netotal = 0;$r_paid = 0; $r_balance = 0;
@@ -152,17 +161,11 @@ $formFilter = $this->formFilter;
 									<td style="white-space: nowrap;" class="center"><?php echo $row["branch"]?></td>
 									<td style="white-space: nowrap;">&nbsp;&nbsp;<?php echo $row["item_code"]?>&nbsp;&nbsp;</td>
 									<td style="white-space: nowrap;">&nbsp;&nbsp;<?php echo $row["item_name"]?>&nbsp;&nbsp;</td>
+									<td style="width:8% !important">&nbsp;&nbsp;<?php echo $row["barcode"]?>&nbsp;&nbsp;</td>
 									<td style="width:8% !important">&nbsp;&nbsp;<?php echo $row["brand"]?>&nbsp;&nbsp;</td>
-									<td style="width:10% !important" class="center"><?php echo $row["model"]?></td>
 									<td style="width:10% !important" class="center"><?php echo $row["cat"]?></td>
-									<td style="width:10% !important" class="center">
-									<?php if ($row["product_type"]==1){echo $tr->translate("IN_STOCK");}
-									else {
-									    echo $tr->translate("LEAVE STOCK");
-									}?>
-									</td>
+									<td style="width:5% !important" class="center"><?php echo $row["measure"]?></td>
 									<td style="width:8% !important" class="center"><?php echo $l_qty;?></td>
-									<td style="width:5% !important" class="center"><?php echo $row["user_name"]?></td>
 									<!--<td style="white-space:nowrap"class="center">
 										<?php //if($row["status"] == 1){?>
 										<span class="label label-sm label-success"><?php //echo $tr->translate("ACTIVE");?> </span>
