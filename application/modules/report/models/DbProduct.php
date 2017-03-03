@@ -41,7 +41,7 @@ Class report_Model_DbProduct extends Zend_Db_Table_Abstract{
 			$s_where[]= " p.item_name LIKE '%{$s_search}%'";
 			$s_where[]=" p.barcode LIKE '%{$s_search}%'";
 			$s_where[]= " p.item_code LIKE '%{$s_search}%'";
-			//$s_where[]= " p.product_type LIKE '%{$s_search}%'";
+			$s_where[]= " p.product_type LIKE '%{$s_search}%'";
 			$s_where[]= " p.serial_number LIKE '%{$s_search}%'";
 			//$s_where[]= " cate LIKE '%{$s_search}%'";
 			$where.=' AND ('.implode(' OR ', $s_where).')';
@@ -95,6 +95,7 @@ Class report_Model_DbProduct extends Zend_Db_Table_Abstract{
 				  (SELECT v.`name_en` FROM `tb_view` AS v WHERE v.id = p.`color_id` AND v.`type`=3) AS size,
 				  (SELECT m.name FROM `tb_measure` AS m WHERE m.id = p.`measure_id` LIMIT 1) AS measure,
 				  (SELECT s.`name` FROM `tb_sublocation` AS s WHERE s.id=m.`location_id` LIMIT 1) AS location,
+				  p.product_type,
 				  (SELECT u.`fullname` FROM `tb_acl_user` AS u WHERE u.`user_id`=m.`user_mod` LIMIT 1) AS `username`,
 				   m.`date`
 				FROM
@@ -102,18 +103,36 @@ Class report_Model_DbProduct extends Zend_Db_Table_Abstract{
 				  `tb_product` AS p
 				WHERE m.`pro_id`=p.`id`";
 		$where = '';
-// 		if($data["ad_search"]!=""){
-// 			$s_where=array();
-// 			$s_search = addslashes(trim($data['ad_search']));
-// 			$s_where[]= " p.item_name LIKE '%{$s_search}%'";
-// 			$s_where[]=" p.barcode LIKE '%{$s_search}%'";
-// 			$s_where[]= " p.item_code LIKE '%{$s_search}%'";
-// 			$s_where[]= " p.serial_number LIKE '%{$s_search}%'";
-// 			//$s_where[]= " cate LIKE '%{$s_search}%'";
-// 			$where.=' AND ('.implode(' OR ', $s_where).')';
-// 		}
+ 		if($data["txt_search"]!=""){
+ 			$s_where=array();
+ 			$s_search = addslashes(trim($data['txt_search']));
+ 			$s_where[]= " p.item_name LIKE '%{$s_search}%'";
+ 			$s_where[]=" p.barcode LIKE '%{$s_search}%'";
+ 			$s_where[]= " p.item_code LIKE '%{$s_search}%'";
+			$s_where[]= " p.serial_number LIKE '%{$s_search}%'";
+ 			//$s_where[]= " cate LIKE '%{$s_search}%'";
+ 			$where.=' AND ('.implode(' OR ', $s_where).')';
+ 		}
 		if($data["pro_id"]!=""){
 			$where.=' AND m.pro_id='.$data["pro_id"];
+		}
+		if($data["brand"]!=""){
+			$where.=' AND p.`brand_id`='.$data["brand"];
+		}
+		if($data["category"]!=""){
+			$where.=' AND p.`cate_id`='.$data["category"];
+		}
+		if($data["model"]!=""){
+			$where.=' AND p.model_id='.$data["model"];
+		}
+		if($data["color"]!=""){
+			$where.=' AND p.color_id='.$data["color"];
+		}
+		if($data["type_stock"]!=""){
+			$where.=' AND p.product_type='.$data["type_stock"];
+		}
+		if($data["status"]!=-1){
+			$where.=' AND p.status='.$data["status"];
 		}
 		$location = $db_globle->getAccessPermission('m.`location_id`');
 		//echo $location;
@@ -152,7 +171,7 @@ Class report_Model_DbProduct extends Zend_Db_Table_Abstract{
 	  		$where.=' AND pt.status='.$data["status"];
 	  	}
 	  	if($data["to_loc"]!=""){
-	  		$where.=' AND pt.tran_location='.$data["to_loc"];
+	  		$where.=' AND pt.`tran_location`='.$data["to_loc"];
 	  	}
   		//echo $sql.$where;
 		return $db->fetchAll($sql.$where);
