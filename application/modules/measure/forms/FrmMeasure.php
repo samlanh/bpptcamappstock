@@ -53,6 +53,7 @@ class Measure_Form_FrmMeasure extends Zend_Form
 	}
 	
 	public function MeasureFilter(){
+		$request=Zend_Controller_Front::getInstance()->getRequest();
 		$tr = Application_Form_FrmLanguages::getCurrentlanguage();
 		$db = new Measure_Model_DbTable_DbMeasure();
 		//$name = new Zend_Form_Element_Text('name');
@@ -73,13 +74,17 @@ class Measure_Form_FrmMeasure extends Zend_Form
 			}
 		}
 		$parent->setMultiOptions($opt);
+		$parent->setValue($request->getParam("parent"));
+		
 		$status = new Zend_Form_Element_Select("status");
 		$status->setAttribs(array(
 				'class'=>'form-control',
 				'required'=>'required'
 		));
-		$opt = array('1'=>$tr->translate("ACTIVE"),'0'=>$tr->translate("DEACTIVE"));
+		$opt = array('-1'=>$tr->translate("SELECT_STATUS"),'1'=>$tr->translate("ACTIVE"),'0'=>$tr->translate("DEACTIVE"));
 		$status->setMultiOptions($opt);
+		$status->setValue($request->getParam("status"));
+		//$status->setValue();
 		
 		$txt_search = new Zend_Form_Element_Text("txt_search");
 		$txt_search->setAttribs(array(
