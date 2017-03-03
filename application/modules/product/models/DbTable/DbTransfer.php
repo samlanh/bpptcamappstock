@@ -78,7 +78,6 @@ class Product_Model_DbTable_DbTransfer extends Zend_Db_Table_Abstract
 		return $db->fetchAll($sql);	
 	}
 	function getTransfer($data){
-		$tran_date = $data["tran_date"];
 		$db = $this->getAdapter();
 		$sql = "SELECT 
 				  p.*,
@@ -87,7 +86,7 @@ class Product_Model_DbTable_DbTransfer extends Zend_Db_Table_Abstract
   				  (SELECT u.`fullname` FROM `tb_acl_user` AS u WHERE u.`user_id`=p.`user_mod`) AS user_tran
 				FROM
 				  `tb_product_transfer` AS p 
-				WHERE 1 AND p.`date`<='$tran_date'";
+				WHERE 1 ";
 		$where = '';
 	  	if($data["tran_num"]!=""){
 	  		$s_where=array();
@@ -99,14 +98,14 @@ class Product_Model_DbTable_DbTransfer extends Zend_Db_Table_Abstract
 	  		//$s_where[]= " cate LIKE '%{$s_search}%'";
 	  		$where.=' AND ('.implode(' OR ', $s_where).')';
 	  	}
-	  	if($data["type"]!=""){
-	  		$where.=' AND p.`type`='.$data["type"];
+	  	if($data["from_loc"]!=""){
+	  		$where.=' AND p.`cur_location`='.$data["from_loc"];
 	  	}
 	  	if($data["status"]!=""){
 	  		$where.=' AND p.status='.$data["status"];
 	  	}
 	  	if($data["to_loc"]!=""){
-	  		$where.=' AND p.tran_location='.$data["to_loc"];
+	  		$where.=' AND p.`tran_location`='.$data["to_loc"];
 	  	}
   		//echo $sql.$where;
 		return $db->fetchAll($sql.$where);

@@ -192,27 +192,17 @@ class Product_Form_FrmTransfer extends Zend_Form
 		$tran_date = new Zend_Form_Element_Text('tran_date');
 		$tran_date->setValue($date->get('MM/dd/YYYY'));
 		$tran_date->setAttribs(array('class'=>'form-control date-picker'));
-		$tran_date->setValue($request->getParam("tran_date"));
-		
-		$type =new Zend_Form_Element_Select("type");
-		$type->setAttribs(array(
-				'class'=>'form-control select2me',
-				'onChange'=>'transferType()'
-		));
-		$opt= array(''=>$tr->translate("SELECT_TRANSFER_TYPE"),1=>$tr->translate("TRANSFER_IN"),2=>$tr->translate("TRANSFER_OUT"));
-		$type->setMultiOptions($opt);
-		$type->setValue($request->getParam("type"));
-		 
+		//$tran_date->setValue($request->getParam("tran_date"));
 		 
 		$status =new Zend_Form_Element_Select("status");
 		$status->setAttribs(array(
 				'class'=>'form-control select2me',
 		));
-		$opt= array(1=>$tr->translate("ACTIVE"),0=>$tr->translate("DEACTIVE"));
+		$opt= array(''=>$tr->translate("SELECT_STATUS"),1=>$tr->translate("APPROVE"),2=>$tr->translate("PENDING APPROVE"),3=>$tr->translate("REJECT"),4=>$tr->translate("CENCEL"));
 		$status->setMultiOptions($opt);
 		$status->setValue($request->getParam("status"));
 		
-		$opt = array(''=>$tr->translate("SELECT BRANCH"));
+		$opt = array(''=>$tr->translate("FROM SITE"));
 		$to_loc = new Zend_Form_Element_Select("to_loc");
 		$to_loc->setAttribs(array(
 				'class'=>'form-control select2me',
@@ -225,7 +215,21 @@ class Product_Form_FrmTransfer extends Zend_Form
 		$to_loc->setMultiOptions($opt);
 		$to_loc->setValue($request->getParam("to_loc"));
 		
-		$this->addElements(array($status,$type,$tran_num,$tran_date,$to_loc));
+		
+		$opt = array(''=>$tr->translate("SITE"));
+		$from_loc = new Zend_Form_Element_Select("from_loc");
+		$from_loc->setAttribs(array(
+				'class'=>'form-control select2me',
+		));
+		if(!empty($rs_loc)){
+			foreach ($rs_loc as $rs){
+				$opt[$rs["id"]] = $rs["name"];
+			}
+		}
+		$from_loc->setMultiOptions($opt);
+		$from_loc->setValue($request->getParam("from_loc"));
+		
+		$this->addElements(array($status,$tran_num,$tran_date,$to_loc ,$from_loc));
 		return $this;
 	}
 }
