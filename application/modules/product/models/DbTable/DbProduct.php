@@ -115,6 +115,7 @@ class Product_Model_DbTable_DbProduct extends Zend_Db_Table_Abstract
   		$s_search = addslashes(trim($data['txt_search']));
   		$s_where[]= " p.item_name LIKE '%{$s_search}%'";
   		$s_where[]=" p.barcode LIKE '%{$s_search}%'";
+		$s_where[]= " (SELECT v.`name_en` FROM tb_view AS v WHERE v.`type`=34  AND p.`product_type`=v.`key_code` LIMIT 1) LIKE '%{$s_search}%'";
   		$s_where[]= " p.item_code LIKE '%{$s_search}%'";
   		$s_where[]= " p.serial_number LIKE '%{$s_search}%'";
   		//$s_where[]= " cate LIKE '%{$s_search}%'";

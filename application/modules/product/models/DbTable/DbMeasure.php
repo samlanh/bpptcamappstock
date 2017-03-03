@@ -67,6 +67,28 @@ class Product_Model_DbTable_DbMeasure extends Zend_Db_Table_Abstract
       			 AND    title !=''  ";
 		return  $db->fetchAll($sql);
 	}
+	
+	function getAllJobType($data){
+		$db=$this->getAdapter();
+		$sql="SELECT id,title,description,status FROM tb_jobtype 
+      			 WHERE `status`=1
+      			 AND    title !=''  ";
+				 
+		$where='';	
+		if($data["txt_search"]!=""){
+  		$s_where=array();
+  		$s_search = addslashes(trim($data['txt_search']));
+  		$s_where[]= "title LIKE '%{$s_search}%'";
+		$s_where[]= "description LIKE '%{$s_search}%'";
+		$s_where[]= "status LIKE '%{$s_search}%'";
+		$where.=' AND ('.implode(' OR ', $s_where).')';
+		}
+		if($data["status"]!=-1){
+			$where.=' AND status='.$data["status"];
+		}
+			return  $db->fetchAll($sql.$where);
+	}
+	
 	public function getJobbyId($id){
 		$db = $this->getAdapter();
 		$sql = "SELECT * FROM `tb_jobtype` AS m  WHERE m.`id`= $id";

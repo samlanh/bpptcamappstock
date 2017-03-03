@@ -18,7 +18,15 @@ public function init()
 		    $data = $this->getRequest()->getPost();
 		
 		}
-		$result = $db->getAllJob();
+		else{
+			$data = array(
+    		    'txt_search'=>  '',
+				'title'=>  '',
+				'description'=>  '',
+    			'status'	=>-1
+    		);
+		}
+		$result = $db->getAllJobType($data);
 		$this->view->resulr = $result;
 		$formFilter = new Measure_Form_FrmMeasure();
 		$frmsearch = $formFilter->MeasureFilter();

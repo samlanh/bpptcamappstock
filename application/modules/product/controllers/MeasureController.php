@@ -16,9 +16,14 @@ public function init()
 		$db = new Product_Model_DbTable_DbMeasure();
 		if($this->getRequest()->isPost()) {
 		    $data = $this->getRequest()->getPost();
-		 $result = $db->getAllMeasures($data);
-		 $this->view->resulr = $result;
+		}else{
+			$data=array(
+			   'parent'=>-1,
+			   'status'=>-1
+			);
 		}
+		$result = $db->getAllMeasures($data);
+		 $this->view->resulr = $result;
 		$formFilter = new Measure_Form_FrmMeasure();
 		$frmsearch = $formFilter->MeasureFilter();
 		$this->view->formFilter = $frmsearch;
