@@ -126,27 +126,27 @@ $tr=Application_Form_FrmLanguages::getCurrentlanguage();
                     <tr>
 						<td colspan="3" style="border:1px solid #fff;border-top:1px solid #000;border-right:1px solid #000;"></td>
 						<td colspan="2" style="border-left:1px solid #000;">&nbsp;&nbsp;តម្លៃសរុប</td>
-						<td >&nbsp;&nbsp;<?php echo number_format($this->product[0]['net_total'],2);?></td>
+						<td >&nbsp;&nbsp;<?php echo $rs["curr_name"]."&nbsp;".number_format($this->product[0]['net_total'],2);?></td>
 					</tr>
 					<tr>
 						<td colspan="3" style="border:1px solid #fff;border-top:1px solid #000;border-right:1px solid #000;"></td>
 						<td colspan="2" style="border-left:1px solid #000;">&nbsp;&nbsp;DISCOUNT</td>
-						<td >&nbsp;&nbsp;<?php echo number_format($this->product[0]['discount_real'],2);?></td>
+						<td >&nbsp;&nbsp;<?php echo $rs["curr_name"]."&nbsp;".number_format($this->product[0]['discount_real'],2);?></td>
 					</tr>
 					<tr>
 						<td colspan="3" style="border:1px solid #fff;border-top:1px solid #000;border-right:1px solid #000;"></td>
 						<td colspan="2" style="border-left:1px solid #000;">&nbsp;&nbsp;TAX</td>
-						<td >&nbsp;&nbsp;<?php echo number_format($this->product[0]['tax'],2);?></td>
+						<td >&nbsp;&nbsp;<?php echo  $rs["curr_name"]."&nbsp;".number_format($this->product[0]['tax'],2);?></td>
 					</tr>
 					<tr>
 						<td colspan="3" style="border:1px solid #fff;border-top:1px solid #000;border-right:1px solid #000;"></td>
 						<td colspan="2" style="border-left:1px solid #000;">&nbsp;&nbsp;ប្រាក់បានបង់</td>
-						<td >&nbsp;&nbsp;<?php echo number_format($this->product[0]['paid'],2);?></td>
+						<td >&nbsp;&nbsp;<?php echo  $rs["curr_name"]."&nbsp;".number_format($this->product[0]['paid'],2);?></td>
 					</tr>
 					<tr>
 						<td colspan="3" style="border:1px solid #fff;border-top:1px solid #000;border-right:1px solid #000;"></td>
 						<td colspan="2" style="background:#ccc;border-left:1px solid #000;">&nbsp;&nbsp;ប្រាក់ជំពាក់ </td>
-						<td style="background:#ccc;">&nbsp;&nbsp;<?php echo number_format($this->product[0]['balance'],2);?></td>
+						<td style="background:#ccc;">&nbsp;&nbsp;<?php echo  $rs["curr_name"]."&nbsp;".number_format($this->product[0]['balance'],2);?></td>
 					</tr>
 		                </tbody>
 		           </table>

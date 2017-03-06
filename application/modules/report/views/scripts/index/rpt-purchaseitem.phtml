@@ -36,8 +36,8 @@ $frm_sales_report = $this->form_search;
 					</div>
 					<div class="form-group" style="padding-top: 6px;">
 						<label class="control-label col-md-3"><?php echo $frm_sales_report->getElement('item');?></label>
-						<label class="control-label col-md-3"><?php echo $frm_sales_report->getElement('start_date');?></label>
-						<label class="control-label col-md-3"><?php echo $frm_sales_report->getElement("end_date");?></label>
+						<label class="control-label col-md-3"><div class="input-icon right"><i class="fa fa-calendar"></i><?php echo $frm_sales_report->getElement('start_date');?></div></label>
+						<label class="control-label col-md-3"><div class="input-icon right"><i class="fa fa-calendar"></i><?php echo $frm_sales_report->getElement("end_date");?></div></label>
 						<label class="control-label col-md-3">
 						<input type="submit" value="<?php echo $tr->translate("SEARCH")?>"  class="ui-button ui-widget ui-state-default ui-corner-all ui-state-hover" name="btn_search" name="btn_search" /></label>
 					</div><div style="clear:both;"></div>	

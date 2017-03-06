@@ -130,17 +130,17 @@ $tr=Application_Form_FrmLanguages::getCurrentlanguage();
                     <tr>
 						<td colspan="3" style="border:1px solid #fff;border-top:1px solid #000;border-right:1px solid #000;"></td>
 						<td colspan="2" style="border-left:1px solid #000;">&nbsp;&nbsp;<?php echo $tr->translate("TOTAL");?></td>
-						<td >&nbsp;&nbsp;<?php echo number_format($this->product[0]['all_total'],2);?></td>
+						<td >&nbsp;&nbsp;<?php echo $rs["curr_name"]."&nbsp;".number_format($this->product[0]['all_total'],2);?></td>
 					</tr>
 					<tr>
 						<td colspan="3" style="border:1px solid #fff;border-top:1px solid #000;border-right:1px solid #000;"></td>
 						<td colspan="2" style="border-left:1px solid #000;">&nbsp;&nbsp;<?php echo $tr->translate("DISCOUNT");?></td>
-						<td >&nbsp;&nbsp;<?php echo number_format($this->product[0]['discount_value'],2);echo ($rs["discount_type"]==1)?'%':'';?></td>
+						<td >&nbsp;&nbsp;<?php echo $rs["curr_name"]."&nbsp;".number_format($this->product[0]['discount_value'],2);echo ($rs["discount_type"]==1)?'%':'';?></td>
 					</tr>
 					<tr>
 						<td colspan="3" style="border:1px solid #fff;border-top:1px solid #000;border-right:1px solid #000;"></td>
 						<td colspan="2" style="border-left:1px solid #000;">&nbsp;&nbsp;<?php echo $tr->translate("TOTAL_AMOUNT");?></td>
-						<td >&nbsp;&nbsp;<?php echo number_format($this->product[0]['net_total'],2);?></td>
+						<td >&nbsp;&nbsp;<?php echo $rs["curr_name"]."&nbsp;".number_format($this->product[0]['net_total'],2);?></td>
 					</tr>
 					<tr>
 						<td colspan=7" style="border:1px solid #fff;border-top:1px solid #000;">
