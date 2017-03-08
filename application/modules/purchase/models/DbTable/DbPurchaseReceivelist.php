@@ -337,8 +337,8 @@ class Purchase_Model_DbTable_DbPurchaseReceivelist extends Zend_Db_Table_Abstrac
 						"vendor_id"      => 	$data['v_name'],
 						"LocationId"     => 	$data["LocationId"],
 						"recieve_number" => 	$recieve_no,
-						"date_order"     => 	$data['order_date'],
-						"date_in"     	 => 	$data['date_in'],
+						"date_order"     => 	date("Y-m-d",strtotime($data['order_date'])),
+						"date_in"     	 => 	date("Y-m-d",strtotime($data['date_in'])),
 						"purchase_status"=> 	$data['purchase_status'],
 						 
 						"currency_id"    => $data['currency'],
