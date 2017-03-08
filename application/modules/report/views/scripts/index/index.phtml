@@ -13,6 +13,8 @@
    //$income_expense=$this->url(array('module'=>'report','controller'=>'index','action'=>'rpt-typeexpense'), null, true);
    $vandor_balance=$this->url(array('module'=>'report','controller'=>'index','action'=>'rpt-vandorbalance'), null, true);
    $chque_withdrawal=$this->url(array('module'=>'report','controller'=>'index','action'=>'rpt-chequewithdrawal'), null, true);
+   $rpt_receive=$this->url(array('module'=>'report','controller'=>'index','action'=>'rpt-receive'), null, true);
+   
    $user_info = new Application_Model_DbTable_DbGetUserInfo();
 	$result = $user_info->getUserInfo();
 	$tr = Application_Form_FrmLanguages::getCurrentlanguage(); 
@@ -119,6 +121,26 @@
 						</div>
 						</a>
 						<a class="more" href="<?php echo $rpt_saledetail;?>">
+						<?php echo $tr->translate("VIEW_MORE");?><i class="m-icon-swapright m-icon-white"></i>
+						</a>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+					<div class="dashboard-stat purple-plum">
+						<a class="more" href="<?php echo $rpt_receive;?>">
+						<div class="visual">
+							<i class="fa fa-globe"></i>
+						</div>
+						<div class="details">
+							<div class="number">
+								 
+							</div>
+							<div class="desc">
+								 <?php echo $tr->translate("REPORT_RECEIVE");?>
+							</div>
+						</div>
+						</a>
+						<a class="more" href="<?php echo $rpt_receive;?>">
 						<?php echo $tr->translate("VIEW_MORE");?><i class="m-icon-swapright m-icon-white"></i>
 						</a>
 					</div>

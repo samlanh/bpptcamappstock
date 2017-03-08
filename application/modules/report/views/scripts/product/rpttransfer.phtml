@@ -1,99 +1,99 @@
 <?php 
-	$url_check = $this->url(array('module'=>'report','controller'=>'product','action'=>'check',),null,true);
-	$tr = Application_Form_FrmLanguages::getCurrentlanguage();
-	$formFilter = $this->formFilter;
-	
-	$rs = $this->product;
+ $url_check = $this->url(array('module'=>'report','controller'=>'product','action'=>'check',),null,true);
+ $tr = Application_Form_FrmLanguages::getCurrentlanguage();
+ $formFilter = $this->formFilter;
+ 
+ $rs = $this->product;
 ?>
 <style>
 td{
-	padding: 0px !important;
+ padding: 0px !important;
     vertical-align: middle !important;
-	    line-height: 15px !important;
+     line-height: 15px !important;
 }
 
 </style>
 <title><?php echo $tr->translate("TRANSFER_LIST");?></title>
 
-	<div class="portlet box blue">
-		<div class="portlet-title">
-			<div class="caption col-md-10">
-				<i class="fa fa-gift"></i><?php echo $tr->translate("TRANSFER_LIST");?>
-			</div>
-		</div>
-		<div class="portlet-body form">
-			<form class="form-horizontal" method="post" action="" >
-				<div class="form-body">
-							<div class="
-							">
-								<div class="col-md-2">
-									<?php echo $formFilter->getElement('tran_num');?>
-								</div>
-								<div class="col-md-2">
-									<?php echo $formFilter->getElement('from_loc');?>
-								</div>
-								<div class="col-md-2">
-									<?php echo $formFilter->getElement('to_loc');?>
-								</div>
-								<div class="col-md-2">
-									<?php echo $formFilter->getElement('status');?>
-								</div>
-								<div class="col-md-2">
-									<button type="submit" class="btn green"><?php echo $tr->translate("SEARCH");?></button>
-								</div>
-							</div>
-							
-				</div>
-			</form>
-			
-		</div>
-		
-		<!-- Result List -->
-					<!-- BEGIN EXAMPLE TABLE PORTLET-->
-						
-						<div class="portlet-body">
-							<table class="table table-striped table-bordered table-hover"  style="font-size:11px">
-							<thead style="font-size:11px">
-								<tr>
-									<th><?php echo $tr->translate("NUM");?></th>
-									<th><?php echo $tr->translate("TRANSFER_NO");?></th>
-									<th><?php echo $tr->translate("TRANSFER_IN_SITE");?></th>
-									<th><?php echo $tr->translate("TRANSFER_FROM_SITE");?></th>
-									<th><?php echo $tr->translate("DATE_TRANSFER");?></th>
-									<th><?php echo $tr->translate("STATUS_DATE");?></th>
-									<th><?php echo $tr->translate("TRANSFER_BY");?></th>
-									<th><?php echo $tr->translate("STATUS");?></th>
-									<th><?php echo $tr->translate("ACTION");?></th>
-								</tr>
-							</thead>
-							<tbody>
-								<?php if(!empty($rs)){ foreach ($rs as $key => $row){?>
-								<tr class="odd gradeX">
-									<td class="center"><?php echo $key+1;?></td>
-									<td><?php echo $row["tran_no"]?></td>
-									<td><?php echo $row["cur_location"]?></td>
-									<td><?php echo $row["tran_location"]?></td>
-									<td align="center"><?php echo $row["date"]?></td>
-									<td align="center"><?php echo $row["date_mod"]?></td>
-									<td align="center"><?php echo $row["user_tran"]?> </td>
-									<?php if($row["status"] == 1){?>
-										<td style="color:#147fdd;text-align:center;"><p style="text-align:center;margin-top:5px;"><?php echo $tr->translate("APPROVE");?> </p></td>
-									<?php }else if($row["status"] == 2){?>
-										<td style="text-align:center;color:green;"><p style="text-align:center;margin-top:5px;" ><?php echo $tr->translate("PENDING APPROVE");?> </p></td>
-									<?php }else if($row["status"] == 3){?>
-										<td style="text-align: center;color:red;"><p style="text-align:center;margin-top:5px;" ><?php echo $tr->translate("REJECH");?> </p></td>
-									<?php }else{ ?>
-										<td style="text-align: center;color:#03070a;"><p style="text-align:center;margin-top:5px;" ><?php echo $tr->translate("CENCLE");?> </p></td>	
-									<?php } ?>
-									<td width="8%" align="center"> 
-									   <a href="<?php echo $url_check;?>/id/<?php echo $row["id"]?>"><?php echo $tr->translate("VIEW");?></a>
-									</td>
-								</tr>
-								<?php }}?>
-							</tbody>
-							</table>
-						</div>
-					<!-- END EXAMPLE TABLE PORTLET-->
-			<!-- End Result list -->
+ <div class="portlet box blue">
+  <div class="portlet-title">
+   <div class="caption col-md-10">
+    <i class="fa fa-gift"></i><?php echo $tr->translate("TRANSFER_LIST");?>
+   </div>
+  </div>
+  <div class="portlet-body form">
+   <form class="form-horizontal" method="post" action="" >
+    <div class="form-body">
+       <div class="
+       ">
+        <div class="col-md-2">
+         <?php echo $formFilter->getElement('tran_num');?>
+        </div>
+        <div class="col-md-2">
+         <?php echo $formFilter->getElement('from_loc');?>
+        </div>
+        <div class="col-md-2">
+         <?php echo $formFilter->getElement('to_loc');?>
+        </div>
+        <div class="col-md-2">
+         <?php echo $formFilter->getElement('status');?>
+        </div>
+        <div class="col-md-2">
+         <button type="submit" class="btn green"><?php echo $tr->translate("SEARCH");?></button>
+        </div>
+       </div>
+       
+    </div>
+   </form>
+   
+  </div>
+  
+  <!-- Result List -->
+     <!-- BEGIN EXAMPLE TABLE PORTLET-->
+      
+      <div class="portlet-body">
+       <table class="table table-striped table-bordered table-hover"  style="font-size:11px">
+       <thead style="font-size:11px">
+        <tr>
+         <th><?php echo $tr->translate("NUM");?></th>
+         <th><?php echo $tr->translate("TRANSFER_NO");?></th>
+         <th><?php echo $tr->translate("TRANSFER_IN_SITE");?></th>
+         <th><?php echo $tr->translate("TRANSFER_FROM_SITE");?></th>
+         <th><?php echo $tr->translate("DATE_TRANSFER");?></th>
+         <th><?php echo $tr->translate("STATUS_DATE");?></th>
+         <th><?php echo $tr->translate("TRANSFER_BY");?></th>
+         <th><?php echo $tr->translate("STATUS");?></th>
+         <th><?php echo $tr->translate("ACTION");?></th>
+        </tr>
+       </thead>
+       <tbody>
+        <?php if(!empty($rs)){ foreach ($rs as $key => $row){?>
+        <tr class="odd gradeX">
+         <td class="center"><?php echo $key+1;?></td>
+         <td><?php echo $row["tran_no"]?></td>
+         <td><?php echo $row["cur_location"]?></td>
+         <td><?php echo $row["tran_location"]?></td>
+         <td align="center"><?php echo $row["date"]?></td>
+         <td align="center"><?php echo $row["date_mod"]?></td>
+         <td align="center"><?php echo $row["user_tran"]?> </td>
+         <?php if($row["status"] == 1){?>
+          <td style="color:#147fdd;text-align:center;"><p style="text-align:center;margin-top:5px;"><?php echo $tr->translate("APPROVE");?> </p></td>
+         <?php }else if($row["status"] == 2){?>
+          <td style="text-align:center;color:green;"><p style="text-align:center;margin-top:5px;" ><?php echo $tr->translate("PENDING APPROVE");?> </p></td>
+         <?php }else if($row["status"] == 3){?>
+          <td style="text-align: center;color:red;"><p style="text-align:center;margin-top:5px;" ><?php echo $tr->translate("REJECH");?> </p></td>
+         <?php }else{ ?>
+          <td style="text-align: center;color:#03070a;"><p style="text-align:center;margin-top:5px;" ><?php echo $tr->translate("CENCLE");?> </p></td> 
+         <?php } ?>
+         <td width="8%" align="center"> 
+            <a href="<?php echo $url_check;?>/id/<?php echo $row["id"]?>"><?php echo $tr->translate("VIEW");?></a>
+         </td>
+        </tr>
+        <?php }}?>
+       </tbody>
+       </table>
+      </div>
+     <!-- END EXAMPLE TABLE PORTLET-->
+   <!-- End Result list -->
 
 </div>

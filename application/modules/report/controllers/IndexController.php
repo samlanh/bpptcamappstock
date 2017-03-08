@@ -133,6 +133,40 @@ class report_indexController extends Zend_Controller_Action
     	$this->view->form_search = $form_search;
     	
     }
+	function rptReceiveAction(){
+    	if($this->getRequest()->isPost()){
+				$search = $this->getRequest()->getPost();
+				$search['start_date']=date("Y-m-d",strtotime($search['start_date']));
+				$search['end_date']=date("Y-m-d",strtotime($search['end_date']));
+		}
+		else{
+			$search =array(
+					'text_search'=>'',
+					'start_date'=>date("Y-m-d"),
+					'end_date'=>date("Y-m-d"),
+					'suppliyer_id'=>0,
+					'purchase_status'=>0,
+					);
+		}
+		$db = new report_Model_DbQuery();
+		$rows = $db->getAllReceives($search);
+		$this->view->receives=$rows;
+		//print_r($rows);
+		//$this->view->rows=$rows;
+		//$list = new Application_Form_Frmlist();
+		//$columns=array("BRANCH_NAME","VENDOR_NAME","CURRNECY_TYPE","INVOICE_NO","ORDER_DATE","DATE_IN",
+		//		 "DISCOUNT","ALL_TOTAL","TAX","NET_TOTAL","PAID","BALANCE","SUB_TOTAL_PRODUCT","SUB_TOTAL_JOBTYPE","PURCHAES_STATUS","RECEIVE_STATUS","STATUS","BY_USER");
+		//$link=array(
+		//		'module'=>'purchase','controller'=>'purchasereceive','action'=>'edit',
+		//);
+		
+		//$this->view->list=$list->getCheckList(0, $columns, $rows, array('branch_name'=>$link,'date_order'=>$link,
+		//		                                                   'vendor_name'=>$link,'order_number'=>$link,'Receive'=>$link,));
+		$formFilter = new Application_Form_Frmsearch();
+		$this->view->formFilter = $formFilter;
+		Application_Model_Decorator::removeAllDecorator($formFilter);
+    	
+    }
     public function rptCustomerAction()//purchase report
     {
     	if($this->getRequest()->isPost()){
@@ -673,7 +707,15 @@ class report_indexController extends Zend_Controller_Action
 			$this->_redirect("/report/index/rpt-sales");
 		}
 		$db= new Application_Model_DbTable_DbGlobal();
-    	$this->view->rscondition = $db->getTermConditionById(1, $id);
+    	$db->getTermConditionById(1, $id);
+	}
+	public function receivedetailAction(){
+			$id =$this->getRequest()->getParam('id');
+			$db_receive=new report_Model_DbQuery();
+			$this->view->rec = $db_receive->getReceive($id);
+		    $this->view->recit = $db_receive->getReceiveItem($id);
+			//print_r( $this->view->recit);
+			
 	}
 	public function rptDeliveryAction()//purchase report
     {

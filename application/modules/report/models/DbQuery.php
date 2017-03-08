@@ -205,7 +205,9 @@ Class report_Model_DbQuery extends Zend_Db_Table_Abstract{
 		(SELECT email FROM `tb_customer` WHERE tb_customer.id=s.customer_id LIMIT 1 ) AS email,
 		
 		(SELECT u.username FROM tb_acl_user AS u WHERE u.user_id = s.user_mod LIMIT 1 ) AS user_name,
-		so.qty_order,so.price,so.sub_total,s.currency_id,s.net_total,
+		so.qty_order,
+		(SELECT m.name FROM `tb_measure` AS m WHERE m.id = it.`measure_id` LIMIT 1) AS measure,
+		so.price,so.sub_total,s.currency_id,s.net_total,
 		s.id,s.sale_no,s.date_sold,s.remark,
 		s.paid,s.discount_real,s.tax,
 		s.balance
@@ -1042,7 +1044,83 @@ Class report_Model_DbQuery extends Zend_Db_Table_Abstract{
 		$order=" ORDER BY date_order DESC ";
 		return $db->fetchAll($sql.$where.$order);
 	}
-	
+	function getAllReceives($search){//new
+		$db= $this->getAdapter();
+		$sql="SELECT r.`order_id`,r.`order_number`,r.recieve_number ,
+			(SELECT `tb_sublocation`.`name` FROM `tb_sublocation` WHERE tb_sublocation.id = r.`LocationId` AND STATUS=1 AND NAME!='' LIMIT 1) AS branch_name,
+			(SELECT v_name FROM `tb_vendor` WHERE tb_vendor.vendor_id=r.`vendor_id` LIMIT 1 ) AS vendor_name,
+			(SELECT symbal FROM `tb_currency` WHERE id= currency_id LIMIT 1) AS curr_name,
+			r.invoice_no,r.date_order,r.date_in,r.discount_value,r.all_total,
+			r.net_total,r.paid,r.balance,r.sub_total_product,r.sub_total_jobtype,
+			(SELECT name_en FROM `tb_view` WHERE key_code = r.purchase_status AND `type`=7) AS purchase_status,
+			(SELECT name_en FROM `tb_view` WHERE key_code =r.`receive_status` AND `type`=14 ) AS recieve_status,
+			(SELECT name_en FROM `tb_view` WHERE key_code =r.status AND TYPE=5 LIMIT 1) AS STATUS,
+			(SELECT u.username FROM tb_acl_user AS u WHERE u.user_id = r.user_mod LIMIT 1 ) AS user_name
+			FROM `tb_recieve_order` AS r WHERE r.`status`=1";
+			$from_date =(empty($search['start_date']))? '1': " r.date_order >= '".$search['start_date']." 00:00:00'";
+		    $to_date = (empty($search['end_date']))? '1': " r.date_order <= '".$search['end_date']." 23:59:59'";
+		    $where = " AND ".$from_date." AND ".$to_date;
+			//$where="";
+		if(!empty($search['text_search'])){
+			$s_where = array();
+			$s_search = trim(addslashes($search['text_search']));
+			$s_where[] = " r.`order_id` LIKE '%{$s_search}%'";
+			$s_where[] = " r.`order_number` LIKE '%{$s_search}%'";
+			
+			$s_where[] = " r.recieve_number LIKE '%{$s_search}%'";
+			$s_where[] = " (SELECT `tb_sublocation`.`name` FROM `tb_sublocation` WHERE tb_sublocation.id = r.`LocationId` AND STATUS=1 AND NAME!='' LIMIT 1) LIKE '%{$s_search}%'";
+			
+			$s_where[] = " (SELECT v_name FROM `tb_vendor` WHERE tb_vendor.vendor_id=r.`vendor_id` LIMIT 1 ) LIKE '%{$s_search}%'";
+			$s_where[] = " r.invoice_no LIKE '%{$s_search}%'";
+			$s_where[] = " r.all_total LIKE '%{$s_search}%'";
+			$s_where[] = " r.net_total LIKE '%{$s_search}%'";
+			$s_where[] = " r.paid LIKE '%{$s_search}%'";
+			$s_where[] = " r.balance LIKE '%{$s_search}%'";
+			$where .=' AND ('.implode(' OR ',$s_where).')';
+		}
+		if($search['suppliyer_id']>0){
+			$where .= " AND r.`vendor_id` = ".$search['suppliyer_id'];
+		}
+		if($search['branch_id']>0){
+			$where .= " AND r.`LocationId` =".$search['branch_id'];
+		}
+		$dbg = new Application_Model_DbTable_DbGlobal();
+		$where.=$dbg->getAccessPermission();
+		$order=" ORDER BY order_id DESC ";
+		echo $sql.$where.$order;
+		return $db->fetchAll($sql.$where.$order);
+	}
+	function getReceiveItem($id){
+		$db = $this->getAdapter();
+		$sql="SELECT *,(SELECT item_name FROM `tb_product` WHERE `id`=pro_id LIMIT 1) AS pro_name,
+          (SELECT tb_measure.name FROM `tb_measure` WHERE tb_measure.id=(SELECT measure_id FROM `tb_product` WHERE id=pro_id LIMIT 1)) AS measue_name,
+          (SELECT unit_label FROM `tb_product` WHERE id=pro_id LIMIT 1 ) AS unit_label,
+         (SELECT `tb_currency`.symbal FROM `tb_currency` WHERE `tb_currency`.id=(SELECT `tb_recieve_order`.currency_id FROM `tb_recieve_order` WHERE `tb_recieve_order`.`order_id`=`tb_recieve_order_item`.`recieve_id` LIMIT 1 )) AS curr_name
+         FROM `tb_recieve_order_item` WHERE `recieve_id`=".$id;
+		return $db->fetchAll($sql);
+		
+	}
+	public function getReceive($id){
+		$db = $this->getAdapter();
+		$sql="	SELECT r.`recieve_number` ,
+					   r.`order_number` ,
+					   (SELECT v.`v_name` FROM `tb_vendor` AS v WHERE v.`vendor_id`=r.`vendor_id`)AS vander ,
+					   (SELECT l.`name` FROM `tb_sublocation` AS l WHERE l.`id`=r.`LocationId` ) AS location ,
+					   r.order_number ,
+					   r.invoice_no ,
+					   r.`date_order` ,
+					   r.`date_in` ,
+					   r.`discount_value` ,
+					   r.`all_total` ,
+					   r.`net_total` ,
+					   r.`paid` ,
+					   r.`balance` 
+				FROM 
+					  `tb_recieve_order` AS r 
+				WHERE
+					   r.`order_id` = '".$id."'";
+		return $db->fetchAll($sql);			   
+	}
 }
 
 ?>
