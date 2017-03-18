@@ -87,7 +87,11 @@
 <script type="text/javascript" src="<?php echo $this->baseUrl();?>/js/jquery.tablesorter.js"> </script>
 <script type="text/javascript" src="<?php echo $this->baseUrl();?>/js/jquery.tablesorter.pager.js"> </script>			
 <!-- <script type="text/javascript" src="<?php //echo $this->baseUrl();?>/js/jquery-ui-1.8.20.custom.min.js"></script> -->
-	<script type="text/javascript">
+
+<!-- class save excel -->
+<script type="text/javascript" src="<?php echo $this->baseUrl();?>/js/jquery.table2excel.js"> </script>
+
+<script type="text/javascript">
 			/*$(function(){		
 				$("#frm").validationEngine();
 			});*/
@@ -226,6 +230,32 @@ function isNumberKey(evt){
 	    	        return false;
 	    	    return true;
 	    	}
+
+function exports(){
+	   title=document.title;
+	   var today = new Date();
+	   var dd = today.getDate();
+	   var mm = today.getMonth()+1; //January is 0!
+
+	   var yyyy = today.getFullYear();
+	   if(dd<10){
+	    dd='0'+dd;
+	   } 
+	   if(mm<10){
+	    mm='0'+mm;
+	   } 
+	   var today = dd+'-'+mm+'-'+yyyy;
+	    $(".table2excel").table2excel({
+	     exclude: ".noExl",
+	     name: "Excel Document Name",
+	     filename: title+"-"+today,
+	    // fileext: ".xls",//2016 excel
+	     fileext: ".xlm",//2010 excel
+	     exclude_img: true,
+	     exclude_links: true,
+	     exclude_inputs: true
+	    });
+}
     </script>
 <!-- END PAGE LEVEL SCRIPTS -->
 
@@ -243,3 +273,5 @@ function isNumberKey(evt){
 </body>
 <!-- END BODY -->
 </html>
+
+ 

@@ -940,4 +940,62 @@ public function rptGrandAction(){
     	Application_Model_Decorator::removeAllDecorator($form_search);
     	$this->view->form_purchase = $form_search;
     }
+    
+    //select rpt sale bye site 
+    public function rptSalebyesiteAction()//purchase report
+    {
+    	if($this->getRequest()->isPost()){
+    		$data = $this->getRequest()->getPost();
+    		$data['start_date']=date("Y-m-d",strtotime($data['start_date']));
+    		$data['end_date']=date("Y-m-d",strtotime($data['end_date']));
+    	}else{
+    		$data = array(
+    				'txt_search'=>'',
+    				'start_date'=>date("Y-m-d"),
+    				'end_date'=>date("Y-m-d"),
+    				'item'=>0,
+    				'category_id'=>0,
+    				'brand_id'=>0,
+    				'branch_id'=>0,
+    		);
+    	}
+    	$this->view->rssearch = $data;
+    	$query = new report_Model_DbSaleOrder();
+    	$this->view->list_site =  $query->getSaleOrderBySite($data);
+    	$frm = new Application_Form_FrmReport();
+    
+    	$frm = new Application_Form_FrmReport();
+    	$form_search=$frm->productDetailReport($data);
+    	Application_Model_Decorator::removeAllDecorator($form_search);
+    	$this->view->form_search = $form_search;
+    }
+    
+    //select rpt sale bye site
+    public function rptSalesitebyblockAction()//purchase report
+    {
+    	if($this->getRequest()->isPost()){
+    		$data = $this->getRequest()->getPost();
+    		$data['start_date']=date("Y-m-d",strtotime($data['start_date']));
+    		$data['end_date']=date("Y-m-d",strtotime($data['end_date']));
+    	}else{
+    		$data = array(
+    				'txt_search'=>'',
+    				'start_date'=>date("Y-m-d"),
+    				'end_date'=>date("Y-m-d"),
+    				'item'=>0,
+    				'category_id'=>0,
+    				'pro_type'=>-1,
+    				'branch_id'=>0,
+    				'job_id'=>0,
+    		);
+    	}
+    	$this->view->rssearch = $data;
+    	$query = new report_Model_DbSaleOrder();
+    	$this->view->list_site =  $query->getSaleSiteByBlock($data);
+    
+    	$frm = new Application_Form_FrmReport();
+    	$form_search=$frm->productDetailReport($data);
+    	Application_Model_Decorator::removeAllDecorator($form_search);
+    	$this->view->form_search = $form_search;
+    }
 }

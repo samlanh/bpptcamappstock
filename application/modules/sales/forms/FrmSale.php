@@ -41,8 +41,12 @@ class Sales_Form_FrmSale extends Zend_Form
 		$options = $db->getAllLocation(1);
     	$locationID->setMultiOptions($options);
     	$locationID->setattribs(array(
-    			'Onchange'=>'getBlockBysites();getProuductInstock();getNoneProuduct();'));
+    			'Onchange'=>'getBlockBysites();getBlockBysites();getProuductInstock();getNoneProuduct();'));
     	$this->addElement($locationID);
+    	
+    	$loc_hidden = new Zend_Form_Element_Hidden('loc_hidden');
+    	$loc_hidden->setAttribs(array("class"=>'form-control',));
+    	$this->addElement($loc_hidden);
     	    	
     	$rowspayment= $db->getGlobalDb('SELECT * FROM tb_paymentmethod');
     	if($rowspayment) {
@@ -82,6 +86,11 @@ class Sales_Form_FrmSale extends Zend_Form
     	$saleagent_id->setAttribs(array('class'=>'demo-code-language form-control select2me'));
     	$saleagent_id->setMultiOptions($opt);
     	$this->addElement($saleagent_id);
+    	
+    	$price_product = new Zend_Form_Element_Hidden('price_product');
+    	$this->addElement($price_product);
+    	$price_jobtype = new Zend_Form_Element_Hidden('price_jobtype');
+    	$this->addElement($price_jobtype);
     	
     	
     	$discountValueElement = new Zend_Form_Element_Text('discount_value');
@@ -152,16 +161,24 @@ class Sales_Form_FrmSale extends Zend_Form
     			
     			//$customerid->setValue($data["customer_id"]);
     			$locationID->setValue($data['branch_id']);
+    			$loc_hidden->setValue($data['branch_id']);
     			
     			$currencyElement->setValue($data['currency_id']);
     			$saleagent_id->setValue($data['saleagent_id']);
     			$descriptionElement->setValue($data['remark']);
-    			$dateOrderElement->setValue(date("m/d/Y",strtotime($data['date_sold'])));
-    			$roder_element->setValue($data['sale_no']);
+    			$dateOrderElement  ->setValue(date("m/d/Y",strtotime($data['date_sold'])));
+    			
+    			$roder_element     ->setValue($data['sale_no']);
     			$totalAmountElement->setValue($data['all_total']);
     			if($data['discount_type']==1){$data['discount_value']=$data['discount_value']."%";}
-    			$dis_valueElement->setValue($data['discount_value']);
-    			$allTotalElement->setValue($data['net_total']);
+    			$dis_valueElement ->setValue($data['discount_value']);
+    			$allTotalElement  ->setValue($data['net_total']);
+    			
+    			$price_product    ->setValue($data['sub_total_pro']);
+    			$price_jobtype    ->setValue($data['sub_total_jobtype']);
+    			
+    			$paidElement      ->setValue($data['paid']);
+    			$remainlElement   ->setValue($data['balance']);
     		
     		} else {
     	}

@@ -1084,8 +1084,8 @@ Class report_Model_DbQuery extends Zend_Db_Table_Abstract{
 		if($search['branch_id']>0){
 			$where .= " AND r.`LocationId` =".$search['branch_id'];
 		}
-		$dbg = new Application_Model_DbTable_DbGlobal();
-		$where.=$dbg->getAccessPermission();
+// 		$dbg = new Application_Model_DbTable_DbGlobal();
+// 		$where.=$dbg->getAccessPermission();
 		$order=" ORDER BY order_id DESC ";
 		echo $sql.$where.$order;
 		return $db->fetchAll($sql.$where.$order);

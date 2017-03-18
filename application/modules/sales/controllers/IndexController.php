@@ -29,7 +29,7 @@ class Sales_IndexController extends Zend_Controller_Action{
 		$db = new Sales_Model_DbTable_DbSaleOrder();
 		$rows = $db->getAllSaleOrder($search);
 		$columns=array("BRANCH_NAME","SALE_AGENT","SALE_NO", "ORDER_DATE",
-				"CURRNECY_TYPE","TOTAL","DISCOUNT","TOTAL_AMOUNT","BY_USER");
+				"CURRNECY_TYPE","IN_STOCK","LEAVE STOCK","TOTAL","DISCOUNT","TOTAL_AMOUNT","PAID","BALANCE","PROCESSING","BY_USER");
 		$link=array(
 				'module'=>'sales','controller'=>'index','action'=>'edit',
 		);
@@ -51,12 +51,15 @@ class Sales_IndexController extends Zend_Controller_Action{
 			$data = $this->getRequest()->getPost();
 			try {
 				$dbq = new Sales_Model_DbTable_DbSaleOrder();
-				if(!empty($data['identity'])){
+				if(isset($data['saveprint'])){
 					$dbq->addSaleOrder($data);
+					Application_Form_FrmMessage::message("INSERT_SUCESS");
+					Application_Form_FrmMessage::redirectUrl("/sales/index");
 				}
-				Application_Form_FrmMessage::message("INSERT_SUCESS");
-				if(!empty($data['btnsavenew'])){
-					Application_Form_FrmMessage::redirectUrl("/sales/quoatation");
+				if(isset($data['save_new'])){
+					$dbq->addSaleOrder($data);
+					Application_Form_FrmMessage::message("INSERT_SUCESS");
+					Application_Form_FrmMessage::redirectUrl("/sales/index/add");
 				}
 			}catch (Exception $e){
 				Application_Form_FrmMessage::message('INSERT_FAIL');
@@ -85,11 +88,18 @@ class Sales_IndexController extends Zend_Controller_Action{
 		$db = new Application_Model_DbTable_DbGlobal();
 		if($this->getRequest()->isPost()) {
 			$data = $this->getRequest()->getPost();
+			$data['id']=$id;
 			try {
-				if(!empty($data['identity'])){
+				if(isset($data['saveprint'])){
 					$dbq->updateSaleOrder($data);
+					Application_Form_FrmMessage::message("INSERT_SUCESS");
+					Application_Form_FrmMessage::redirectUrl("/sales/index");
 				}
-				Application_Form_FrmMessage::Sucessfull($tr->translate("UPDATE_SUCESS"),"/sales/index");
+				if(isset($data['save_new'])){
+					$dbq->updateSaleOrder($data);
+					Application_Form_FrmMessage::message("INSERT_SUCESS");
+					Application_Form_FrmMessage::redirectUrl("/sales/index/");
+				}
 			}catch (Exception $e){
 				Application_Form_FrmMessage::message($tr->translate('UPDATE_FAIL'));
 				$err =$e->getMessage();
@@ -97,12 +107,9 @@ class Sales_IndexController extends Zend_Controller_Action{
 			}
 		}
 		$row = $dbq->getSaleorderItemById($id);
-		if(empty($row)){
-			Application_Form_FrmMessage::Sucessfull("NO_DATA","/sales/index");
-		}if($row['is_approved']==1){
-			Application_Form_FrmMessage::Sucessfull("SALE_ORDER_WARNING","/sales/index");
-		}
-		$this->view->rs = $dbq->getSaleorderItemDetailid($id);
+		$this->view->rs_sale=$row;
+		$this->view->rs_sale_instock=$dbq->getSaleorderDetailInstockid($id);
+		$dd=$this->view->rs_sale_nonestcok=$dbq->getSaleorderDetailNoneStock($id);
 		$this->view->rsterm = $dbq->getTermconditionByid($id);
 		
 		///link left not yet get from DbpurchaseOrder
@@ -111,14 +118,92 @@ class Sales_IndexController extends Zend_Controller_Action{
 		Application_Model_Decorator::removeAllDecorator($form_sale);
 		$this->view->form_sale = $form_sale;
 		$this->view->discount_type = $row['discount_type'];
-		 
 		// item option in select
 		$items = new Application_Model_GlobalClass();
 		$this->view->items = $items->getProductOption();
 		$this->view->items_leave = $items->getLeaveProductOption();
 		$this->view->jobtype=$items->getJobTypeOption();
 		$this->view->term_opt = $db->getAllTermCondition(1);
-	}	
+	}
+
+	function oldeditAction(){
+		$tr = Application_Form_FrmLanguages::getCurrentlanguage();
+		$id = ($this->getRequest()->getParam('id'))? $this->getRequest()->getParam('id'): '0';
+		$dbq = new Sales_Model_DbTable_DbSaleOrder();
+		$db = new Application_Model_DbTable_DbGlobal();
+		if($this->getRequest()->isPost()) {
+			$data = $this->getRequest()->getPost();
+			$data['id']=$id;
+			try {
+				if(isset($data['saveprint'])){
+					$dbq->updateSaleOrder($data);
+					Application_Form_FrmMessage::message("INSERT_SUCESS");
+					Application_Form_FrmMessage::redirectUrl("/sales/index");
+				}
+				if(isset($data['save_new'])){
+					$dbq->updateSaleOrder($data);
+					Application_Form_FrmMessage::message("INSERT_SUCESS");
+					Application_Form_FrmMessage::redirectUrl("/sales/index/");
+				}
+			}catch (Exception $e){
+				Application_Form_FrmMessage::message($tr->translate('UPDATE_FAIL'));
+				$err =$e->getMessage();
+				Application_Model_DbTable_DbUserLog::writeMessageError($err);
+			}
+		}
+		$row = $dbq->getSaleorderItemById($id);
+		$this->view->rs_sale=$row;
+		$this->view->rs_sale_instock=$dbq->getSaleorderDetailInstockid($id);
+		$dd=$this->view->rs_sale_nonestcok=$dbq->getSaleorderDetailNoneStock($id);
+		$this->view->rsterm = $dbq->getTermconditionByid($id);
+	
+		///link left not yet get from DbpurchaseOrder
+		$frm_purchase = new Sales_Form_FrmSale(null);
+		$form_sale = $frm_purchase->SaleOrder($row);
+		Application_Model_Decorator::removeAllDecorator($form_sale);
+		$this->view->form_sale = $form_sale;
+		$this->view->discount_type = $row['discount_type'];
+		// item option in select
+		$items = new Application_Model_GlobalClass();
+		$this->view->items = $items->getProductOption();
+		$this->view->items_leave = $items->getLeaveProductOption();
+		$this->view->jobtype=$items->getJobTypeOption();
+		$this->view->term_opt = $db->getAllTermCondition(1);
+	}
+	
+	function viewAction(){
+		$db = new Application_Model_DbTable_DbGlobal();
+		if($this->getRequest()->isPost()) {
+			$data = $this->getRequest()->getPost();
+			try {
+				$dbq = new Sales_Model_DbTable_DbSaleOrder();
+				$dbq->addSaleOrder($data);
+				
+				Application_Form_FrmMessage::message("INSERT_SUCESS");
+				if(isset($data['btnsavenew'])){
+					Application_Form_FrmMessage::redirectUrl("/sales/index");
+				}
+			}catch (Exception $e){
+				Application_Form_FrmMessage::message('INSERT_FAIL');
+				$err =$e->getMessage();
+				Application_Model_DbTable_DbUserLog::writeMessageError($err);
+			}
+		}
+		$frm_purchase = new Sales_Form_FrmSale(null);
+		$form_sale = $frm_purchase->SaleOrder(null);
+		Application_Model_Decorator::removeAllDecorator($form_sale);
+		$this->view->form_sale = $form_sale;
+		$items = new Application_Model_GlobalClass();
+		$this->view->items = $items->getProductOption();
+		$this->view->items_leave = $items->getLeaveProductOption();
+		$this->view->jobtype=$items->getJobTypeOption();
+		$this->view->term_opt = $db->getAllTermCondition(1);
+		$formpopup = new Sales_Form_FrmCustomer(null);
+		$formpopup = $formpopup->Formcustomer(null);
+		Application_Model_Decorator::removeAllDecorator($formpopup);
+		$this->view->form_customer = $formpopup;
+	}
+	
 	function viewappAction(){
 		$id = ($this->getRequest()->getParam('id'))? $this->getRequest()->getParam('id'): '0';
 		if(empty($id)){

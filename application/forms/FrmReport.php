@@ -202,7 +202,32 @@ class Application_Form_FrmReport extends Zend_Form
     			'class'=>'form-control'));
     	$txt_searchvalue = $request->getParam("txt_search");
     	$txt_search->setValue($txt_searchvalue);
-    	$this->addElements(array($txt_search,$startDate,$endDate,$location_id));
+    	
+    	$options=array('-1'=>$tr->translate('SELECT_PRODUCT_TYPE'),'1'=>$tr->translate('IN_STOCK'),'0'=>$tr->translate('LEAVE STOCK'));
+    	$pro = $request->getParam('pro_type');
+    	$pro_type=new Zend_Form_Element_Select('pro_type');
+    	$pro_type->setMultiOptions($options);
+    	$pro_type->setAttribs(array(
+    			'id'=>'pro_type',
+    			'class'=>'form-control select2me'
+    	));
+    	$pro_type->setValue($pro);
+    	
+    	$rs=$db->getGlobalDb("SELECT id,title AS `name` FROM tb_jobtype WHERE `status`=1 AND title!='' ORDER BY id DESC");
+    	$options=array(''=>$tr->translate('CHOOSE_JOB_TYPE'));
+    	$job = $request->getParam('job_id');
+    	foreach($rs as $read) $options[$read['id']]=$read['name'];
+    	 
+    	$job_id=new Zend_Form_Element_Select('job_id');
+    	$job_id->setMultiOptions($options);
+    	$job_id->setAttribs(array(
+    			'id'=>'job_id',
+    			'class'=>'form-control select2me'
+    	));
+    	$job_id->setValue($job);
+    	$this->addElement($job_id);
+    	
+    	$this->addElements(array($txt_search,$pro_type,$startDate,$endDate,$location_id));
     	return $this;
     }
     function FrmReportPurchase($data=null){

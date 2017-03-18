@@ -129,9 +129,9 @@ $tr=Application_Form_FrmLanguages::getCurrentlanguage();
 						   <td>&nbsp;<?php echo $rs["user_name"];?></td>
 						</tr>
 						    <?php 
-							  $all_totals=$all_totals+number_format($rs["net_total"],2);
-							  $all_paid=$all_paid+number_format($rs["paid"],2);
-							  $all_balance=$all_balance+number_format($rs["balance"],2);
+							  $all_totals=$all_totals+$rs["net_total"];
+							  $all_paid=$all_paid+$rs["paid"];
+							  $all_balance=$all_balance+$rs["balance"];
 							?>
 						 <?php }?>
 		               </tbody>

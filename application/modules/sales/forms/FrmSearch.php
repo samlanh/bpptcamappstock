@@ -15,7 +15,7 @@ public function init()
 		$nameElement->setValue($nameValue);
 		$this->addElement($nameElement);
 		
-		$rs=$db->getGlobalDb('SELECT id,cust_name FROM tb_customer WHERE cust_name!="" AND status=1 ');
+		$rs=$db->getGlobalDb('SELECT id,contact_name As cust_name FROM tb_customer WHERE contact_name!="" AND status=1 ');
 		$options=array($tr->translate('CHOOSE_CUSTOMER'));
 		$vendorValue = $request->getParam('customer_id');
 		if(!empty($rs)) foreach($rs as $read) $options[$read['id']]=$read['cust_name'];
