@@ -410,13 +410,10 @@ class Application_Model_DbTable_DbGlobal extends Zend_Db_Table_Abstract
     // ****************** Check Product Location  **************************
     public function productLocationInventoryCheck($pro_id, $location_id){
     	$db=$this->getAdapter();
-    	$sql="SELECT  p.pro_id ,
-						p.qty 
-				FROM 
-					 tb_prolocation AS p , 
-					 tb_product AS a 
-				WHERE
-				   p.pro_id = a.id AND p.pro_id ='".$pro_id."' AND p.location_id ='".$location_id."' AND a.product_type=1  LIMIT 1";
+    	$sql="SELECT pl.ProLocationID, pl.qty, p.qty_onorder
+			FROM tb_prolocation AS pl
+			INNER JOIN tb_product AS p ON p.pro_id = pl.pro_id
+			WHERE pl.LocationId =".$location_id." AND pl.pro_id = ".$pro_id." LIMIT 1";
     	$row = $db->fetchRow($sql);
     	return $row;
     }
