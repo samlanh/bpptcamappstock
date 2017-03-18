@@ -137,6 +137,17 @@ class Application_Model_DbTable_DbGlobal extends Zend_Db_Table_Abstract
     	return $row; 
     	}  	
     }
+    
+    //get sale order in subloctaton 
+    //get product qty sale order
+    public function getProductLocationInventory($pro_id, $location_id){
+    	$db=$this->getAdapter();
+    	$sql="SELECT pl.id,pl.pro_id,pl.location_id,pl.qty,pl.qty_warning,pl.user_id,pl.last_mod_date,pl.last_mod_userid,p.product_type
+    	FROM tb_prolocation AS pl,tb_product AS p
+    	WHERE p.id=pl.pro_id AND pl.pro_id =".$pro_id." AND pl.location_id=".$location_id." AND p.product_type=1 LIMIT 1 ";
+    	return $db->fetchRow($sql);
+    }
+    
     //for get product product inventory but if have in prodcut location
     public function productInventoryExist($itemId){
     	$db=$this->getAdapter();
